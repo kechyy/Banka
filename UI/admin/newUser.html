@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>New User | Admin :: Banka</title>
+  <link href="../css/main.css" rel="stylesheet"/>
+</head>
+<body>
+  <header class="mainHeader">
+    <div class="wrapper"></div>
+  </header>
+  <main>
+      <div class="wrapper">
+          <div class="left">
+                <div class="row">
+                    <div class="col-2-lg sideBar">
+                        <aside >
+                            <div><img src="../images/logo.png" alt=""></div>
+                            <div class="sideBarTitle">Client User</div>
+                            <ul>
+                                <li><span>&gt; </span> <a href="userAccount.html">User Account</a></li>
+                                <li class="active"><span>&gt; </span> <a href="newUser.html">Add New User</a></li>
+                            </ul>     
+                        </aside>
+                    </div>
+                </div>
+          </div>
+          <div class="right">
+              <div class="row">
+                    <div class="col-12-lg mainContent">
+                            <h2>Manage User</h2>
+                        <header class="mainTitle">
+                            <div class="row ">
+                                <div class="col-12-md ">
+                                    <h3>Create New User</h3>
+                                </div>
+                            </div>
+                        </header>
+                        <aside class="rightSideBar">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-6-md">
+                                        <p class="required alert-gray"> <strong>Note:</strong> All <span>*</span> fields are required </p>
+                                        <div>
+                                            <label for="firstName" class="required">First Name<span>*</span></label>
+                                            <input type="text" class="input-block" placeholder="Enter first name" name="firstName" id="firstName" required>
+                                        </div>
+                                        <div>
+                                            <label for="lastName"  class="required">Last Name<span>*</span></label>
+                                            <input type="text" class="input-block" placeholder="Enter last name" name="lastName" id="lastName" required>
+                                        </div>
+                                        <div>
+                                            <label for="email"  class="required">Email Address<span>*</span></label>
+                                            <input type="email" class="input-block" placeholder="Enter email address" name="email" id="email" required>
+                                        </div>
+                                        <div>
+                                                <label for="email"  class="required">Password<span>*</span></label>
+                                                <input type="password" class="input-block" placeholder="Enter password address" name="password" id="password" required>
+                                            </div>
+                                        <div>
+                                            <label for="userType"  class="required">User Type<span>*</span></label>
+                                            <select class="input-block" name="userType" id="userType" required>
+                                                <option value="">--Select user type--</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="staff">Staff</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <input type="submit" class="btn btn-blue" value="Create User">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </main>
+  
+  
+  <script src="Js/script.js"></script>
+</body>
+</html>
