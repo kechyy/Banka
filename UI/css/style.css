@@ -1,0 +1,216 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    font-size: 16px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	background: url(../images/homeBg.jpg);
+	background-repeat:no-repeat;
+    background-size: cover;
+}
+h1,h2,h3,h4,h5,h6{
+    margin:0px;
+    padding:0px;
+    font-weight: normal;
+}
+a{
+    text-decoration: none;
+    color:#333;
+}
+h1{
+    font-size: 45px;
+}
+p{
+    font-size: 17px;
+    align:justify;
+    font-weight: normal;
+}
+.frontTitle p{
+    font-size: 22px;
+}
+.wrapper{
+    background-color:rgba(0,0,0,0.5);
+    min-height: 100vh;
+}
+div{
+    box-sizing: border-box;
+}
+.container-full{
+    width:100%;
+    padding:0px;
+    margin:0px;
+}
+.container{
+    max-width:1074px;
+    display: flex;
+    margin:0px auto;
+    padding:15px;
+    word-wrap: wrap;
+    flex-direction: column;
+    
+   
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+    
+}
+.rowCenter{
+    width:50%;
+    justify-content: center;
+    align-items: center;
+}
+[class*="col-"]{
+   flex:0 1 auto;
+}
+
+.pad-top{
+    padding-top: 50px;
+}
+.pull-right{
+    justify-content: flex-end;
+} 
+
+ .frontTitle h1{
+    color:#fff;
+    text-shadow: 1px 1px 1px #000;
+}
+.frontTitle p{
+    color:#999;
+    text-shadow: 1px 1px 1px #000;
+}
+.btn{
+    padding:8px 30px;
+    border: none;
+    background: #CCC;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+btn-md{
+	padding:15px 30px;
+}
+.btn-full{
+	display:inline-block;
+    font-size:18px;
+    padding:13px 30px; 
+    width: 100%;
+}
+.btn-pink{
+    background:-moz-linear-gradient(top,#C03, #F06,#C03);
+	background:-o-linear-gradient(top,#C03, #F06,#C03);
+	background:-ms-linear-gradient(top, #F06,#C03);
+	background:-webkit-linear-gradient(top,#C03, #F06,#C03);
+	color:#fff;
+}
+.btn-blue{
+    background:-moz-linear-gradient(top,#03C, #069,#069);
+	background:-o-linear-gradient(top,#03C, #069,#069);
+	background:-ms-linear-gradient(top,#03C, #069,#069);
+	background:-webkit-linear-gradient(top,#03C, #069,#069);
+	color:#fff;
+}
+.input-block{
+    width:100%;
+    height:40px;
+    margin-bottom:20px;
+}
+.input-block[placeholder]{
+    padding-left: 10px;
+    font-size: 16px;
+
+}
+.loginForm .input-block{
+    background-color:rgba(255,255,255, 0.7);
+    border: none;
+    border-radius: 4px;
+}
+.loginForm label{
+    font-size: 17px;
+    color: #CCC
+}
+
+.sign{
+    color: #fff;
+    font-size: 18px;
+    float:right;
+    font-style: italic;
+}
+.text-blue{
+    color: #03C
+}
+.vertical-menu{
+	list-style:none;
+	border:1px solid #CCC;
+	display:flex;
+	flex-wrap:wrap;
+}
+.vertical-menu > li{
+	padding:20px 0px;
+}
+.vertical-menu > li > a{	
+	color:#fff;
+	font-size:18px;
+	padding:10px 15px;
+}
+.vertical-menu::after{
+	content:'';
+	clear:both;
+}
+
+
+
+/* Media Queries */
+
+.col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}
+.col-5-lg{flex-basis:40.65%;}.col-6-lg{flex-basis:48.98%;}.col-7-lg{flex-basis:57.31%;}.col-8-lg{flex-basis:65.64%;}
+.col-9-xs-lg{flex-basis:73.97%;}.col-10-xs-lg{flex-basis:82.3%;}.col-11-lg{flex-basis:90.63%;}.col-12-lg{flex-basis:98.96%;} 
+
+.col-1-md{flex-basis:7.33%;}.col-2-md{flex-basis:15.66%;}.col-3-md{flex-basis:23.99%;}.col-4-md{flex-basis:32.32%;}
+.col-5-md{flex-basis:40.65%;}.col-6-md{flex-basis:48.98%;}.col-7-md{flex-basis:57.31%;}.col-8-md{flex-basis:65.64%;}
+.col-9-md{flex-basis:73.97%;}.col-10-xs-md{flex-basis:82.3%;}.col-11-md{flex-basis:90.63%;}.col-12-md{flex-basis:98.96%;}
+
+.col-1-sm{flex-basis:7.33%;}.col-2-sm{flex-basis:15.66%;}.col-3-sm{flex-basis:23.99%;}.col-4-sm{flex-basis:32.32%;}
+.col-5-sm{flex-basis:40.65%;}.col-6-sm{flex-basis:48.98%;}.col-7-sm{flex-basis:57.31%;}.col-8-sm{flex-basis:65.64%;}
+.col-9-sm{flex-basis:73.97%;}.col-10-sm{flex-basis:82.3%;}.col-11-sm{flex-basis:90.63%;}.col-12-sm{flex-basis:98.96%;}  
+    [class*="col-6-sm"]{
+        margin-bottom:15px;
+        
+    }
+.col-1-xs{flex-basis:7.33%;}.col-2-xs{flex-basis:15.66%;}.col-3-xs{flex-basis:23.99%;}.col-4-xs{flex-basis:32.32%;}
+.col-5-xs{flex-basis:40.65%;}.col-6-xs{flex-basis:48.98%;}.col-7-xs{flex-basis:57.31%;}.col-8-xs{flex-basis:65.64%;}
+.col-9-xs{flex-basis:73.97%;}.col-10-xs{flex-basis:82.3%;}.col-11-xs{flex-basis:90.63%;}.col-12-xs{flex-basis:98.96%;}
+
+@media screen and (min-width:992px) and (max-width:1999px) {
+    .col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}
+    .col-5-lg{flex-basis:40.65%;}.col-6-lg{flex-basis:48.98%;}.col-7-lg{flex-basis:57.31%;}.col-8-lg{flex-basis:65.64%;}
+    .col-9-xs-lg{flex-basis:73.97%;}.col-10-xs-lg{flex-basis:82.3%;}.col-11-lg{flex-basis:90.63%;}.col-12-lg{flex-basis:98.96%;}
+}
+@media screen and (min-width:768px) and (max-width:991px) {
+    .col-1-md{flex-basis:7.33%;}.col-2-md{flex-basis:15.66%;}.col-3-md{flex-basis:23.99%;}.col-4-md{flex-basis:32.32%;}
+    .col-5-md{flex-basis:40.65%;}.col-6-md{flex-basis:48.98%;}.col-7-md{flex-basis:57.31%;}.col-8-md{flex-basis:65.64%;}
+    .col-9-md{flex-basis:73.97%;}.col-10-xs-md{flex-basis:82.3%;}.col-11-md{flex-basis:90.63%;}.col-12-md{flex-basis:98.96%;}
+}
+@media screen and (min-width:480px) and (max-width:767px) {
+    .col-1-sm{flex-basis:7.33%;}.col-2-sm{flex-basis:15.66%;}.col-3-sm{flex-basis:23.99%;}.col-4-sm{flex-basis:32.32%;}
+    .col-5-sm{flex-basis:40.65%;}.col-6-sm{flex-basis:48.98%;}.col-7-sm{flex-basis:57.31%;}.col-8-sm{flex-basis:65.64%;}
+    .col-9-sm{flex-basis:73.97%;}.col-10-sm{flex-basis:82.3%;}.col-11-sm{flex-basis:90.63%;}.col-12-sm{flex-basis:98.96%;}  
+    [class*="col-6-sm"]{
+        margin-bottom:15px;
+        
+    }
+}
+@media screen and (min-width:320px) and (max-width:479px) {
+    .row{
+        display: block;
+    }
+    .col-1-xs{flex-basis:7.33%;}.col-2-xs{flex-basis:15.66%;}.col-3-xs{flex-basis:23.99%;}.col-4-xs{flex-basis:32.32%;}
+    .col-5-xs{flex-basis:40.65%;}.col-6-xs{flex-basis:48.98%;}.col-7-xs{flex-basis:57.31%;}.col-8-xs{flex-basis:65.64%;}
+    .col-9-xs{flex-basis:73.97%;}.col-10-xs{flex-basis:82.3%;}.col-11-xs{flex-basis:90.63%;}.col-12-xs{flex-basis:98.96%;}
+    [class*="col-"]{
+        margin-bottom:15px;
+    }
+}
+
