@@ -1,6 +1,6 @@
-// This function Handles login form  validation
-'use strict'
 
+'use strict'
+// This class manages admin staff button response 
 class AdminActionButton{
     actionButton(){
         customNotify.show('<span class="msg">User account successfully activated','<h3 class="success"> Success</h3>');
