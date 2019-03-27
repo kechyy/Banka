@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Manage User Account List | Admin Staff :: Banka</title>
   <link href="../css/main.css" rel="stylesheet"/>
+  <link href="../css/dialogBox.css" rel="stylesheet"/>
+
 </head>
 <body>
   <header class="mainHeader">
@@ -20,7 +22,7 @@
                                 <div><img src="../images/logo.png" alt=""></div>
                                 <div class="sideBarTitle">Admin Staff User</div>
                                 <ul>
-                                    <li><span>&gt; </span> <a href="viewUserAccounts.html">View User Accounts</a></li>
+                                    <li><span>&gt; </span> <a href="allUserAccount.html">View User Accounts</a></li>
                                     
                                 </ul>
                             </aside>
@@ -59,27 +61,27 @@
                                                 <td>kech3443@gmail.com</td>
                                                 <td>Savings</td>
                                                 <td>0.55</td>
-                                                <td><a href="viewBankAccount.html" class="btn btn-blue btn-sm">View</a></td>
-                                                <td><a href="javascript:;" class="btn btn-gray btn-sm">Deactivate</a></td>
-                                                <td><a href="javascript:;" class="btn btn-pink btn-sm">Delete</a></td>
+                                                <td><a href="viewSpecificUserAccount.html" class="btn btn-blue btn-sm">View</a></td>
+                                                <td><a href="javascript:;" class="btn btn-gray btn-sm" onclick="actionButton()">Deactivate</a></td>
+                                                <td><a href="javascript:;" class="btn btn-pink btn-sm" onclick="actionDelete()">Delete</a></td>
                                             </tr>
                                             <tr>
                                                 <td>Ogbonna Nkechi</td>
                                                 <td>kech3443@gmail.com</td>
                                                 <td>Current</td>
                                                 <td>0.55</td>
-                                                <td><a href="viewBankAccount.html" class="btn btn-blue btn-sm">View</a></td>
-                                                <td><a href="javascript:;" class="btn btn-gray btn-sm">Deactivate</a></td>
-                                                <td><a href="javascript:;" class="btn btn-pink btn-sm">Delete</a></td>
+                                                <td><a href="viewSpecificUserAccount.html" class="btn btn-blue btn-sm">View</a></td>
+                                                <td><a href="javascript:;" class="btn btn-gray btn-sm" onclick="actionButton()">Deactivate</a></td>
+                                                <td><a href="javascript:;" class="btn btn-pink btn-sm" onclick="actionDelete()">Delete</a></td>
                                             </tr>
                                             <tr>
                                                 <td>Ogbonna Nkechi</td>
                                                 <td>kech3443@gmail.com</td>
                                                 <td>Savings</td>
                                                 <td>0.55</td>
-                                                <td><a href="viewBankAccount.html" class="btn btn-blue btn-sm">View</a></td>
-                                                <td><a href="javascript:;" class="btn btn-gray btn-sm">Activate</a></td>
-                                                <td><a href="javascript:;" class="btn btn-pink btn-sm">Delete</a></td>
+                                                <td><a href="viewSpecificUserAccount.html" class="btn btn-blue btn-sm">View</a></td>
+                                                <td><a href="javascript:;" class="btn btn-gray btn-sm" onclick="actionButton()">Activate</a></td>
+                                                <td><a href="javascript:;" class="btn btn-pink btn-sm" onclick="actionDelete()">Delete</a></td>
                                             </tr>
                                         </tbody>
                                     </table> 
@@ -93,8 +95,9 @@
       
             
   </main>
+  <div id="dialogContent"></div>
   
-  
-  <script src="Js/script.js"></script>
+  <script src="../Js/dialogBox.js"></script>
+  <script src="../Js/adminValidation.js"></script>
 </body>
 </html>

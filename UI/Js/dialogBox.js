@@ -1,34 +1,34 @@
 
     // Call back function to be called when the user clicks on the button
-    const gotoMyChannel = ()=>{
-        if(confirm('Do you want to visit channel:')){
-            alert('Yeah!')
-        }
-    }
-    const customConfirm = new function(){
-        this.show = (msg,callback)=>{
-            document.getElementById('dialogContent').innerHTML = dialogContent;
-            const dlg = document.getElementById('dialogCont');
-            const dlgBody = document.querySelector('#dlgBody');
-            dlg.style.bottom = '50%';
-            dlg.style.zIndex = '999999999999999999999'
-            dlg.style.opacity = 1;
-            dlgBody.textContent = msg;
-            this.callback = callback;
-            document.getElementById('freelayer').style.display=''
-        }
+    // const DeleteRecord = ()=>{
+    //     if(confirm('Do you want to delete this record:')){
+            
+    //     }
+    // }
+    // const customConfirm = new function(){
+    //     this.show = (msg,callback)=>{
+    //         document.getElementById('dialogContent').innerHTML = dialogContent;
+    //         const dlg = document.getElementById('dialogCont');
+    //         const dlgBody = document.querySelector('#dlgBody');
+    //         dlg.style.bottom = '50%';
+    //         dlg.style.zIndex = '999999999999999999999'
+    //         dlg.style.opacity = 1;
+    //         dlgBody.textContent = msg;
+    //         this.callback = callback;
+    //         document.getElementById('freelayer').style.display=''
+    //     }
         
-        this.okay = ()=>{
-           this.callback();
-            this.close();
-        }
-        this.close = ()=>{
-            const dialogCont = document.getElementById('dialogCont');
-            dialogCont.style.bottom = '-45px';
-            dialogCont.style.opacity = 0;
-            document.getElementById('freelayer').style.display='none';
-        }
-    }
+    //     this.okay = ()=>{
+    //        this.callback();
+    //         this.close();
+    //     }
+    //     this.close = ()=>{
+    //         const dialogCont = document.getElementById('dialogCont');
+    //         dialogCont.style.bottom = '-45px';
+    //         dialogCont.style.opacity = 0;
+    //         document.getElementById('freelayer').style.display='none';
+    //     }
+    // }
     const customNotify = new function(){
         this.show = (msg,msgHeader="")=>{
             document.getElementById('dialogContent').innerHTML = dialogContent;
