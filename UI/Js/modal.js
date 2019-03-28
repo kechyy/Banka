@@ -2,7 +2,7 @@
 const modal = document.querySelector('.modal');
 'use strict'
 class modalAction {
-    logins(e){
+    logins(){
       modal.innerHTML = loginModal;
       modal.style.display = "block";
        
@@ -23,12 +23,7 @@ modal.addEventListener('click',function(){
    modalCloses();
    
 })
-// function cancelBubble(e) {
-    
-//   var evt = e ? e:window.event;
-//   if (evt.isTrusted)    evt.stopPropagation();
-//   if (evt.cancelBubble!=null) evt.cancelBubble = false;
-// }
+
 
  
  const loginModal = `

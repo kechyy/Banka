@@ -49,11 +49,11 @@ class validateUser{
 
     }
 }
-// function to cancel event bubbling
 
 const {login, signUp} = new validateUser();
+
+// function to cancel event bubbling
 // function cancelBubble(e) {
-    
 //     var evt = e ? e:window.event;
 //     if (evt.isTrusted)    evt.stopPropagation();
 //     if (evt.cancelBubble!=null) evt.cancelBubble = false;
