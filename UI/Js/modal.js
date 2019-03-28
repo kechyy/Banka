@@ -13,8 +13,14 @@ class modalAction {
     modalCloses(){
         modal.style.display = "";
     }
+
 }
 const {logins, signUps, modalCloses} = new modalAction();
+
+modal.addEventListener('click',function(e){
+  // e.stopPropagation();
+  modalCloses();
+})
 
  
  const loginModal = `

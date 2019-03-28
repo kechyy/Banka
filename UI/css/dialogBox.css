@@ -1,9 +1,12 @@
+#dialogContent{
+    margin:20px;
+}
 .dlg-container{
     position:absolute;
     left:50%;
     bottom:-45%;
     transform:translateX(-50%) translateY(-50%);
-    width:500px;
+    width:40%;
     background:#fff;
     padding:30px 10px;
     border:2px solid #ddd;
@@ -53,3 +56,25 @@ color:#666;
     color: #900;
     padding-bottom: 20px;
 }
+
+/* Media Queries */
+@media screen and (max-width:1200px){
+    .dlg-containert{
+      width:80%;
+      
+      
+    }
+  }
+  @media screen and (max-width:800px){
+    .dlg-container{
+      margin-top:10%;
+      width:90%;
+      bottom:-20px;
+      
+    }
+  }
+  @media screen and (max-width:599px){
+    .dlg-container{
+      width:100%;
+    }
+  }

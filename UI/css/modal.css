@@ -13,11 +13,12 @@
     min-height: 100vh;
     width: 100%;
     display: none; 
+    padding:20px;
   }
   
   
   .modal-content{
-    width: 500px;
+    width: 40%;
     position: relative;
     color: #fff;
     margin: 5% auto;
@@ -71,4 +72,26 @@
     font-size: 150%;
     margin: 0 0 15px;
   }
+  @media screen and (max-width:1000px){
+    .modal-content{
+      width:65%;
+      
+    }
+  }
+  @media screen and (max-width:800px){
+    .modal-content{
+      margin-top:10%;
+      width:90%
+      
+    }
+  }
+  @media screen and (max-width:599px){
+    .modal-content{
+      width:100%;
+      margin-top:20%;
+      
+    }
+  }
+  
+ 
   

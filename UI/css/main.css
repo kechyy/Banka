@@ -50,7 +50,8 @@ div{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    align-items: flex-start;     
+    align-items: flex-start;
+    width:100%;     
 }
 .rowCenter{
     width:50%;
@@ -211,13 +212,18 @@ select.input-block{
 }
 th,td{
     border-bottom: 1px solid #ccc;
+    padding: 6px;
+    text-align:left;
 }
 table{
     width:100%;
+    border-collapse:collapse;
 }
-th,td{
-    padding: 8px;
-    text-align: left;
+
+th{
+    background: #666;
+    color:#fff;
+    font-weight:bold;
 }
 
 tr:hover{
@@ -307,6 +313,7 @@ ul{
 .required span{
     color: #F00;
 }
+
 /* Media Queries */
 
 .col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}
@@ -331,7 +338,7 @@ ul{
 @media screen and (min-width:992px) and (max-width:1999px) {
     .col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}
     .col-5-lg{flex-basis:40.65%;}.col-6-lg{flex-basis:48.98%;}.col-7-lg{flex-basis:57.31%;}.col-8-lg{flex-basis:65.64%;}
-    .col-9-xs-lg{flex-basis:73.97%;}.col-10-lg{flex-basis:82.3%;}.col-11-lg{flex-basis:90.63%;}.col-12-lg{flex-basis:98.96%;}
+    .col-9-lg{flex-basis:73.97%;}.col-10-lg{flex-basis:82.3%;}.col-11-lg{flex-basis:90.63%;}.col-12-lg{flex-basis:98.96%;}
 }
 @media screen and (min-width:768px) and (max-width:991px) {
     .col-1-md{flex-basis:7.33%;}.col-2-md{flex-basis:15.66%;}.col-3-md{flex-basis:23.99%;}.col-4-md{flex-basis:32.32%;}
@@ -348,9 +355,7 @@ ul{
     }
 }
 @media screen and (min-width:320px) and (max-width:479px) {
-    .row{
-        display: block;
-    }
+   
     .col-1-xs{flex-basis:7.33%;}.col-2-xs{flex-basis:15.66%;}.col-3-xs{flex-basis:23.99%;}.col-4-xs{flex-basis:32.32%;}
     .col-5-xs{flex-basis:40.65%;}.col-6-xs{flex-basis:48.98%;}.col-7-xs{flex-basis:57.31%;}.col-8-xs{flex-basis:65.64%;}
     .col-9-xs{flex-basis:73.97%;}.col-10-xs{flex-basis:82.3%;}.col-11-xs{flex-basis:90.63%;}.col-12-xs{flex-basis:98.96%;}
@@ -358,4 +363,88 @@ ul{
         margin-bottom:15px;
     }
 }
+
+
+/* Responsive layout */
+@media screen and (max-width:1250px) {
+  
+   .right{
+    width:70%;
+    margin-left:30px;
+   }
+   /* Take up free space left by any column */
+   [class*="col-"]{
+        flex:1 0;
+    }
+   
+}
+@media screen and (min-width:950px) and (max-width:1090px) {
+    .right{
+     margin-left:50px;
+    }
+ }
+ @media screen and (min-width:854px) and (max-width:952px) {
+     
+    .right{
+     margin-left:70px;
+    }
+ }
+ @media screen and (min-width:660px) and (max-width:844px) {
+    .right{
+     margin-left:120px;
+     width:60%;
+    }
+ }
+ @media screen and (max-width:660px) {
+     .right{
+        width:90%;
+     }
+    .left{
+     display:none;
+    }
+    
+ }
+ @media screen and (max-width:844px) {
+    .acctPhoto{
+        flex-basis: 100%;
+    } 
+    .acctDetails{
+        flex-basis:100%;
+    }
+}
+
+/* responsive table */
+@media screen and (max-width:952px){
+    
+    /* force table to not be like table anymore */
+    table, thead, tbody, th, td, tr{
+        display: block; 
+     }
+
+     /* Hide table headers (but not display:none, for accessibility) */
+     thead tr{
+         position:absolute;
+         top:-9999px;
+         left:-9999px;
+     }
+     tr{border:1px solid #ccc}
+     
+     /* Behave like a row */
+     td{
+         border:none;
+         border-bottom:1px solid #eee;
+         position: relative;
+         padding-left:50px;
+     }
+     td:before{
+         /* Now like a table header */
+         position: absolute;
+         /* Top/left values mimic padding */
+         top:6px;
+         width: 45%;
+         padding-right:10px;
+         white-space:nowrap
+     }
+}
+
 

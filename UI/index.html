@@ -15,15 +15,17 @@
       <div class="container">
         <section>
           <div class="row pad-top">
-                <div class="col-6-xs" ><img src="images/logo.png"/></div>
-                <div class="col-6-xs">
+                <div class="col-6-md" ><img src="images/logo.png"/></div>
+                <div class="col-6-md menuWrapper">
                 	<nav>
                     	<ul class="vertical-menu">
                         	<li><a href="">HOME</a></li>
                             <li><a href="">ABOUT</a></li>
                             <li><a href="">SERVICES</a></li>
                             <li><a href="">CONTACT US</a></li>
+                            <li><a href="" class="icon">ICON</a></li>
                         </ul>
+                        
                     </nav>
                 </div>
           </div>
@@ -33,7 +35,7 @@
     <div class="container">
       <section>
         <div class="row pull-right">
-            <div class="col-6-12 col-6-sm  frontTitle pad-top">
+            <div class="col-6-md col-12-xs frontTitle pad-top">
                 <h1>Banking Application</h1>
                 <p>Banka is a light-weight core banking application that powers banking operations like account
                    creation, customer deposit and withdrawals. </p>
@@ -53,6 +55,10 @@
   <script src="Js/clientUserValidation.js"></script>
   <script src="Js/dialogBox.js"></script>
   
-  
+  <script>
+      const li = document.querySelector('vertical-menu li:last-child li ');
+      li.classList.add('col-2-xs');
+      lis.classList.add('pull-right');
+  </script>
 </body>
 </html>
