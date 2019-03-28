@@ -10,9 +10,6 @@ https://kechyy.github.io/Banka/UI/
 # User Dashboard 
 https://kechyy.github.io/Banka/UI/user/dashboard.html
 
-# User Dashboard  
-https://kechyy.github.io/Banka/UI/user/dashboard.html
-
 # User Profile  
 https://kechyy.github.io/Banka/UI/user/userProfile.html
 
