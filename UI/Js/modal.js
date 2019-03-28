@@ -18,11 +18,11 @@ class modalAction {
 }
 const {logins, signUps, modalCloses} = new modalAction();
 
-modal.addEventListener('click',function(){
+// modal.addEventListener('click',function(){
    
-   modalCloses();
+//    modalCloses();
    
-})
+// })
 
 
  
