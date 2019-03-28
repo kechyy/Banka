@@ -8,6 +8,7 @@ class validateUser{
         this.password = document.getElementById('password');
     }
     login(){
+        // cancelBubble(event)
         // (?=.*[0-9]) - Assert a string has at least one number;
         // (?=.*[!@#$%^&*]) - Assert a string has at least one special character.
         const ERegPassword = /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}/;
@@ -48,4 +49,12 @@ class validateUser{
 
     }
 }
+// function to cancel event bubbling
+
 const {login, signUp} = new validateUser();
+// function cancelBubble(e) {
+    
+//     var evt = e ? e:window.event;
+//     if (evt.isTrusted)    evt.stopPropagation();
+//     if (evt.cancelBubble!=null) evt.cancelBubble = false;
+// }

@@ -2,9 +2,10 @@
 const modal = document.querySelector('.modal');
 'use strict'
 class modalAction {
-    logins(){
-        modal.innerHTML = loginModal;
-        modal.style.display = "block";
+    logins(e){
+      modal.innerHTML = loginModal;
+      modal.style.display = "block";
+       
     }
     signUps(){
         modal.innerHTML = signUpModal;
@@ -17,10 +18,17 @@ class modalAction {
 }
 const {logins, signUps, modalCloses} = new modalAction();
 
-modal.addEventListener('click',function(e){
-  // e.stopPropagation();
-  modalCloses();
+modal.addEventListener('click',function(){
+   
+   modalCloses();
+   
 })
+// function cancelBubble(e) {
+    
+//   var evt = e ? e:window.event;
+//   if (evt.isTrusted)    evt.stopPropagation();
+//   if (evt.cancelBubble!=null) evt.cancelBubble = false;
+// }
 
  
  const loginModal = `
