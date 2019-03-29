@@ -313,6 +313,45 @@ ul{
 .required span{
     color: #F00;
 }
+.topMenu, .topMenu ul{
+    list-style:none;
+    padding: 0px;
+    margin:0px;
+    
+}
+.topMenu >  li > a{
+    padding:10px;
+    background:#000;
+}
+.topMenu > li{
+    float:left;
+  
+}
+
+.topMenu > li > a{
+    float:left;
+    padding:5px 10px;
+    font-size:18px;
+    color:#fff;
+    
+}
+.dropDown{
+    display:none; 
+    background:none ;
+    padding: 10px;
+}
+.dropDown li{
+    display:block;
+    padding:5px 0;
+   
+}
+.dropDown> li a{
+color:#fff;
+padding:5px;
+width:100%;
+
+}
+
 
 /* Media Queries */
 
@@ -378,6 +417,7 @@ ul{
     }
    
 }
+
 @media screen and (min-width:950px) and (max-width:1090px) {
     .right{
      margin-left:50px;
@@ -401,9 +441,21 @@ ul{
      }
     .left{
      display:none;
+     
+    }
+    .topMenu{
+        display:block;
     }
     
  }
+ @media screen and (min-width:661px) {
+    .left{
+        display: block
+    }
+    .topMenu{
+        display: none
+    }
+}
  @media screen and (max-width:844px) {
     .acctPhoto{
         flex-basis: 100%;

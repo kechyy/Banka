@@ -4,7 +4,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 888888;
+    z-index: 1;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
@@ -62,6 +62,7 @@
     top: 0;
     width: 70px;
     text-decoration: none;
+
   }
   
   .modal-close:hover, .modal-clos:focus {

@@ -1,11 +1,13 @@
 // Get modal element
 const modal = document.querySelector('.modal');
+const modal2 = document.querySelector('#modal');
+
 'use strict'
 class modalAction {
     logins(){
-      modal.innerHTML = loginModal;
-      modal.style.display = "block";
-       
+        modal.innerHTML = loginModal;
+        modal.style.display = "block";
+        
     }
     signUps(){
         modal.innerHTML = signUpModal;
@@ -14,18 +16,14 @@ class modalAction {
     modalCloses(){
         modal.style.display = "";
     }
+    
 
 }
+
+
 const {logins, signUps, modalCloses} = new modalAction();
 
-// modal.addEventListener('click',function(){
-   
-//    modalCloses();
-   
-// })
 
-
- 
  const loginModal = `
 <div class=" modal-content">
   <header>
@@ -71,4 +69,12 @@ const signUpModal = `
     </div>
   </div>
 </div>
-`;
+`
+
+// modal2.addEventListener('click',modalCloses2,true)
+// function modalCloses2(event){
+//   event.stopPropagation()
+//   console.log("Parent clicked");
+// modal.style.display = "";
+//   }
+ 
