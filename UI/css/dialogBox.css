@@ -51,6 +51,11 @@ color:#666;
     color: #fff;
     padding:10px;  
 }
+.success{
+    background:rgb(83, 231, 187) ;
+    color: #000;
+    padding:10px;  
+}
 
 .msg{
     font-size:20px;
