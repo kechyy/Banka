@@ -3,6 +3,7 @@ import { read } from "fs";
 class UserAuthValidation {
   
   static signUpValidate(req, res, next){
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     let {firstName, lastName, email, password, cpassword} = req.body;
     if(firstName === '' || firstName === undefined) {
       return res.status(400).json(
@@ -52,6 +53,12 @@ class UserAuthValidation {
           "error": 'Password must be minimum of 8 and maximum of 16 characters and must be with combination of special characters' 
         })
     }
+    if(! emailRegex.test(String(email).toLowerCase())) {
+      return  res.status(400).json({
+          "status": '400',
+          "error": 'Invalid email address format' 
+        })
+    }
     if(cpassword !== password) {
       return  res.status(400).json({
           "status": '400',
@@ -67,6 +74,40 @@ class UserAuthValidation {
     next();
   }
 
+  static signInValidate(req, res, next){
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    let {email, password} = req.body;
+    if(email === undefined || email === ""){
+      return res.status(400).json({
+        "status": '400',
+        "error":'Email address is required'
+      })
+    }
+    if(password === '' || password === undefined) {
+      return res.status(400).json({
+          "status": "400", 
+          "error" :'First name is required'
+        })
+    }
+    email = email.trim();
+    password = password.trim();
+   
+    if(! emailRegex.test(String(email).toLowerCase())) {
+      return  res.status(400).json({
+          "status": '400',
+          "error": 'Invalid email address format' 
+        })
+    }
+    if(! /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}/.test(password)) {
+      return  res.status(400).json({
+          "status": '400',
+          "error": 'Password must be minimum of 8 and maximum of 16 characters and must be with combination of special characters' 
+        })
+    }
+    req.body.email = email;
+    req.body.password = password;
+    next();
+  }
 }
-const {signUpValidate} = UserAuthValidation;
-export default signUpValidate;
+const {signUpValidate, signInValidate} = UserAuthValidation;
+export {signUpValidate,signInValidate};

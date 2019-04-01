@@ -18,9 +18,19 @@ class UserController {
         return res.json({ userSignUp })
     }
 
-   
+    static signIn(req, res){
+        const {email, password} = req.body;
+        const confirmUser = userSignUp.find(loginUser=>loginUser.email === email && loginUser.password === password);
+        if(confirmUser == undefined){
+            return res.status(500).json({
+                "statis": '500',
+                "error": 'Invalid user login credentials'
+            })
+        }
+        return res.json(confirmUser)
+    }
 }
 
-const {signUp} = UserController;
+const {signUp, signIn} = UserController;
 
-export default signUp;
+export {signUp, signIn};
