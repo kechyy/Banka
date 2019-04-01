@@ -1,7 +1,7 @@
 import express from 'express';
 const app = express();
 import bodyParser from 'body-parser';
-import userRoutes from './server/routes/userRoutes';
+import userRoutes from './server/routes/userAuth';
 import dotenv from 'dotenv';
 dotenv.config();
 

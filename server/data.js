@@ -1,15 +1,20 @@
-const userSignIn = [
+const userSignUp = [
+    {
+        id: 1,
+        firstName: 'Rosemary',
+        lastName: 'Emmanuel',
+        email: 'rossy@gmail.com',
+        password: 'rosemary123&%',
+    },
     {
         id: 1,
         firstName: 'Nkechi',
         lastName: 'Ogbonna',
         email: 'kech3443@gmail.com',
-        accountNumber: '000123467',
-        accountType: 'savings'
+        password: 'nkky123@#',
     }
 ];
 
-
-export  default userSignIn
+export  default userSignUp
 
 
