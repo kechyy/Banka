@@ -71,7 +71,8 @@ class UserAuthValidation {
     req.body.lastName = lastName;
     req.body.email = email;
     req.body.password = password;
-    next();
+    req.body.token = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
+     next();
   }
 
   static signInValidate(req, res, next){
