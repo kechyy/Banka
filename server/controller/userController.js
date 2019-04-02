@@ -15,6 +15,7 @@ class UserController {
                 "error": 'User already exist' 
             })
         }
+        
         userSignUp.push(userInfo);
         const data = userSignUp[userSignUp.length - 1];
         return res.json({status: '201', data});
