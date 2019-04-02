@@ -1,13 +1,14 @@
-
 import {bankAccounts} from '../data';
+import randomize from 'randomatic';
 
 class accountController {
 
     static account(req, res){
-        req.body.accountNumber = '';
+        req.body.accountNumber = randomize('0',10);
         req.body.openingBalance = '0.00';
-        const {accountNumber, firstName, lastName, email, type, openingBalance} = req.body
-        const accountInfo = {accountNumber, firstName, lastName, email, type, openingBalance}
+        req.body.status = 'dormant';
+        const {accountNumber, firstName, lastName, email, type, openingBalance, status} = req.body
+        const accountInfo = {accountNumber, firstName, lastName, email, type, openingBalance, status}
         const checkAcctExist = bankAccounts.find(acct=>acct.email === email)
         if(checkAcctExist !== undefined) {
             return  res.status(500).json({

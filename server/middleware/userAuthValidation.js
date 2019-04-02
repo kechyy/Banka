@@ -9,7 +9,7 @@ class UserAuthValidation {
       return res.status(400).json(
         {
           "status": '400', 
-          "error" : 'First name is required'
+          "error" : 'First name field is required'
         }
       )
     }
@@ -17,7 +17,7 @@ class UserAuthValidation {
       return res.status(400).json(
         {
           "status": "400", 
-          "error" :'Last name is required'
+          "error" :'Last name field is required'
         }
       )
     }
@@ -25,14 +25,20 @@ class UserAuthValidation {
       return res.status(400).json(
         {
           "status": "400", 
-          "error" :'Email address is required'
+          "error" :'Email address field is required'
         }
       )
     }
     if(password === '' || password === undefined) {
       return res.status(400).json({
           "status": "400", 
-          "error" :'First name is required'
+          "error" :'password field is required'
+        })
+    }
+    if(cpassword === '' || cpassword === undefined) {
+      return res.status(400).json({
+          "status": "400", 
+          "error" :'Confirm password field is required'
         })
     }
     firstName = firstName.trim(); 
