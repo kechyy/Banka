@@ -19,12 +19,12 @@ const userSignUp = [
 
 const bankAccounts = [
     {
-        status: 1,
         accountNumber: '00044565',
         firstName: 'Rosemary',
         lastName: 'Emmanuel',
         email: 'rossy@gmail.com',
         type: 'savings',
+        status: 'dormant'
     }
    
 ];

@@ -11,8 +11,8 @@ class UserController {
         const userInfo = {token, id, firstName, lastName, email, password}
         const checkUserExist = userSignUp.find(user=>user.email === email)
         if(checkUserExist !== undefined) {
-            return  res.status(500).json({
-                "status": '500',
+            return  res.status(409).json({
+                "status": '409',
                 "error": 'User already exist' 
             })
         }
@@ -26,8 +26,8 @@ class UserController {
         const {email, password} = req.body;
         const confirmUser = userSignUp.find(loginUser=>loginUser.email === email && loginUser.password === password);
         if(confirmUser == undefined){
-            return res.status(500).json({
-                "statis": '500',
+            return res.status(404).json({
+                "status": '404',
                 "error": 'Invalid user login credentials'
             })
         }

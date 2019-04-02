@@ -6,7 +6,7 @@ import accountRoutes from './server/routes/account';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
