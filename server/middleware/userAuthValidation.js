@@ -71,7 +71,6 @@ class UserAuthValidation {
     req.body.lastName = lastName;
     req.body.email = email;
     req.body.password = password;
-    req.body.token = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
      next();
   }
 

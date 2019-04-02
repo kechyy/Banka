@@ -4,10 +4,10 @@ import userSignUp from '../data';
 class UserController {
 
     static signUp(req, res){
-        
+        req.body.token = '' ;
         const {token, firstName, lastName, email, password} = req.body
         const id = userSignUp[userSignUp.length-1].id + 1
-        const userInfo = {token, id, firstName, lastName, email, password}
+        const userInfo = {status, token, id, firstName, lastName, email, password}
         const checkUserExist = userSignUp.find(user=>user.email === email)
         if(checkUserExist !== undefined) {
             return  res.status(500).json({
@@ -15,9 +15,9 @@ class UserController {
                 "error": 'User already exist' 
             })
         }
-        userSignUp.push(userInfo)
-        const data = userSignUp[1]
-        return res.json({ "status":"201", data })
+        userSignUp.push(userInfo);
+        const data = userSignUp[userSignUp.length - 1];
+        return res.json({status: '201', data});
     }
 
     static signIn(req, res){
@@ -29,7 +29,7 @@ class UserController {
                 "error": 'Invalid user login credentials'
             })
         }
-        return res.json({"status":"200", data: confirmUser})
+        return res.json({status: '200', data: confirmUser})
     }
 }
 

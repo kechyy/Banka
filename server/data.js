@@ -19,6 +19,7 @@ const userSignUp = [
 
 const bankAccounts = [
     {
+        status: 1,
         accountNumber: '00044565',
         firstName: 'Rosemary',
         lastName: 'Emmanuel',

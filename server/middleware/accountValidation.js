@@ -76,11 +76,8 @@ class accountValidation {
     req.body.lastName = lastName;
     req.body.email = email;
     req.body.type = type;
-    
-    req.body.accountNumber = Math.random().toString(36).substr(2,10);
-    req.body.openingBalance = '0.00';
-    
-     next();
+
+    next();
   }
 
 }
