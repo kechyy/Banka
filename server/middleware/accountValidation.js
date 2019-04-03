@@ -80,6 +80,18 @@ class accountValidation {
     next();
   }
 
+  static accountUpdateValidate(req, res, next){
+    const {accountNumber} = req.params;
+    if(! /^[0-9]{10}$/.test(accountNumber)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Account number must be a 10 digit number' 
+      })
+    }
+    req.params.accountNumber = accountNumber;
+    next();
+  }
+
 }
-const {accountValidate} = accountValidation;
-export default accountValidate;
+const {accountValidate, accountUpdateValidate} = accountValidation;
+export  {accountValidate, accountUpdateValidate};

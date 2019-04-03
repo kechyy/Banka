@@ -20,23 +20,25 @@ class accountController {
         }
         bankAccounts.push(accountInfo)
         const data = bankAccounts[bankAccounts.length - 1];
-        return res.json({status:'201', data});
+        return res.status(201).json({status:'201', data});
 
     }
 
     static updateAccount(req, res){
         const {accountNumber} = req.params;
         const confirmAcctNumber = bankAccounts.find(acct=> acct.accountNumber === accountNumber);
+        
         if(confirmAcctNumber !== undefined){
+            
             if(confirmAcctNumber.status == 'active'){
                 confirmAcctNumber.status = 'dormant';
                 const {status, accountNumber} = confirmAcctNumber;
-                return res.json({status:'200', data:{status, accountNumber}});
+                return res.status(200).json({status:'200', data:{status, accountNumber}});
             }
             if(confirmAcctNumber.status == 'dormant'){
                 confirmAcctNumber.status = 'active';
                 const {status, accountNumber} = confirmAcctNumber;
-                return res.json({status:'200', data:{status, accountNumber}});
+                return res.status(200).json({status:'200', data:{status, accountNumber}});
             }
             
         }

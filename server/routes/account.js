@@ -1,11 +1,11 @@
 import express from 'express';
 import {account, updateAccount} from '../controller/accountController';
-import accountValidate from '../middleware/accountValidation';
+import {accountValidate, accountUpdateValidate} from '../middleware/accountValidation';
 const accountRouter = express.Router();
 
 
  accountRouter.post('/account', accountValidate, account);
- accountRouter.put('/account/:accountNumber', updateAccount);
+ accountRouter.patch('/account/:accountNumber', accountUpdateValidate, updateAccount);
  
 
  export default accountRouter;

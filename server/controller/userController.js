@@ -3,7 +3,6 @@ import randomize from 'randomatic';
 import {userSignUp} from '../data';
 
 class UserController {
-
     static signUp(req, res){
         req.body.token =  randomize('a0',20);
         const {token, firstName, lastName, email, password} = req.body
