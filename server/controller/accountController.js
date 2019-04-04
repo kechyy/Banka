@@ -11,8 +11,8 @@ class accountController {
         const {accountNumber, firstName, lastName, email, type, openingBalance, status} = req.body
         const accountInfo = {accountNumber, firstName, lastName, email, type, openingBalance, status}
         
-        const checkAcctExist = bankAccounts.find(acct=>acct.email === email)
-        if(checkAcctExist !== undefined) {
+        const checkAcctExist = bankAccounts.filter(acct=>acct.email === email)[0];
+        if(checkAcctExist) {
             return  res.status(409).json({
                 "status": '409',
                 "error": 'Account already exist' 
@@ -26,9 +26,8 @@ class accountController {
 
     static updateAccount(req, res){
         const {accountNumber} = req.params;
-        const confirmAcctNumber = bankAccounts.find(acct=> acct.accountNumber === accountNumber);
-        
-        if(confirmAcctNumber !== undefined){
+        const confirmAcctNumber = bankAccounts.filter(acct=> acct.accountNumber === accountNumber)[0];
+        if(confirmAcctNumber){
             
             if(confirmAcctNumber.status == 'active'){
                 confirmAcctNumber.status = 'dormant';
@@ -39,18 +38,29 @@ class accountController {
                 confirmAcctNumber.status = 'active';
                 const {status, accountNumber} = confirmAcctNumber;
                 return res.status(200).json({status:'200', data:{status, accountNumber}});
-            }
-            
+            }  
         }
         return res.status(404).json({
             status: '404',
             error: 'Invalid account number'
         });
+    }
 
+    static deleteAccount(req, res){
+        const {accountNumber} = req.params;
+        const confirmAcctNumber = bankAccounts.filter(acct=> acct.accountNumber === accountNumber)[0];
+        if(confirmAcctNumber){
+           const newArray = bankAccounts.filter((acct)=>acct.accountNumber !== accountNumber);
+           const confirmDel = newArray.find(acct=>acct.accountNumber === accountNumber);
+           if(!confirmDel){
+            return res.status(200).json({"status": '200', "message": "Account successfully deleted"});
+           }
+        }
+        return res.status(404).json({"status":'404', "error":'Invalid account number'})
     }
 
 }
 
-const {account, updateAccount} = accountController;
+const {account, updateAccount, deleteAccount} = accountController;
 
-export  {account, updateAccount};
+export  {account, updateAccount, deleteAccount};

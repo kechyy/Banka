@@ -85,7 +85,18 @@ class accountValidation {
     if(! /^[0-9]{10}$/.test(accountNumber)) {
       return res.status(400).json({
         status: '400',
-        error: 'Account number must be a 10 digit number' 
+        error: 'Account number must be 10 digit number' 
+      })
+    }
+    req.params.accountNumber = accountNumber;
+    next();
+  }
+  static accountDeleteValidate(req, res, next){
+    const {accountNumber} = req.params;
+    if(! /^[0-9]{10}$/.test(accountNumber)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Account number must be 10 digit number' 
       })
     }
     req.params.accountNumber = accountNumber;
@@ -93,5 +104,5 @@ class accountValidation {
   }
 
 }
-const {accountValidate, accountUpdateValidate} = accountValidation;
-export  {accountValidate, accountUpdateValidate};
+const {accountValidate, accountUpdateValidate, accountDeleteValidate} = accountValidation;
+export  {accountValidate, accountUpdateValidate, accountDeleteValidate};
