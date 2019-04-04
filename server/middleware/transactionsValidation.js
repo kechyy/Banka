@@ -3,8 +3,10 @@ class transactionsValidation {
   static debitCreditValidate(req, res, next){
     let {accountNumber, type } = req.params;
     let {amount} = req.body;
+    
     accountNumber = accountNumber.trim();
     type = type.trim();
+
     if(! /^[0-9]{10}$/.test(accountNumber)) {
       return res.status(400).json({
         status: '400',

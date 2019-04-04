@@ -5,7 +5,6 @@ class transactionsController {
     static debitCredit(req, res){
         const {accountNumber, type} = req.params;
         let {amount} = req.body;
-        //amount = parseFloat(amount)
         const findAcct = bankAccounts.find(acct=>acct.accountNumber === accountNumber);
         if(findAcct !== undefined) {
             if(type === "debit"){
