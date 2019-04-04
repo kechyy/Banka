@@ -24,6 +24,7 @@ const bankAccounts = [
         lastName: 'Emmanuel',
         email: 'rossy@gmail.com',
         type: 'savings',
+        openingBalance: 20000.00, 
         status: 'dormant'
     },
     {
@@ -32,11 +33,16 @@ const bankAccounts = [
         lastName: 'Ogbonna',
         email: 'nke@gmail.com',
         type: 'current',
-        status: 'active'
+        openingBalance: 5000.00, 
+        status: 'active',
     }
    
 ];
 
-export {userSignUp, bankAccounts}
+const accountTransactionsData = [
+   
+];
+
+export {userSignUp, bankAccounts, accountTransactionsData}
 
 

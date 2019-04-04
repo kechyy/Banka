@@ -81,7 +81,8 @@ class accountValidation {
   }
 
   static accountUpdateValidate(req, res, next){
-    const {accountNumber} = req.params;
+    let {accountNumber} = req.params;
+    accountNumber =  accountNumber.trim();
     if(! /^[0-9]{10}$/.test(accountNumber)) {
       return res.status(400).json({
         status: '400',
@@ -92,7 +93,8 @@ class accountValidation {
     next();
   }
   static accountDeleteValidate(req, res, next){
-    const {accountNumber} = req.params;
+    let {accountNumber} = req.params;
+    accountNumber =  accountNumber.trim();  
     if(! /^[0-9]{10}$/.test(accountNumber)) {
       return res.status(400).json({
         status: '400',
