@@ -8,6 +8,7 @@
   <link href="css/modal.css" rel="stylesheet"/>
   <link rel="stylesheet" href="css/dialogBox.css">
   <link href="css/style.css" rel="stylesheet"/>
+  <link href="css/font-awesome.css" rel="stylesheet"/>
 </head>
 <body>
   <div class="wrapper">
@@ -37,8 +38,7 @@
         <div class="row pull-right">
             <div class="col-6-md col-12-xs frontTitle pad-top">
                 <h1>Banking Application</h1>
-                <p>Banka is a light-weight core banking application that powers banking operations like account
-                   creation, customer deposit and withdrawals. </p>
+                <p class="titleTop"></p>
                 <button class="btn btn-full btn-blue" id="sign_in" onclick="logins()">SIGN-IN</button>
                
             </div>
@@ -47,18 +47,41 @@
     </div>
     
   </div>
-  
-  
+ <section>
+    <ul class="homeLeftMenu">
+        <li class="active"><a href=""><span class="fa fa-pencil"></span>&nbsp; &nbsp; SIGN UP</a></li>
+        <li><a href=""><span class="fa fa-key"></span>&nbsp; &nbsp; FORGOT PASSWORD</a></li>
+        <li><a href><span class="fa fa-bell"></span>&nbsp; &nbsp; NOTIFICATION</a></li>
+        <li><a href=""></href><span class="fa fa-book"></span>&nbsp; &nbsp; USER GUIDE</a></li>
+      </ul>
+ </section> 
+<footer class="footer">
+  <p class="text-center">Copyright &copy 2019 Banka Application All rights reserved</p>
+</footer>
   <div class="modal"></div>
   <div id="dialogContent"></div>
+ 
   <script src="Js/modal.js"></script>
   <script src="Js/clientUserValidation.js"></script>
   <script src="Js/dialogBox.js"></script>
   
   <script>
-      const li = document.querySelector('vertical-menu li:last-child li ');
-      li.classList.add('col-2-xs');
-      lis.classList.add('pull-right');
+    const text = `Banka is a light-weight core banking 
+    application that powers banking operations like account creation, customer deposit and withdrawals. `;
+    const titleTop = document.querySelector('.titleTop');
+    let i = 0;
+    let y =  1;
+    const typeText = ()=>{
+          titleTop.textContent += text.slice(i++,y++); 
+    }
+    
+    console.log(i)
+    
+    
+    setInterval(typeText, 50);
+      // const li = document.querySelector('vertical-menu li:last-child li ');
+      // li.classList.add('col-2-xs');
+      // lis.classList.add('pull-right');
   </script>
 </body>
 </html>

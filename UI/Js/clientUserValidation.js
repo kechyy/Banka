@@ -12,12 +12,17 @@ class validateUser{
         // (?=.*[0-9]) - Assert a string has at least one number;
         // (?=.*[!@#$%^&*]) - Assert a string has at least one special character.
         const ERegPassword = /(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}/;
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,11}))$/
         if(!email.value){
             customNotify.show('<span class="msg">Email field cannot be empty','<h3 class="err"> Error</h3>');
             return;
         }
         if(!password.value){
             customNotify.show('<span class="msg">Password field cannot be empty','<h3 class="err"> Error</h3>');
+            return;
+        }
+        if(!emailRegex.test(email.value)){
+            customNotify.show('<span class="msg">Invalid email format','<h3 class="err"> Error</h3>');
             return;
         }
         if(password.value.length < 6){
