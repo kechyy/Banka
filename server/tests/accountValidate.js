@@ -127,6 +127,7 @@ describe('Test for account validation', () => {
         done();
       });
   });
+  
   it('should return status code 400 for email address not a string', (done) => {
     chai.request(app)
       .post(accountEndPoint)

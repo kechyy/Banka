@@ -34,10 +34,34 @@ class accountValidation {
         error: 'User type is required'
       });
     }
+    if (typeof firstName !== 'string') {
+      return res.status(400).json({
+        status: '400',
+        error: 'First name should be a string'
+      });
+    }
+    if (typeof lastName !== 'string') {
+      return res.status(400).json({
+        status: '400',
+        error: 'Last name should be a string'
+      });
+    }
+    if (typeof email !== 'string') {
+      return res.status(400).json({
+        status: '400',
+        error: 'Email address should be a string'
+      });
+    }
     firstName = firstName.trim();
     lastName = lastName.trim();
     email = email.trim();
     type = type.trim();
+    if (email.length < 8 || email.length > 50) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Email address should be atleast 8 to 50 character'
+      });
+    }
     if (!/^([A-Za-z-]){2,25}$/.test(firstName)) {
       return res.status(400).json({
         status: '400',
@@ -56,23 +80,16 @@ class accountValidation {
         error: 'Invalid email address format'
       });
     }
-    if (!/^[a-zA-Z]{7}$/.test(type)) {
-      return res.status(400).json({
-        status: 400,
-        error: 'User type must be minimum of 7 characters and must be an alphabet'
-      });
-    }
     if (type !== 'savings' && type !== 'current') {
       return res.status(400).json({
         status: 400,
-        error: 'User type must be either savings or current account'
+        error: 'Account type must be either savings or current account'
       });
     }
     req.body.firstName = firstName;
     req.body.lastName = lastName;
     req.body.email = email;
     req.body.type = type;
-
     next();
   }
 

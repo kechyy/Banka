@@ -10,7 +10,7 @@ const undefinedFirstName = {
   type: 'current'
 };
 const firstNameNotSring = {
-  firstName: { firstname: ['nkechi'] },
+  firstName: ['nkechi'],
   lastName: 'Ogbonna',
   email: 'nke@gmail.com',
   type: 'current',
@@ -69,13 +69,13 @@ const emailAddressNotString = {
 const firstNameInvalidLength = {
   firstName: 'N',
   lastName: 'Ogbonna',
-  email: 'n@g.co',
+  email: 'nke@gmail.co',
   type: 'current'
 };
 const lastNameInvalidLength = {
   firstName: 'Nkechi',
   lastName: 'O',
-  email: 'n@g.co',
+  email: 'nke@gmail.co',
   type: 'current'
 };
 const emailInvalidLength = {
@@ -94,7 +94,7 @@ const InvalidAccountNumber = {
   accountNumber: 'nkechi123',
   firstName: 'Nkechi',
   lastName: 'Ogbonna',
-  email: 'nk23gmail',
+  email: 'nk23@gmail',
   type: 'current'
 };
 
