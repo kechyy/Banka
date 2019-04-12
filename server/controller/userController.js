@@ -9,7 +9,7 @@ class UserController {
     const token = tokenGenerator(id);
     const userInfo = { id, firstName, lastName, email, password }
     const checkUserExist = userSignUp.find(user => user.email === email);
-    if (checkUserExist !== undefined) {
+    if (checkUserExist) {
       return res.status(409).json({
         status: 409,
         error: 'User already exist',
@@ -17,7 +17,7 @@ class UserController {
     }
     userSignUp.push(userInfo);
     userSignUp[userSignUp.length - 1].token = token;
-    return res.status(201).json({status: '201', data: userSignUp[userSignUp.length - 1]});
+    return res.status(201).json({ status: '201', data: userSignUp[userSignUp.length - 1] });
   }
 
   static signIn(req, res) {
@@ -25,7 +25,7 @@ class UserController {
     const confirmUser = userSignUp.find((loginUser) => {
       return loginUser.email === email && loginUser.password === password;
     });
-    if (confirmUser === undefined) {
+    if (confirmUser) {
       return res.status(404).json({
         status: '404',
         error: 'Please enter a valid username and password'
