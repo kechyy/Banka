@@ -22,10 +22,8 @@ class UserController {
 
   static signIn(req, res) {
     const { email, password } = req.body;
-    const confirmUser = userSignUp.find((loginUser) => {
-      return loginUser.email === email && loginUser.password === password;
-    });
-    if (confirmUser) {
+    const confirmUser = userSignUp.find(loginUser => loginUser.email === email && loginUser.password === password);
+    if (!confirmUser) {
       return res.status(404).json({
         status: '404',
         error: 'Please enter a valid username and password'
@@ -33,7 +31,7 @@ class UserController {
     }
     const token = tokenGenerator(confirmUser.id);
     confirmUser.token = token;
-    return res.json({ status: '200', data: confirmUser })
+    return res.status(200).json({ status: '200', data: confirmUser });
   }
 }
 
