@@ -181,7 +181,62 @@ btn-md{
 .horizontal-menu li a{
 color:#fff;
 }
-
+.homeLeftMenu{
+    position:fixed; 
+    left:-3; 
+    bottom:140px; 
+    margin:0px;
+    padding:0px;
+    list-style:none;
+    min-width:300px;
+}
+.text-center{
+    text-align:center;
+}
+.homeLeftMenu li{
+    padding:10px 20px;
+    border-radius:0px 10px 10px 0px; 
+    margin-bottom:40px; 
+    background: rgba(182, 52, 117, 0.5);
+    
+    border-right:5px solid #999;
+    box-shadow:2px 2px 2px #000;
+    
+}
+.homeLeftMenu li a{
+    color:#fff;
+    font-size:18px;
+    
+}
+.homeLeftMenu li:hover{
+    background:#fff;
+    color:#000;
+}
+.homeLeftMenu li:hover a{
+    color:#000;
+    display:block;
+}
+.homeLeftMenu li a span{
+    /* color:#999; */
+}
+.homeLeftMenu li.active{
+    background:#fff;
+    border-right-color: rgb(182, 52, 117);
+}
+.homeLeftMenu li.active a{
+  color:#000;
+}
+.footer{
+    width:100%;
+    position: fixed;
+    bottom:0px;
+    height: 50px;
+    background: rgb(182, 52, 117);
+    box-shadow: 2px 2px 2px 2px #000;
+    color:#ccc;
+    /* text-shadow:1px 1px 1px #999; */
+    font-size:20px;
+}
 /* Media Queries */
 /* Default sizes when one is specified */
 .col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}

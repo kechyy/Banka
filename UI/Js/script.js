@@ -1,4 +1,4 @@
-const topMenu = document.querySelector('.topMenu');
+const topMenu = document.querySelector('.topMenu > li a');
 const dropDown = document.querySelector('.dropDown');
 topMenu.addEventListener('click',function(e){
     e.preventDefault();
