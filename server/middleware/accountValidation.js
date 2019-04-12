@@ -2,7 +2,7 @@
 class accountValidation {
   static accountValidate(req, res, next) {
     // eslint-disable-next-line no-useless-escape
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     let { firstName, lastName, email, type } = req.body;
     if (firstName === '' || firstName === undefined) {
       return res.status(400).json(
@@ -34,6 +34,24 @@ class accountValidation {
         error: 'User type is required'
       });
     }
+    if (typeof firstName !== 'string') {
+      return res.status(400).json({
+        status: '400',
+        error: 'First name should be a string'
+      });
+    }
+    if (typeof lastName !== 'string') {
+      return res.status(400).json({
+        status: '400',
+        error: 'Last name should be a string'
+      });
+    }
+    if (typeof email !== 'string') {
+      return res.status(400).json({
+        status: '400',
+        error: 'Email address should be a string'
+      });
+    }
     firstName = firstName.trim();
     lastName = lastName.trim();
     email = email.trim();
@@ -50,22 +68,22 @@ class accountValidation {
         error: 'Last name must be an alphabet with length 2 to 25'
       });
     }
+    if (email.length < 8 || email.length > 50) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Email address should be atleast 8 to 50 character'
+      });
+    }
     if (!emailRegex.test(String(email).toLowerCase())) {
       return res.status(400).json({
         status: 400,
         error: 'Invalid email address format'
       });
     }
-    if (!/^[a-zA-Z]{7}$/.test(type)) {
-      return res.status(400).json({
-        status: 400,
-        error: 'User type must be minimum of 7 characters and must be an alphabet'
-      });
-    }
     if (type !== 'savings' && type !== 'current') {
       return res.status(400).json({
         status: 400,
-        error: 'User type must be either savings or current account'
+        error: 'Account type must be either savings or current account'
       });
     }
     req.body.firstName = firstName;
@@ -77,8 +95,7 @@ class accountValidation {
   }
 
   static accountUpdateValidate(req, res, next) {
-    let { accountNumber } = req.params;
-    accountNumber = accountNumber.trim();
+    const { accountNumber } = req.params;
     if (!/^[0-9]{10}$/.test(accountNumber)) {
       return res.status(400).json({
         status: 400,

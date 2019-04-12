@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import randomize from 'randomatic';
 import { bankAccounts } from '../data';
 

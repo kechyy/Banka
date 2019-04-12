@@ -75,7 +75,6 @@ class UserAuthValidation {
     email = email.trim();
     password = password.trim();
     cpassword = cpassword.trim();
-    
     if (email.length < 8 || email.length > 50) {
       return res.status(400).json({
         status: '400',
