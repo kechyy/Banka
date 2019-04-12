@@ -5,106 +5,131 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { undefinedFirstName, firstNameEmpty, firstNameNotSring,
   lastNameEmpty, undefinedlastName, lastNameNotString, emailAddressEmpty,
-  emailAddressUndefined, emailAddressNotString, firstNameInvalidLength, lastNameInvalidLength, emailInvalidLength, emailInvalidFormat,
-  passwordEmpty, passwordNotString, passwordNotStrong, passwordNotSame, passwordUndefined, cpasswordUndefined
-} from './mockObjects/userObjectData';
+  emailAddressUndefined, emailAddressNotString, firstNameInvalidLength,
+  lastNameInvalidLength, emailInvalidLength, emailInvalidFormat, typeNameEmpty,
+  acctTypeUndefined, InvalidAccType, InvalidAccountNumber
+} from './mockObjects/accountObjectData';
 
 import app from '../../app';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-const signUpEndPoint = '/api/v1/auth/signup';
+const accountEndPoint = '/api/v1/account';
+const accountUpdateEndPoint = '/api/v1/account/098789';
+const accountDeleteEndPoint = '/api/v1/account/098789';
 
-describe('Test for signup user', () => {
+describe('Test for account validation', () => {
   it('should return status code 400 for first name empty', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(firstNameEmpty)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.an('object');
-        expect(response.body.error).to.equal('First name field is required');
+        expect(response.body.error).to.equal('First name is required');
         done();
       });
   });
   it('should return status code 400 for undefined first name', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(undefinedFirstName)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.error).to.equal('First name field is required');
+        expect(response.body.error).to.equal('First name is required');
         done();
       });
   });
   it('should return status code 400 for first name not a string', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(firstNameNotSring)
       .end((error, response) => {
         expect(response).to.have.status(400);
-        expect(response.body.error).to.equal('FirstName should be a string');
+        expect(response.body.error).to.equal('First name should be a string');
         done();
       });
   });
   it('should return status code 400 for last name empty', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(lastNameEmpty)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Last name field is required');
+        expect(response.body.error).to.equal('Last name is required');
         done();
       });
   });
   it('should return status code 400 for last name undefined', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(undefinedlastName)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Last name field is required');
+        expect(response.body.error).to.equal('Last name is required');
         done();
       });
   });
   it('should return status code 400 for last name not a string', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(lastNameNotString)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('LastName should be a string');
+        expect(response.body.error).to.equal('Last name should be a string');
         done();
       });
   });
   it('should return status code 400 for email address empty', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(emailAddressEmpty)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Email address field is required');
+        expect(response.body.error).to.equal('Email address is required');
+        done();
+      });
+  });
+  it('should return status code 400 for account type empty', (done) => {
+    chai.request(app)
+      .post(accountEndPoint)
+      .send(typeNameEmpty)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.error).to.equal('User type is required');
+        done();
+      });
+  });
+  it('should return status code 400 for account type undefined', (done) => {
+    chai.request(app)
+      .post(accountEndPoint)
+      .send(acctTypeUndefined)
+      .end((error, response) => {
+        expect(response).to.have.status(400);
+        expect(response.body).to.be.a('object');
+        expect(response.body.error).to.equal('User type is required');
         done();
       });
   });
   it('should return status code 400 for email address undefined', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(emailAddressUndefined)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Email address field is required');
+        expect(response.body.error).to.equal('Email address is required');
         done();
       });
   });
   it('should return status code 400 for email address not a string', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(emailAddressNotString)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -115,7 +140,7 @@ describe('Test for signup user', () => {
   });
   it('should return status code 400 for firstname not an alphabet and less than 2 or greater than 25', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(firstNameInvalidLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -126,7 +151,7 @@ describe('Test for signup user', () => {
   });
   it('should return status code 400 for lastname not an alphabet and less than 2 or greater than 25', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(lastNameInvalidLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -135,9 +160,9 @@ describe('Test for signup user', () => {
         done();
       });
   });
-  it('should return status code 400 for email less than 8 or greater than', (done) => {
+  it('should return status code 400 for email less than 8 or greater than 50', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(emailInvalidLength)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -148,7 +173,7 @@ describe('Test for signup user', () => {
   });
   it('should return status code 400 for invalid email address format', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
+      .post(accountEndPoint)
       .send(emailInvalidFormat)
       .end((error, response) => {
         expect(response).to.have.status(400);
@@ -157,69 +182,38 @@ describe('Test for signup user', () => {
         done();
       });
   });
-  it('should return status code 400 for password empty', (done) => {
+  it('should return status code 400 for account type not current or savings', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
-      .send(passwordEmpty)
+      .post(accountEndPoint)
+      .send(InvalidAccType)
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('password field is required');
+        expect(response.body.error).to.equal('Account type must be either savings or current account');
         done();
       });
   });
-  it('should return status code 400 for password undefined', (done) => {
+  it('should return status code 400 for invalid account number', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
-      .send(passwordUndefined)
+      .patch(accountUpdateEndPoint)
+      .send(InvalidAccountNumber)
       .end((error, response) => {
+        console.log(response.status);
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('password field is required');
+        expect(response.body.error).to.equal('Account number must be 10 digit number');
         done();
       });
   });
-  it('should return status code 400 for password not a string', (done) => {
+  it('should return status code 400 for invalid account number', (done) => {
     chai.request(app)
-      .post(signUpEndPoint)
-      .send(passwordNotString)
+      .delete(accountDeleteEndPoint)
+      .send(InvalidAccountNumber)
       .end((error, response) => {
+        console.log(response.status);
         expect(response).to.have.status(400);
         expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('password should be a string');
-        done();
-      });
-  });
-  it('should return status code 400 for password not strong', (done) => {
-    chai.request(app)
-      .post(signUpEndPoint)
-      .send(passwordNotStrong)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Password must be minimum of 8 and maximum of 16 characters and must be with combination of special characters');
-        done();
-      });
-  });
-  it('should return status code 400 for password not the same', (done) => {
-    chai.request(app)
-      .post(signUpEndPoint)
-      .send(passwordNotSame)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Password must be the same');
-        done();
-      });
-  });
-  it('should return status code 400 for undefined confirm password', (done) => {
-    chai.request(app)
-      .post(signUpEndPoint)
-      .send(cpasswordUndefined)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body).to.be.a('object');
-        expect(response.body.error).to.equal('Confirm password field is required');
+        expect(response.body.error).to.equal('Account number must be 10 digit number');
         done();
       });
   });
