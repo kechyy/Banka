@@ -25,7 +25,7 @@ class accountController {
 
   static updateAccount(req, res) {
     const { accountNumber } = req.params;
-    const confirmAcctNumber = bankAccounts.filter(acct => acct.accountNumber === accountNumber)[0];
+    const confirmAcctNumber = bankAccounts.find(acct => acct.accountNumber === accountNumber);
     if (confirmAcctNumber) {
       if (confirmAcctNumber.status === 'active') {
         confirmAcctNumber.status = 'dormant';
