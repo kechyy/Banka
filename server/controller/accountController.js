@@ -1,3 +1,6 @@
+/* eslint-disable no-shadow */
+/* eslint-disable object-curly-newline */
+/* eslint-disable no-undef */
 import randomize from 'randomatic';
 import { bankAccounts } from '../data';
 
@@ -6,29 +9,13 @@ class accountController {
     req.body.accountNumber = randomize('0', 10);
     req.body.openingBalance = '0.00';
     req.body.status = 'dormant';
-    const {
-      accountNumber,
-      firstName,
-      lastName,
-      email,
-      type,
-      openingBalance,
-      status
-    } = req.body;
-    const accountInfo = {
-      accountNumber,
-      firstName,
-      lastName,
-      email,
-      type,
-      openingBalance,
-      status
-    };
-    const checkAcctExist = bankAccounts.filter(acct => acct.email === email)[0];
+    const { accountNumber, firstName, lastName, email, type, openingBalance, status } = req.body;
+    const accountInfo = { accountNumber, firstName, lastName, email, type, openingBalance, status };
+    const checkAcctExist = bankAccounts.find(acct => acct.email === email);
     if (checkAcctExist) {
       return res.status(409).json({
         status: '409',
-        error: 'Account already exist' 
+        error: 'Account with this email already exist'
       });
     }
     bankAccounts.push(accountInfo);

@@ -33,4 +33,14 @@ describe('Test for user signin controller', () => {
         done();
       });
   });
+  it('Create token for logged in user', (done) => {
+    chai.request(app)
+      .post(signInEndPoint)
+      .send(userConfirmed)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.an('object');
+        done();
+      });
+  });
 });

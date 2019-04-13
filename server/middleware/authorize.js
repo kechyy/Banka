@@ -21,9 +21,8 @@ class tokenGeneration {
         error: 'Please supply a token'
       });
     }
-    const tokenBearer = token.split(' ');
 
-    jwt.verify(tokenBearer[1], process.env.SECRETKEY, (err, userInfo) => {
+    jwt.verify(token, process.env.SECRETKEY, (err, userInfo) => {
       if (err) {
         return res.status(400).json({
           status: 400,
