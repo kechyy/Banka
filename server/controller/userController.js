@@ -1,7 +1,6 @@
 import { tokenGenerator } from '../middleware/authorize';
 import { userSignUp } from '../data';
 
-
 class UserController {
   static signUp(req, res) {
     const { firstName, lastName, email, password } = req.body;
