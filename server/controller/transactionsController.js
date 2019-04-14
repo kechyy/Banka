@@ -3,7 +3,6 @@ import { bankAccounts, accountTransactionsData } from '../data';
 
 class transactionsController {
   static debitCredit(req, res) {
-    // Decoded jwt payload
     const userId = req.userInfo.payload;
     const { accountNumber, type } = req.params;
     const { amount } = req.body;
@@ -41,7 +40,7 @@ class transactionsController {
         });
         findAcct.openingBalance = newAmount;
       }
-      return res.status(200).json({ stutus: '200', data: accountTransactionsData[accountTransactionsData.length - 1] });
+      return res.status(200).json({ stutus: '200', message: `Your ${type} transaction was successful` });
     }
   }
 }

@@ -8,11 +8,9 @@ import transactionsRouter from './server/routes/transactions';
 const app = express();
 
 dotenv.config();
-/**
- * const port = process.env.PORT || 3000;
- *
-*/
-const port = 3000;
+
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

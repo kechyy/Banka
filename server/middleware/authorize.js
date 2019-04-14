@@ -6,7 +6,7 @@ class tokenGeneration {
  * Generates a token
 */
   static tokenGenerator(payload) {
-    const token = jwt.sign({ payload }, process.env.SECRETKEY, { expiresIn: '24hrs' });
+    const token = jwt.sign({ payload }, process.env.SECRETKEY, { expiresIn: '24h' });
     return token;
   }
 
@@ -14,6 +14,7 @@ class tokenGeneration {
    * Verifies a token
   */
   static tokenVerifier(req, res, next) {
+    // const token = req.headers.authorization.replace(/^JWT\s/, '');
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -26,7 +27,7 @@ class tokenGeneration {
       if (err) {
         return res.status(400).json({
           status: 400,
-          error: 'Invalid token'
+          error: err
         });
       }
       req.userInfo = userInfo;

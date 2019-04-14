@@ -19,8 +19,8 @@ class accountController {
       });
     }
     bankAccounts.push(accountInfo);
-    const data = bankAccounts[bankAccounts.length - 1];
-    return res.status(201).json({ status: '201', data });
+    // const data = bankAccounts[bankAccounts.length - 1];
+    return res.status(201).json({ status: '201', message: 'Account created successfully' });
   }
 
   static updateAccount(req, res) {
@@ -30,7 +30,7 @@ class accountController {
       if (confirmAcctNumber.status === 'active') {
         confirmAcctNumber.status = 'dormant';
         const { status, accountNumber } = confirmAcctNumber;
-        return res.status(200).json({status: '200', data: { status, accountNumber } });
+        return res.status(200).json({ status: '200', data: { status, accountNumber } });
       }
       if (confirmAcctNumber.status === 'dormant') {
         confirmAcctNumber.status = 'active';
@@ -60,4 +60,4 @@ class accountController {
 
 const { CreateAccount, updateAccount, deleteAccount } = accountController;
 
-export  {CreateAccount, updateAccount, deleteAccount };
+export { CreateAccount, updateAccount, deleteAccount };
