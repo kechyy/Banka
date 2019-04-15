@@ -178,7 +178,8 @@ select.input-block{
 .sideBar > aside ul > li > a{
     color: #fff;
     font-size: 15px;
-}
+}sideBar
+
 .sideBarTitle{
     padding: 10px;
     background:#069;
@@ -293,7 +294,7 @@ ul{
     clear: both;
 }
 .sideBar span{
-    color: #F06;
+    color:#999;
     font-weight: bold;
 }
 .mainContent h2{
@@ -374,7 +375,7 @@ width:100%;
 .col-5-xs{flex-basis:40.65%;}.col-6-xs{flex-basis:48.98%;}.col-7-xs{flex-basis:57.31%;}.col-8-xs{flex-basis:65.64%;}
 .col-9-xs{flex-basis:73.97%;}.col-10-xs{flex-basis:82.3%;}.col-11-xs{flex-basis:90.63%;}.col-12-xs{flex-basis:98.96%;}
 
-@media screen and (min-width:992px) and (max-width:1999px) {
+@media screen and (min-width:992px){
     .col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}
     .col-5-lg{flex-basis:40.65%;}.col-6-lg{flex-basis:48.98%;}.col-7-lg{flex-basis:57.31%;}.col-8-lg{flex-basis:65.64%;}
     .col-9-lg{flex-basis:73.97%;}.col-10-lg{flex-basis:82.3%;}.col-11-lg{flex-basis:90.63%;}.col-12-lg{flex-basis:98.96%;}
@@ -466,6 +467,11 @@ width:100%;
 }
 
 /* responsive table */
+@media screen and (min-width:953px){
+    .responsiveTitle{
+        display:none;
+    }
+}
 @media screen and (max-width:952px){
     
     /* force table to not be like table anymore */
@@ -478,6 +484,11 @@ width:100%;
          position:absolute;
          top:-9999px;
          left:-9999px;
+     }
+     .responsiveTitle{
+         display: block;
+         background:#999    ;
+         color:#ccc;
      }
      tr{border:1px solid #ccc}
      
