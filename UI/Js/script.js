@@ -12,3 +12,13 @@ topMenu.addEventListener('click', (e) => {
   }
   dropDown.style.display = 'block';
 });
+const text = `Banka is a light-weight core banking 
+    application that powers banking operations like account creation, customer deposit and withdrawals. `;
+const titleTop = document.querySelector('.titleTop');
+let i = 0;
+let y = 1;
+const typeText = () => {
+  // eslint-disable-next-line no-plusplus
+  titleTop.textContent += text.slice(i++, y++);
+};
+setInterval(typeText, 50);

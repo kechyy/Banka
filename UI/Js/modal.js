@@ -45,7 +45,7 @@ const loginModal = `
         <label>Password</label>
         <div class="col-12-xs"><input type="password" class="input-block" minlength="6" required name="password" id="password" placeholder="Enter password"></div>
         <div class="col-12-xs"><button class="btn btn-pink btn-full"   onclick="login()">Sign in</button><br/><br/>
-        <a href="javascript:;" class="sign" onclick="signUps()">Don't have an account? <span  class="text-blue">[SIGN UP]</span></a>
+        <a href="javascript:;" class="sign" onclick="signUps()">Don't have an account? <span  class="btn-yellow-test">[SIGN UP]</span></a>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ const signUpModal = `
           <div class="col-12-xs"><input type="password" class="input-block" minlength="6" required name="password" id="password" placeholder="Enter password"></div>
           <div class="col-12-xs"><button class="btn btn-pink btn-full"   onclick="signUp()">Sign Up</button><br/>
           <br/>
-          <a href="javascript:;" class="sign"  onclick="logins()">Existing user <span class="text-blue"> [SIGN-IN]</span></a>
+          <a href="javascript:;" class="sign"  onclick="logins()">Existing user <span class="btn-yellow-test"> [SIGN-IN]</span></a>
           </div>
         </div>
       </div>

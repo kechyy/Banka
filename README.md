@@ -27,7 +27,174 @@ Below are the features of Banka Application at this point
 - Admin/Staff can activate or deactivate an account
 - Admin/Staff can delete a specific user accounts
 
+## LANDING PAGE
+<img src="./UI/images/landingPage.jpg"/>
+
 ## API Endpoints
+  <table border="1" cellpadding:"10" style="font-size:16px">
+    <thead style="background:#666;">
+      <tr>
+        <th>HTTP VERB</th>
+        <th>API ENDPOINT</th>
+        <th>FUNCTION</th>
+        <th>INPUT</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tbody>
+        <tr>
+          <td>POST</td>
+          <td>api/v1/auth/signup</td>
+          <td>signUp</td>
+          <td>{
+                firstName: string,<br/>
+                lastName: string<br/>
+                email: string,<br/>
+                password: string,<br/>
+                cpassword: string<br/>
+              }
+          </td>
+          <td>{<br/>
+            status: 201<br/>
+              data:{<br/>
+                firstName: 'Nkechi',<br/>
+                lastName: 'Ogbonna',<br/>
+                email: 'nkechi@gmail.com',<br/>
+                token: 'kljfkjlfdsakjlfds@#$%'<br/>
+              }<br/>
+            }
+          </td>
+        </tr>
+        <tr style="background:#ccc; color:#000">
+          <td>POST</td>
+          <td>api/v1/auth/signin</td>
+          <td>signIn</td>
+          <td>{<br/>
+                email: "string",<br/>
+                password: "string,<br/>
+                token: string<br/>
+              }
+          </td>
+          <td>{<br/>
+                status:200,<br/>
+                data{<br/>
+                  fistName: 'Nkechi',<br/>
+                  lastName: 'Ogbonna',<br/>
+                  token: '949494309ksdkjldfskjl@#$*'<br/>
+                }<br/>
+              }
+          </td>
+          <tr>
+            <td>POST</td>
+            <td>api/v1/account</td>
+            <td>CreateAccount</td>
+            <td>{
+              status: 201<br/>
+                data:{<br/>
+                  firstName: string,<br/>
+                  lastName: string,<br/>
+                  email: string<br/>
+                  type:  string<br/>
+                }<br/>
+              }</td>
+            <td>{
+              status: 201<br/>
+                data:{<br/>
+                  firstName: ''Rosemary,<br/>
+                  lastName: 'Emmanuel',<br/>
+                  type:     'current'<br/>
+                }<br/>
+              }<br/>
+            </td>
+          </tr>
+          <tr style="background:#ccc; color:#000">
+            <td>PATCH</td>
+            <td>api/v1/account:001123456</td>
+            <td>updateAccount</td> 
+            <td>{<br/>
+                  accountNumber: number<br/>
+                  status: integer,<br/>
+                }
+            </td>
+            <td>{<br/>
+              status: 200<br/>
+                data:{<br/>
+                  firstName: 'Nkechi',<br/>
+                  lastName: 'Ogbonna',<br/>
+                  accountNumber: 0011234566<br/>
+                  status: active,<br/>
+                }<br/>
+              }<br/>
+            </td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>api/v1/account/001123456</td>
+            <td>deleteAccount</td> 
+            <td>{<br/>
+                  accountNumber: number<br/>
+                }
+            </td>
+            <td>{<br/>
+              status: 200<br/>
+                data:{<br/>
+                  firstName: 'Nkechi',<br/>
+                  lastName: 'Ogbonna',<br/>
+                  accountNumber: 0011234566<br/>
+                  status: active,<br/>
+                }<br/>
+              }
+            </td>
+        </tr>
+        <tr style="background:#ccc; color:#000">
+            <td>POST</td>
+            <td>api/v1/transactions/001123456/credit</td>
+            <td>creditAccount</td> 
+            <td>{<br/>
+                  firstName: 'Grace',<br/>
+                  lastName: 'Emmanuel',<br/>
+                  accountNumber: 0012345678,<br/>
+                  amount: '20000',<br/>
+                }
+            </td>
+            <td>{<br/>
+              status: 201<br/>
+                {<br/>
+                  firstName: 'Grace',<br/>
+                  lastName: 'Emmanuel',<br/>
+                  accountNumber: 0012345678,<br/>
+                  amount: '20000',<br/>
+                  oldBalance: '80000',<br/>
+                  balance: '100000'<br/>
+                }<br/>
+              }
+            </td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>api/v1/transactions/001123456/credit</td>
+            <td>debitAccount</td> 
+            <td>{<br/>
+                  firstName: 'Grace',<br/>
+                  lastName: 'Emmanuel',<br/>
+                  accountNumber: 0012345678,<br/>
+                  amount: '2000'<br/>
+                }
+            </td>
+            <td>{<br/>
+              status: 201<br/>
+                {<br/>
+                  firstName: 'Grace',<br/>
+                  lastName: 'Emmanuel',<br/>
+                  accountNumber: 0012345678,<br/>
+                  amount: '20000',<br/>
+                  oldBalance: '100000'<br/>
+                  balance: '80000'<br/>
+                }<br/>
+              }
+            </td>
+        </tr>
+      </tbody>
+  </table>
 
 
 ## Installation

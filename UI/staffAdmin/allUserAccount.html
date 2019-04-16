@@ -7,15 +7,18 @@
   <title>Manage User Account List | Admin Staff :: Banka</title>
   <link href="../css/main.css" rel="stylesheet"/>
   <link href="../css/dialogBox.css" rel="stylesheet"/>
+  <link href="../css/font-awesome.css" rel="stylesheet"/>
 
 </head>
 <body>
     <header class="mainHeader">
         <div class="wrapper">
-            <div class="container">
+            <div class="container topHeader">
+                    
                 <div class="row" style="justify-content:flex-end">
+                    <button class="logout btn btn-pink">LOGOUT</button>&nbsp;&nbsp;&nbsp;
                     <ul class="topMenu">
-                        <li><a href="">Menu </a>
+                        <li><a href=""><span class="fa fa-list"></span> </a>
                             <ul class="dropDown">
                                 <li><br/><br/><a href="allUserAccount.html">View User Accounts</a></li>
                             </ul>
@@ -25,9 +28,10 @@
             </div>
         </div>
     </header>
-  <main>
+   
+    <main>
       <div class="wrapper">
-        <div class="left">
+        <div class="left mainSideBar">
             <div class="row">
                    
                 <div class="col-2-lg sideBar">
@@ -35,7 +39,7 @@
                         <div><img src="../images/logo.png" alt=""></div>
                         <div class="sideBarTitle">Admin Staff User</div>
                         <ul>
-                            <li><span>&gt; </span> <a href="allUserAccount.html">View User Accounts</a></li>
+                            <li><span class="fa fa-list"></span> <a href="allUserAccount.html">View User Accounts</a></li>
                         </ul>
                         </aside>
                     </div>
@@ -104,10 +108,12 @@
               </div>
           </div>
       </div>
-      
             
   </main>
   <div id="dialogContent"></div>
+  <footer class="footer">
+        <p>Copyright &copy Kecyy Banka Application all 2019 rights reserved</p>
+</footer>
   <script src="../Js/dialogBox.js"></script>
   <script src="../Js/adminValidation.js"></script>
   <script src="../Js/script.js"></script>

@@ -11,6 +11,9 @@ h1,h2,h3,h4,h5,h6{
     padding:0px;
     font-weight: normal;
 }
+table , tr, td{
+    padding:10px !important;
+}
 a{
     text-decoration: none;
     color:#333;
@@ -66,7 +69,7 @@ div{
     padding-top: 50px;
 }
 .pull-right{
-    float: right
+    float: right;
 } 
 /* Button Style  */
 .btn{
@@ -150,6 +153,28 @@ select.input-block{
 	clear:both;
 }
 /*Custom Style */
+.mainHeader{
+    position:fixed;
+    width: 100%;
+    top:0;
+    left:0;
+    right:0;
+    z-index:88888;
+}
+.logo{
+    width:auto;
+    height:70px;
+    margin-top:5px;
+    margin-bottom:10px;
+}
+.mainSideBar{
+    position:fixed !important;
+    height:hv;
+    top:0;
+    left:0;
+    right:0;
+    z-index:99999;
+}
 .mainHeader .wrapper{
     min-height:50px;
     background-color: rgb(108, 116, 202);
@@ -178,20 +203,20 @@ select.input-block{
 .sideBar > aside ul > li > a{
     color: #fff;
     font-size: 15px;
-}sideBar
+}
 
 .sideBarTitle{
-    padding: 10px;
-    background:#069;
+    padding: 15px;
+    background:#069 !important;
     color: #fff;
-    font-size: 18px;
+    font-size: 19px;
 }
 /* MainContent STyle */
 .mainContent aside{
     background: #fff;
     min-height: 300px;
     box-shadow: -3px 3px 13px 0px #999;
-    padding:20px 15px;  
+    padding:20px 15px;
    
 }
 .mainContent h2{
@@ -277,6 +302,33 @@ tr:nth-child(even){
 .right{
     width:76%;
     float: right;
+    margin-left:270px; 
+    margin-top:60px;
+    margin-bottom:100px;
+}
+.right2{
+    width:76%; 
+    margin-top:60px;
+    margin-bottom:300px;
+    position: absolute;
+    z-index:0;
+    left:0;
+    right:0;
+    
+    
+}
+.footer{
+    padding:1px;
+    background:rgb(6, 39, 66); 
+    color:#fff;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align:Center;
+    z-index:777777;
+    margin-top:100px;
+    
 }
 ul{
     padding: 0px;
@@ -284,7 +336,7 @@ ul{
     list-style:none;
 }
 .acctPhoto img{
-    width: 100%;
+    width: 280px;
     height: auto;
 }
 .userEditProfileBtn{
@@ -350,7 +402,15 @@ ul{
 color:#fff;
 padding:5px;
 width:100%;
-
+}
+.topHeader{
+    margin-left:240px;
+}
+.topHeader .logout{
+    font-weight:bold;
+    font-size:16px;
+    background:none;
+    border: 1px solid #fff;
 }
 
 
@@ -410,7 +470,11 @@ width:100%;
   
    .right{
     width:70%;
-    margin-left:30px;
+    margin-left:300px;
+    position:absolute;
+    left:0;
+    right:0;
+    
    }
    /* Take up free space left by any column */
    [class*="col-"]{
@@ -421,16 +485,34 @@ width:100%;
 
 @media screen and (min-width:950px) and (max-width:1090px) {
     .right{
-     margin-left:50px;
+     margin-right:50px;
+     position: absolute;
+     right:0;
     }
  }
- @media screen and (min-width:854px) and (max-width:952px) {
+ @media screen and (min-width:894px) and (max-width:952px) {
      
     .right{
-     margin-left:70px;
+     margin-right:50px;
+     position: absolute;
+     right:0;
+    }
+    .acctPhoto img{
+        width:100%;
     }
  }
- @media screen and (min-width:660px) and (max-width:844px) {
+ @media screen and (min-width:661px) and (max-width:951px) {
+    .right{
+     position: absolute;
+     right:0;
+     width:60%;
+     margin-right:50px;
+    }
+    .acctPhoto img{
+        width: 100% !important;
+    } 
+ }
+ @media screen and (min-width:660px) and (max-width:852px) {
     .right{
      margin-left:120px;
      width:60%;
@@ -438,14 +520,29 @@ width:100%;
  }
  @media screen and (max-width:660px) {
      .right{
-        width:90%;
+        width:80%;
+        position: absolute;
+        margin-left:50px;
+
      }
     .left{
      display:none;
      
     }
+    .logout{
+        display:none;
+    }
+    .acctPhoto img{
+        width: 100%;
+    } 
     .topMenu{
         display:block;
+        margin-right:20px;
+    }
+    .topMenu li{
+        display:block;
+        clear:both;
+        font-weight:bold;
     }
     
  }
@@ -455,6 +552,14 @@ width:100%;
     }
     .topMenu{
         display: none
+    }
+}
+@media screen and (max-width:800px) {
+    .acctPhoto{
+        flex-basis: 100%;
+    } 
+    .acctDetails{
+        flex-basis:100%;
     }
 }
  @media screen and (max-width:844px) {
@@ -468,16 +573,18 @@ width:100%;
 
 /* responsive table */
 @media screen and (min-width:953px){
+    
     .responsiveTitle{
         display:none;
     }
 }
-@media screen and (max-width:952px){
+@media screen and (max-width:854px){
     
     /* force table to not be like table anymore */
     table, thead, tbody, th, td, tr{
         display: block; 
      }
+    
 
      /* Hide table headers (but not display:none, for accessibility) */
      thead tr{
@@ -508,6 +615,7 @@ width:100%;
          padding-right:10px;
          white-space:nowrap
      }
+     
 }
 
 

@@ -55,8 +55,8 @@ const customConfirm = new function() {
 const dialogContent = `
 <div id="dialogCont" class="dlg-container">
     <div id="dlg-header" class="dlg-header"></div>
-    <div id="dlgBody" class="dlg-body">This is our custom alert dialog. Pres 'Ok' to close this</div>
+    <div id="dlgBody" class="dlg-body"></div>
     <div class="dlg-footer">
-        <a class="btn btn-gray" onclick="customNotify.okay()">Ok</a>
+        <a class="btn btn-blue" onclick="customNotify.okay()">Ok</a>
     </div>
 </div>`;
