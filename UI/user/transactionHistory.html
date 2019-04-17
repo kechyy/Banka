@@ -6,40 +6,43 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Main Page :: Banka</title>
   <link href="../css/main.css" rel="stylesheet"/>
+  <link href="../css/font-awesome.css" rel="stylesheet"/>
 </head>
 
 <body>
     <header class="mainHeader">
-        <div class="wrapper">
-            <div class="container">
-                <div class="row" style="justify-content:flex-end">
-                    <ul class="topMenu">
-                        <li><a href="">Menu </a>
-                            <ul class="dropDown">
-                                <li><a href="dashboard.html">Dashboard</a></li>
-                                <li><a href="userProfile.html">Profile</a></li>
-                                <li><a href="createBankAccount.html">Create Bank Account</a></li>
-                                <li><a href="transactionHistory.html">Transaction History</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="wrapper">
+                <div class="container topHeader">
+                        
+                    <div class="row" style="justify-content:flex-end">
+                        <button class="logout btn btn-pink">LOGOUT</button>
+                        <ul class="topMenu">
+                            <li><a href=""><span class="fa fa-list"></span> </a>
+                                <ul class="dropDown">
+                                    <li><a href="dashboard.html">Dashboard</a></li>
+                                    <li><a href="userProfile.html">Profile</a></li>
+                                    <li><a href="createBankAccount.html">Create Bank Account</a></li>
+                                    <li><a href="transactionHistory.html">Transaction History</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
     <main>
       <div class="wrapper">
-          <div class="left">
+          <div class="left mainSideBar">
                 <div class="row">
                         <div class="col-2-lg sideBar">
                             <aside >
                                 <div><img src="../images/logo.png" alt=""></div>
                                 <div class="sideBarTitle">Client User</div>
                                 <ul>
-                                    <li><span>&gt; </span> <a href="dashboard.html">Dashboard</a></li>
-                                    <li><span>&gt; </span> <a href="userProfile.html">Profile</a></li>
-                                    <li><span>&gt; </span> <a href="createBankAccount.html">Create Bank Account</a></li>
-                                    <li><span>&gt; </span> <a href="transactionHistory.html">Transaction History</a></li>
+                                    <li> <a href="dashboard.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                                    <li> <a href="userProfile.html"><span class="fa fa-user"></span> Profile</a></li>
+                                    <li> <a href="createBankAccount.html"><span class="fa fa-pencil"></span> Create Bank Account</a></li>
+                                    <li> <a href="transactionHistory.html"><span class="fa fa-list"></span> Transaction History</a></li>
                                 </ul>
                             </aside>
                         </div>
@@ -58,7 +61,7 @@
                         </header>
                         <aside class="rightSideBar">
                             <div class="row">
-                                <div class="col-12-md table">
+                                <div class="col-12-xs table">
                                     <table cellpadding="0" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -73,32 +76,36 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td class="responsiveTitle">Date</td>
                                                 <td>2019-04-9</td>
+                                                <td class="responsiveTitle">Description</td>
                                                 <td>Previous Balance</td>
+                                                <td class="responsiveTitle">Transaction ID</td>
                                                 <td>#67FRQ5y</td>
+                                                <td class="responsiveTitle">Withdrawals</td>
                                                 <td>200.00</td>
+                                                <td class="responsiveTitle">Deposits</td>
                                                 <td>687.81</td>
+                                                <td class="responsiveTitle">Balance</td>
                                                 <td>0.55</td>
                                                 <td><button class="btn btn-blue">View</button></td>
                                             </tr>
                                             <tr>
+                                                <td class="responsiveTitle">Date</td>
                                                 <td>2019-04-9</td>
+                                                <td class="responsiveTitle">Description</td>
                                                 <td>Previous Balance</td>
+                                                <td class="responsiveTitle">Transaction ID</td>
                                                 <td>#67FRQ5y</td>
+                                                <td class="responsiveTitle">Withdrawals</td>
                                                 <td>200.00</td>
+                                                <td class="responsiveTitle">Deposits</td>
                                                 <td>687.81</td>
+                                                <td class="responsiveTitle">Balance</td>
                                                 <td>0.55</td>
                                                 <td><button class="btn btn-blue">View</button></td>
                                             </tr>
-                                            <tr>
-                                                <td>2019-04-9</td>
-                                                <td>Previous Balance</td>
-                                                <td>#67FRQ5y</td>
-                                                <td>200.00</td>
-                                                <td>687.81</td>
-                                                <td>0.55</td>
-                                                <td><button class="btn btn-blue">View</button></td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table> 
                                 </div>  

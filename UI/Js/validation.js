@@ -1,5 +1,4 @@
 // This function Handles login form  validation
-'use strict'
 class validateUser{
     constructor(){
         this.email = document.getElementById('email');

@@ -114,8 +114,12 @@ btn-md{
 	background:-webkit-linear-gradient(top,#03C, #069,#069);
 	color:#fff;
 }
+.btn-yellow-test{
+    color:rgb(216, 226, 128);
+}
+
 .input-block{
-    width:100%;
+    width:98%;
     height:40px;
     margin-bottom:20px;
 }
@@ -137,7 +141,8 @@ btn-md{
 .sign{
     color: #fff;
     font-size: 18px;
-    float:right;
+    display:block;
+    text-align:center;
     font-style: italic;
 }
 .text-blue{
@@ -353,5 +358,9 @@ color:#fff;
     .icon{
         display: none;
     }
+}
+.markdown table thead th tr t{
+    padding:10px;
+    border:1px solid #666;
 }
 

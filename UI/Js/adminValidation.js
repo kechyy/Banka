@@ -1,5 +1,4 @@
 
-'use strict'
 // This class manages admin staff button response 
 class AdminActionButton{
     actionButton(){

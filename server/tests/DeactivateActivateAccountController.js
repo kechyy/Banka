@@ -4,8 +4,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { accountEmailExist, accountCreated } from './mockObjects/accountControllerObjectData';
 
+import { accountEmailExist, accountCreated } from './mockObjects/accountControllerObjectData';
 import app from '../../app';
 
 const { expect } = chai;
@@ -15,7 +15,8 @@ const accountUpdateEndPoint = '/api/v1/account/0004456511';
 const accountErrorUpdateEndPoint = '/api/v1/account/0004456222';
 let generateToken;
 
-describe('Create token for logged in user', () => {
+
+describe('Create token for signup user', () => {
   it('should return token for successful login', (done) => {
     chai.request(app)
       .post(signUpEndPoint)

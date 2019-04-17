@@ -5,7 +5,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { accountEmailExist, accountCreated } from './mockObjects/accountControllerObjectData';
-
 import app from '../../app';
 
 const { expect } = chai;
@@ -13,8 +12,8 @@ chai.use(chaiHttp);
 const accountEndPoint = '/api/v1/account';
 const signUpEndPoint = '/api/v1/auth/signup';
 let generateToken;
+describe('Create token for signup user', () => {
 
-describe('Create token for logged in user', () => {
   it('should return token for successful login', (done) => {
     chai.request(app)
       .post(signUpEndPoint)
@@ -27,7 +26,7 @@ describe('Create token for logged in user', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(201);
-        generateToken = response.body.data.token;
+        generateToken = response.body.token;
         done();
       });
   });

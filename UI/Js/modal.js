@@ -1,29 +1,37 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+
 // Get modal element
 const modal = document.querySelector('.modal');
 
-'use strict'
 class modalAction {
-    static logins(){
-      modal.innerHTML = loginModal;
-      modal.style.display = "block";
-        
-    }
-    static signUps(){
-      modal.innerHTML = signUpModal;
-      modal.style.display = "block";
-    }
-    static modalCloses(){
-        modal.style.display = "";
-    }
-    
+  static logins() {
+    modal.innerHTML = loginModal;
+    modal.style.display = 'block';
+  }
 
+  static signUps() {
+    modal.innerHTML = signUpModal;
+    modal.style.display = 'block';
+  }
+
+  static modalCloses() {
+    modal.style.display = '';
+  }
 }
 
 
-const {logins, signUps, modalCloses} = modalAction;
+const {
+  logins, signUps, modalCloses
+} = modalAction;
 
+const signIn = document.querySelector('#sign_in');
+signIn.addEventListener('click', () => {
+  logins();
+});
 
- const loginModal = `
+const loginModal = `
 <div class=" modal-content">
     <header>
       <a href="javascript:;" title="Close" class="modal-close" onclick="modalCloses()">&times;</a>
@@ -37,7 +45,7 @@ const {logins, signUps, modalCloses} = modalAction;
         <label>Password</label>
         <div class="col-12-xs"><input type="password" class="input-block" minlength="6" required name="password" id="password" placeholder="Enter password"></div>
         <div class="col-12-xs"><button class="btn btn-pink btn-full"   onclick="login()">Sign in</button><br/><br/>
-        <a href="javascript:;" class="sign" onclick="signUps()">Don't have an account? <span  class="text-blue">[SIGN UP]</span></a>
+        <a href="javascript:;" class="sign" onclick="signUps()">Don't have an account? <span  class="btn-yellow-test">[SIGN UP]</span></a>
         </div>
       </div>
     </div>
@@ -63,18 +71,16 @@ const signUpModal = `
           <div class="col-12-xs"><input type="password" class="input-block" minlength="6" required name="password" id="password" placeholder="Enter password"></div>
           <div class="col-12-xs"><button class="btn btn-pink btn-full"   onclick="signUp()">Sign Up</button><br/>
           <br/>
-          <a href="javascript:;" class="sign"  onclick="logins()">Existing user <span class="text-blue"> [SIGN-IN]</span></a>
+          <a href="javascript:;" class="sign"  onclick="logins()">Existing user <span class="btn-yellow-test"> [SIGN-IN]</span></a>
           </div>
         </div>
       </div>
   </div>
 
-`
-
+`;
 // modal2.addEventListener('click',modalCloses2,true)
 // function modalCloses2(event){
 //   event.stopPropagation()
 //   console.log("Parent clicked");
 // modal.style.display = "";
 //   }
- 
