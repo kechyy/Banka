@@ -25,7 +25,7 @@ describe('Create token for signup user', () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(201);
-        generateToken = response.body.token;
+        generateToken = response.body.data.token;
         done();
       });
   });

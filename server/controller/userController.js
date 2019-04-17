@@ -19,7 +19,9 @@ class UserController {
       });
     }
     userSignUp.push(userInfo);
-    return res.status(201).json({ status: '201', token });
+    userSignUp[userSignUp.length - 1].token = token;
+    const data = userSignUp[userSignUp.length - 1];
+    return res.status(201).json({ status: '201', data });
   }
 
   static signIn(req, res) {
@@ -32,8 +34,9 @@ class UserController {
         error: 'Please enter a valid username and password'
       });
     }
-    const token = tokenGenerator(confirmUser.id);
-    return res.status(200).json({ status: '200', token });
+    confirmUser.token = tokenGenerator(confirmUser.id);
+    const data = confirmUser;
+    return res.status(200).json({ status: '200', data });
   }
 }
 
