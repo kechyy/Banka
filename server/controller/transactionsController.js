@@ -40,7 +40,7 @@ class transactionsController {
         });
         findAcct.openingBalance = newAmount;
       }
-      return res.status(200).json({ stutus: '200', message: `Your ${type} transaction was successful` });
+      return res.status(200).json({ stutus: '200', data: accountTransactionsData[accountTransactionsData.length - 1] });
     }
   }
 }
