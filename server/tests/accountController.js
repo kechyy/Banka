@@ -13,6 +13,7 @@ const accountEndPoint = '/api/v1/account';
 const signUpEndPoint = '/api/v1/auth/signup';
 let generateToken;
 describe('Create token for signup user', () => {
+
   it('should return token for successful login', (done) => {
     chai.request(app)
       .post(signUpEndPoint)
