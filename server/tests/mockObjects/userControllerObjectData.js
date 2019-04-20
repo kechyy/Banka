@@ -2,7 +2,7 @@ const userExist = {
   id: 1,
   firstName: 'Rosemary',
   lastName: 'Emmanuel',
-  email: 'rossy@gmail.com',
+  email: 'james@gmail.com',
   password: 'rosemary123&%',
   cpassword: 'rosemary123&%'
 };

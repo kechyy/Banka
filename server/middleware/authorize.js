@@ -38,3 +38,4 @@ class tokenGeneration {
 const { tokenGenerator, tokenVerifier } = tokenGeneration;
 
 export { tokenGenerator, tokenVerifier };
+export default tokenGeneration;

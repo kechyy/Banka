@@ -19,8 +19,8 @@ class accountController {
       });
     }
     bankAccounts.push(accountInfo);
-    // const data = bankAccounts[bankAccounts.length - 1];
-    return res.status(201).json({ status: '201', message: 'Account created successfully' });
+    const data = bankAccounts[bankAccounts.length - 1];
+    return res.status(201).json({ status: '201', data });
   }
 
   static updateAccount(req, res) {

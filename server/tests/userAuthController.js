@@ -11,7 +11,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const signUpEndPoint = '/api/v1/auth/signup';
 
-describe('Test for user signup controller', () => {
+describe.only('Test for user signup controller', () => {
   it('should return status code 409 for user signup data exist', (done) => {
     chai.request(app)
       .post(signUpEndPoint)

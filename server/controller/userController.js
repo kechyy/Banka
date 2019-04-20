@@ -1,27 +1,28 @@
+import bcrypt from 'bcrypt';
 import { tokenGenerator } from '../middleware/authorize';
 import { userSignUp } from '../data';
+import pool from '../db/connection';
+import { createUser } from '../db/queryTables';
+
+// pool.connect();
+
 
 class UserController {
-  static signUp(req, res) {
+  static async signUp(req, res) {
     const {
       firstName, lastName, email, password
     } = req.body;
-    const id = userSignUp[userSignUp.length - 1].id + 1;
-    const token = tokenGenerator(id);
-    const userInfo = {
-      id, firstName, lastName, email, password
-    };
-    const checkUserExist = userSignUp.find(user => user.email === email);
-    if (checkUserExist) {
-      return res.status(409).json({
-        status: 409,
-        error: 'User already exist',
-      });
+    try {
+      const query = await pool.query(createUser, [firstName, lastName, email, bcrypt.hashSync(password, 10)]);
+      const token = tokenGenerator(query.rows[0].id, query.rows[0].firstName, query.rows[0].usertype);
+      query.rows[0].token = token;
+      delete query.rows[0].password;
+      delete query.rows[0].usertype;
+      delete query.rows[0].isadmin;
+      return res.status(201).json({ data: query.rows[0] });
+    } catch (err) {
+      return res.json({ error: err.message });
     }
-    userSignUp.push(userInfo);
-    userSignUp[userSignUp.length - 1].token = token;
-    const data = userSignUp[userSignUp.length - 1];
-    return res.status(201).json({ status: '201', data });
   }
 
   static signIn(req, res) {

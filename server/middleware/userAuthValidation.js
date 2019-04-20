@@ -1,6 +1,7 @@
+import pool from '../db/connection';
 /* eslint-disable object-curly-newline */
 class UserAuthValidation {
-  static signUpValidate(req, res, next) {
+  static async signUpValidate(req, res, next) {
     // eslint-disable-next-line no-useless-escape
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     let { firstName, lastName, email, password, cpassword } = req.body;
@@ -111,6 +112,13 @@ class UserAuthValidation {
         error: 'Password must be the same'
       });
     }
+    const checkUserExist = await pool.query('SELECT email FROM users WHERE email=$1', [email]);
+    if (checkUserExist.rowCount === 1) {
+      return res.status(409).json({
+        status: 409,
+        error: 'User already exist',
+      });
+    }
     req.body.firstName = firstName;
     req.body.lastName = lastName;
     req.body.email = email;
@@ -148,6 +156,7 @@ class UserAuthValidation {
         error: 'Password must be minimum of 8 and maximum of 16 characters and must be with combination of special characters'
       });
     }
+
     req.body.email = email;
     req.body.password = password;
     next();

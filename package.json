@@ -4,10 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "nyc mocha ./server/tests/*.js --require @babel/register --exit --timeout=5000",
+    "test": "npm run initializeTables && nyc mocha ./server/tests/*.js --require @babel/register --exit --timeout=5000",
     "start:dev": "nodemon --exec babel-node -- app.js",
     "start": "babel-node -- app.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "initializeTables": "babel-node -- ./server/db/initializeTables"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
@@ -30,6 +32,7 @@
     "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0",
+    "pg": "^7.10.0",
     "randomatic": "^3.1.1"
   },
   "devDependencies": {

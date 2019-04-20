@@ -15,18 +15,16 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const signUpEndPoint = '/api/v1/auth/signup';
 
-describe('Test for signup user', () => {
-  it('should return status code 400 for first name empty', (done) => {
-    chai.request(app)
+describe.only('Test for signup user', () => {
+  it('should return status code 400 for first name empty', async () => {
+    const response = await chai.request(app)
       .post(signUpEndPoint)
-      .send(firstNameEmpty)
-      .end((error, response) => {
-        expect(response).to.have.status(400);
-        expect(response.body).to.be.an('object');
-        expect(response.body.error).to.equal('First name field is required');
-        done();
-      });
+      .send(firstNameEmpty);
+      expect(response).to.have.status(400);
+      expect(response.body).to.be.an('object');
+      expect(response.body.error).to.equal('First name field is required');
   });
+ 
   it('should return status code 400 for undefined first name', (done) => {
     chai.request(app)
       .post(signUpEndPoint)

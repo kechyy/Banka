@@ -1,5 +1,15 @@
+/* eslint-disable indent */
+/* eslint-disable import/order */
+/* eslint-disable no-undef */
 import randomize from 'randomatic';
+import { Pool } from 'pg';
 import { bankAccounts, accountTransactionsData } from '../data';
+
+
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+pool.on('connect', () => {
+  console.log('connected to the db');
+});
 
 class transactionsController {
   static debitCredit(req, res) {
@@ -43,8 +53,19 @@ class transactionsController {
       return res.status(200).json({ stutus: '200', data: accountTransactionsData[accountTransactionsData.length - 1] });
     }
   }
+
+  static async transactionHistory(req, res) {
+    const { id } = req.params;
+    try {
+      const transHistory = await pool.query('SELECT * FROM users');
+      return res.json(transHistory.rows[0]);
+      
+    } catch (err) {
+      return res.json({ message: 'connection error' });
+    }
+  }
 }
 
-const { debitCredit } = transactionsController;
+const { debitCredit, transactionHistory } = transactionsController;
 
-export default debitCredit;
+export { debitCredit, transactionHistory };
