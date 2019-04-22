@@ -2,7 +2,8 @@ import bcrypt from 'bcrypt';
 import pool from './connection';
 import { createSuperAdmin } from './queryTables';
 
-const createTables = `DROP TABLE IF EXISTS users;
+const createTables = `
+DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
   id SERIAL NOT NULL PRIMARY KEY,
   firstname VARCHAR(50) NOT NULL ,
@@ -11,6 +12,17 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   usertype VARCHAR(8) NOT NULL DEFAULT('client'),
   isadmin BOOL NOT NULL DEFAULT('false')
+);
+
+DROP TABLE IF EXISTS account CASCADE;
+CREATE TABLE account (
+  id SERIAL NOT NULL PRIMARY KEY,
+  account_number BIGINT NOT NULL UNIQUE ,
+  created_on TIMESTAMP,
+  user_id INT NOT NULL REFERENCES users (id),
+  account_type VARCHAR(8) NOT NULL,
+  account_status VARCHAR(8) NOT NULL,
+  balance NUMERIC(6,2) NOT NULL
 );
 `;
 
@@ -34,7 +46,7 @@ const adminInfo = [
 ];
 const superAdmin = async () => {
   try {
-    await pool.query(createSuperAdmin, adminInfo);
+    const admin = await pool.query(createSuperAdmin, adminInfo);
   } catch (err) {
     console.log({ err: err.message });
   }
@@ -42,4 +54,4 @@ const superAdmin = async () => {
 
 initializeTable()
   .then(() => superAdmin())
-.catch(err => console.log(err));
+  .catch(err => console.log(err));
