@@ -6,7 +6,7 @@ class tokenGeneration {
  * Generates a token
 */
   static tokenGenerator(payload) {
-    const token = jwt.sign({ payload }, process.env.SECRETKEY, { expiresIn: '24h' });
+    const token = jwt.sign(payload, process.env.SECRETKEY, { expiresIn: '24h' });
     return token;
   }
 
@@ -38,4 +38,3 @@ class tokenGeneration {
 const { tokenGenerator, tokenVerifier } = tokenGeneration;
 
 export { tokenGenerator, tokenVerifier };
-export default tokenGeneration;

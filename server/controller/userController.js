@@ -1,8 +1,7 @@
-import bcrypt from 'bcrypt';
+import bcrypt, { compareSync } from 'bcrypt';
 import { tokenGenerator } from '../middleware/authorize';
-import { userSignUp } from '../data';
 import pool from '../db/connection';
-import { createUser } from '../db/queryTables';
+import { createUser, getUser, getUsers } from '../db/queryTables';
 
 // pool.connect();
 
@@ -14,7 +13,7 @@ class UserController {
     } = req.body;
     try {
       const query = await pool.query(createUser, [firstName, lastName, email, bcrypt.hashSync(password, 10)]);
-      const token = tokenGenerator(query.rows[0].id, query.rows[0].firstName, query.rows[0].usertype);
+      const token = tokenGenerator({ id: query.rows[0].id, firstName: query.rows[0].firstname, email: query.rows[0].email });
       query.rows[0].token = token;
       delete query.rows[0].password;
       delete query.rows[0].usertype;
@@ -25,19 +24,25 @@ class UserController {
     }
   }
 
-  static signIn(req, res) {
+  static async signIn(req, res) {
     const { email, password } = req.body;
-    const confirmUser = userSignUp.find(loginUser => loginUser.email === email
-      && loginUser.password === password);
-    if (!confirmUser) {
-      return res.status(404).json({
-        status: '404',
-        error: 'Please enter a valid username and password'
-      });
+    try {
+      const confirmUser = await pool.query(getUser, [email]);
+      const comparePassword = compareSync(password, confirmUser.rows[0].password);
+      if (!comparePassword) {
+        return res.status(400).json({
+          status: '404',
+          error: 'Please enter a valid username and password'
+        });
+      }
+      const usersInfo = await pool.query(getUsers, [confirmUser.rows[0].email]);
+      const tokenPayloads = { id: usersInfo.rows[0].id, firstName: usersInfo.rows[0].firstname, email: usersInfo.rows[0].email };
+      usersInfo.rows[0].token = tokenGenerator(tokenPayloads);
+      const data = usersInfo.rows[0];
+      return res.status(200).json({ status: '200', data });
+    } catch (err) {
+      res.json({ error: err.message });
     }
-    confirmUser.token = tokenGenerator(confirmUser.id);
-    const data = confirmUser;
-    return res.status(200).json({ status: '200', data });
   }
 }
 
