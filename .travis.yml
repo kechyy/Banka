@@ -1,7 +1,14 @@
 language: node_js
 node_js:
 - "stable"
+dist: trusty
+addons:
+    postgresql: "10"
+services:
+  - "postgresql"
 before_script:
+- psql -c "create user nkcechi with password 'admin123'" -U postgres
+- psql -c 'create database banka;' -U postgres 
 - npm install
 script:
 - npm test

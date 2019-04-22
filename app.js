@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import '@babel/polyfill';
 import dotenv from 'dotenv';
 import userRoutes from './server/routes/userAuth';
 import accountRoutes from './server/routes/account';
@@ -9,7 +10,7 @@ const app = express();
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3200;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
