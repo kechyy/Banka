@@ -8,13 +8,7 @@ const accountEmailExist = {
   status: 'dormant'
 };
 const accountCreated = {
-  accountNumber: '0004456511',
-  firstName: 'Nkechi',
-  lastName: 'Ogbonna',
-  email: 'nkechi@gmail.com',
-  type: 'current',
-  openingBalance: 0.00,
-  status: 'dormant'
+  type: 'current'
 };
 
 export { accountEmailExist, accountCreated };
