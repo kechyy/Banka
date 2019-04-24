@@ -1,26 +1,33 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-shadow */
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 import randomize from 'randomatic';
+import { createAccount } from '../db/queryTables';
+import pool from '../db/connection';
 import { bankAccounts } from '../data';
 
 class accountController {
-  static CreateAccount(req, res) {
-    req.body.accountNumber = randomize('0', 10);
-    req.body.openingBalance = '0.00';
-    req.body.status = 'dormant';
-    const { accountNumber, firstName, lastName, email, type, openingBalance, status } = req.body;
-    const accountInfo = { accountNumber, firstName, lastName, email, type, openingBalance, status };
-    const checkAcctExist = bankAccounts.find(acct => acct.email === email);
-    if (checkAcctExist) {
-      return res.status(409).json({
-        status: '409',
-        error: 'Account with this email already exist'
-      });
+  static async CreateAccount(req, res) {
+    const accountNumber = randomize('0', 10);
+    const balance = '0.00';
+    const accountStatus = 'dormant';
+    const { id, email } = req.userInfo;
+    const { type } = req.body;
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+    const createdOn = `${date}  ${time}`;
+    const accountInfo = [accountNumber, createdOn, id, type, accountStatus, balance];
+    try {
+      const newAccount = await pool.query(createAccount, accountInfo);
+      delete newAccount.rows[0].account_number;
+      delete newAccount.rows[0].user_id;
+      delete newAccount.rows[0].account_status;
+      return res.status(201).json({ status: '201', data: newAccount.rows[0]});
+    } catch (err) {
+      res.json({ error: err.message });
     }
-    bankAccounts.push(accountInfo);
-    const data = bankAccounts[bankAccounts.length - 1];
-    return res.status(201).json({ status: '201', data });
   }
 
   static updateAccount(req, res) {

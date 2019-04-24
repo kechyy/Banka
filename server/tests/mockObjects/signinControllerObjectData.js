@@ -1,18 +1,10 @@
 const confirmUser = {
-  id: 1,
-  firstName: 'Martins',
-  lastName: 'Samuel',
   email: 'martin@gmail.com',
-  password: 'martin123&%',
-  cpassword: 'martin123&%'
+  password: 'james123#@'
 };
 const userConfirmed = {
-  id: 1,
-  firstName: 'Rosemary',
-  lastName: 'Emmanuel',
-  email: 'rossy@gmail.com',
-  password: 'rosemary123&%',
-  cpassword: 'rosemary123&%'
+  email: 'james2@gmail.com',
+  password: 'james123#@'
 };
 
 export { confirmUser, userConfirmed };

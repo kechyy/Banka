@@ -2,55 +2,56 @@
 /* eslint-disable import/order */
 /* eslint-disable no-undef */
 import randomize from 'randomatic';
-import { Pool } from 'pg';
-import { bankAccounts, accountTransactionsData } from '../data';
-
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
+import pool from '../db/connection';
+import { transactions, updateAccount } from '../db/queryTables';
+import { computeNewBalance } from '../middleware/customFunction';
 
 class transactionsController {
-  static debitCredit(req, res) {
-    const userId = req.userInfo.payload;
+  static async debitCredit(req, res) {
+    const { id } = req.userInfo;
     const { accountNumber, type } = req.params;
     const { amount } = req.body;
-    const findAcct = bankAccounts.find(acct => acct.accountNumber === accountNumber);
-    if (findAcct !== undefined) {
-      if (type === 'debit') {
-        if (amount > findAcct.openingBalance) {
-          return res.status(400).json({
-            status: 400,
-            error: `Insufficient account balance: [${findAcct.openingBalance}]`
-          });
-        }
-        const newAmount = parseFloat(findAcct.openingBalance) - parseFloat(amount);
-        accountTransactionsData.push({
-          transactionId: randomize('a0', 20),
-          accountNumber,
-          amount,
-          cashier: userId,
-          transactionType: type,
-          oldBalance: findAcct.openingBalance,
-          accountBalance: newAmount
+    const payeeName = 'Dare'; const payeePhone = '1234567'; const payeeAccountNumber = 123447;
+  const transactionType2 = 'cashout';
+    try {
+      const confirmUser = await pool.query('SELECT * FROM users WHERE id=$1', [id]);
+      
+      // if (confirmUser.rows[0].usertype !== 'cashier') {
+      //   return res.status(403).json({ status: '403', error: 'Unauthorized User' });
+      // }
+      const findAcct = await pool.query('SELECT * FROM account WHERE account_number=$1', [accountNumber]);
+  
+      if (findAcct.rowCount === 0) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Acount number does not exist '
         });
-        findAcct.openingBalance = newAmount;
       }
-      if (type === 'credit') {
-        const newAmount = parseFloat(findAcct.openingBalance) + parseFloat(amount);
-        accountTransactionsData.push({
-          transactionId: randomize('a0', 20),
-          accountNumber,
-          amount,
-          cashier: userId,
-          transactionType: type,
-          oldBalance: findAcct.openingBalance,
-          accountBalance: newAmount
+      if (findAcct.rowCount === 1) {
+        if (type === 'debit') {
+          if (amount > findAcct.rows[0].balance) {
+            return res.status(400).json({
+              status: 400,
+              error: `Insufficient account balance: [${findAcct.rows[0].balance}]`
+            });
+          }
+        } 
+        const newBalance = computeNewBalance(type, findAcct, amount);
+        const oldBalance = findAcct.rows[0].balance;
+        const transactionId = randomize('a0', 20);
+        const date = new Date();
+        const transactionDate = date;
+        const transactionDetails = [accountNumber, transactionId, transactionDate, confirmUser.rows[0].id,
+        amount, type, oldBalance, newBalance, payeeName, payeePhone, transactionType2, payeeAccountNumber];
+        
+        const computeTrasaction = await pool.query(transactions, transactionDetails);
+        await pool.query(updateAccount, [newBalance, findAcct.rows[0].account_number]);
+        return res.status(201).json({
+          status: '201', data: computeTrasaction.rows[0]
         });
-        findAcct.openingBalance = newAmount;
       }
-      return res.status(200).json({ stutus: '200', data: accountTransactionsData[accountTransactionsData.length - 1] });
+    } catch (err) {
+      return res.json({ error: err.message });
     }
   }
 
@@ -59,7 +60,6 @@ class transactionsController {
     try {
       const transHistory = await pool.query('SELECT * FROM users');
       return res.json(transHistory.rows[0]);
-      
     } catch (err) {
       return res.json({ message: 'connection error' });
     }

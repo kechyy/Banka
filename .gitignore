@@ -4,3 +4,6 @@ package-lock.json
 coverage
 .nyc_output
 .vscode
+../../UI/bash.exe.stackdump
+bash.exe.stackdump
+../routes/bash.exe.stackdump

@@ -3,13 +3,14 @@ node_js:
 - "stable"
 dist: trusty
 addons:
-    postgresql: "10"
+    postgresql: "9.6"
 services:
   - "postgresql"
 before_script:
-- psql -c "create user nkcechi with password 'admin123'" -U postgres
+- psql -c "create user nkechi with password 'admin123';" -U postgres 
 - psql -c 'create database banka;' -U postgres 
 - npm install
-script:
+script: 
+- npm run initializeTables
 - npm test
 - npm run coverage
