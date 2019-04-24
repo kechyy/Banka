@@ -1,11 +1,11 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import { tokenGenerator } from '../middleware/authorize';
 import pool from '../db/connection';
+import addUser from '../middleware/customFunction';
 import { createUser, getUser, getUsers } from '../db/queryTables';
 
 // pool.connect();
-
-
+let userDetails;
 class UserController {
   static async signUp(req, res) {
     const {
@@ -28,7 +28,10 @@ class UserController {
     const { email, password } = req.body;
     try {
       const confirmUser = await pool.query(getUser, [email]);
-      const comparePassword = compareSync(password, confirmUser.rows[0].password);
+      if (confirmUser.rowCount === 0) {
+        return res.status(404).json({ status: '409', error: 'User does  not exist. You need to signup ' });
+      }
+      const comparePassword = compareSync(password, confirmUser.rows[0].password); 
       if (!comparePassword) {
         return res.status(400).json({
           status: '404',
@@ -40,6 +43,7 @@ class UserController {
       usersInfo.rows[0].token = tokenGenerator(tokenPayloads);
       const data = usersInfo.rows[0];
       return res.status(200).json({ status: '200', data });
+
     } catch (err) {
       res.json({ error: err.message });
     }

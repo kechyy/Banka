@@ -24,6 +24,23 @@ CREATE TABLE account (
   account_status VARCHAR(8) NOT NULL,
   balance NUMERIC(6,2) NOT NULL
 );
+DROP TABLE IF EXISTS transactions CASCADE;
+CREATE TABLE transactions (
+  id SERIAL NOT NULL PRIMARY KEY,
+  account_number BIGINT NOT NULL,
+  transaction_id VARCHAR(255) NOT NULL UNIQUE,
+  transaction_date TIMESTAMP,
+  cashier_id INT NOT NULL REFERENCES users (id),
+  amount NUMERIC(6,2) NOT NULL,
+  transaction_type VARCHAR(8) NOT NULL,
+  old_balance NUMERIC(6,2) NOT NULL,
+  new_balance NUMERIC(6,2) NOT NULL,
+  payee_name VARCHAR(50),
+  payee_phone VARCHAR(50),
+  payee_account_number BIGINT,
+  transaction_type2 VARCHAR(20),
+  payee_accountnumber BIGINT
+);
 `;
 
 const initializeTable = async () => {

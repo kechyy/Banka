@@ -3,7 +3,7 @@ node_js:
 - "stable"
 dist: trusty
 addons:
-    postgresql: "10"
+    postgresql: "9.6"
 services:
   - "postgresql"
 before_script:
