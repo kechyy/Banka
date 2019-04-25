@@ -34,7 +34,8 @@ const bankAccounts = [{
   type: 'current',
   openingBalance: 5000.00,
   status: 'active',
-}];
+}
+];
 
 const accountTransactionsData = [];
 

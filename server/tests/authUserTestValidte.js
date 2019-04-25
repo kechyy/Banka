@@ -6,7 +6,7 @@ import chaiHttp from 'chai-http';
 import { undefinedFirstName, firstNameEmpty, firstNameNotSring,
   lastNameEmpty, undefinedlastName, lastNameNotString, emailAddressEmpty,
   emailAddressUndefined, emailAddressNotString, firstNameInvalidLength, lastNameInvalidLength, emailInvalidLength, emailInvalidFormat,
-  passwordEmpty, passwordNotString, passwordNotStrong, passwordNotSame, passwordUndefined, cpasswordUndefined
+  passwordEmpty, passwordNotString, passwordNotStrong, passwordNotSame, passwordUndefined, cpasswordUndefined, UserExist
 } from './mockObjects/userObjectData';
 
 import app from '../../app';
@@ -165,5 +165,19 @@ describe.only('Test for signup user', () => {
     expect(response).to.have.status(400);
     expect(response.body).to.be.a('object');
     expect(response.body.error).to.equal('Confirm password field is required');
+  });
+  it('should return status code 409 for user signup data exist', async () => {
+    const response = await chai.request(app)
+      .post(signUpEndPoint)
+      .send({
+        firstName: 'Nkechi',
+        lastName: 'Ogbonna',
+        email: 'james2@gmail.com',
+        password: 'kjsdkjsdk1234@#$',
+        cpassword: 'kjsdkjsdk1234@#$'
+      });
+    expect(response).to.have.status(409);
+    expect(response.body).to.be.an('object');
+    expect(response.body.error).to.equal('User already exist');
   });
 });

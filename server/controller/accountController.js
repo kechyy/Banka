@@ -3,8 +3,9 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 import randomize from 'randomatic';
-import { createAccount } from '../db/queryTables';
+import { createAccount, updateAccountDb, getAcctStatus } from '../db/queryTables';
 import pool from '../db/connection';
+import { updatAcions } from '../middleware/customFunction';
 import { bankAccounts } from '../data';
 
 class accountController {
@@ -24,44 +25,41 @@ class accountController {
       delete newAccount.rows[0].account_number;
       delete newAccount.rows[0].user_id;
       delete newAccount.rows[0].account_status;
-      return res.status(201).json({ status: '201', data: newAccount.rows[0]});
+      return res.status(201).json({ status: '201', data: newAccount.rows[0] });
     } catch (err) {
       res.json({ error: err.message });
     }
   }
 
-  static updateAccount(req, res) {
+  static async updateAccount(req, res) {
     const { accountNumber } = req.params;
-    const confirmAcctNumber = bankAccounts.filter(acct => acct.accountNumber === accountNumber)[0];
-    if (confirmAcctNumber) {
-      if (confirmAcctNumber.status === 'active') {
-        confirmAcctNumber.status = 'dormant';
-        const { status, accountNumber } = confirmAcctNumber;
-        return res.status(200).json({ status: '200', data: { status, accountNumber } });
+    try {
+      const confirmAcctNumber = await pool.query(getAcctStatus, [accountNumber]);
+      if (confirmAcctNumber.rowCount === 1) {
+        const status = updatAcions(confirmAcctNumber.rows[0].account_status);
+        const updateStatus = await pool.query(updateAccountDb, [status, accountNumber]);
+        return res.status(200).json({ status: '200', data: updateStatus.rows[0] });
       }
-      if (confirmAcctNumber.status === 'dormant') {
-        confirmAcctNumber.status = 'active';
-        const { status, accountNumber } = confirmAcctNumber;
-        return res.status(200).json({ status: '200', data: { status, accountNumber } });
-      }
+      return res.status(404).json({
+        status: '404',
+        error: 'Invalid account number'
+      });
+    } catch (err) {
+      res.json({ error: err.message });
     }
-    return res.status(404).json({
-      status: '404',
-      error: 'Invalid account number'
-    });
   }
 
-  static deleteAccount(req, res) {
+  static async deleteAccount(req, res) {
     const { accountNumber } = req.params;
-    const confirmAcctNumber = bankAccounts.filter(acct => acct.accountNumber === accountNumber)[0];
-    if (confirmAcctNumber) {
-      const newArray = bankAccounts.filter(acct => acct.accountNumber !== accountNumber);
-      const confirmDel = newArray.find(acct => acct.accountNumber === accountNumber);
-      if (!confirmDel) {
+    try {
+      const delAccount = await pool.query('DELETE FROM account WHERE account_number=$1', [accountNumber]);
+      if (delAccount.rowCount === 1) {
         return res.status(200).json({ status: 200, message: 'Account successfully deleted' });
       }
+      return res.status(400).json({ status: 404, error: 'Something went wrong, please ensure the account supplied is valid' });
+    } catch (err) {
+      res.json({ error: err.message });
     }
-    return res.status(404).json({ status: 404, error: 'Invalid account number' });
   }
 }
 

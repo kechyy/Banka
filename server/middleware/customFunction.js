@@ -1,18 +1,22 @@
-const computeNewBalance = (type, findAcct, amount) => {
-  if (type === 'credit') {
-    return parseFloat(findAcct.rows[0].balance) + parseFloat(amount);
+class customFunc {
+  static computeNewBalance(type, findAcct, amount) {
+    if (type === 'credit') {
+      return parseFloat(findAcct.rows[0].balance) + parseFloat(amount);
+    }
+    if (type === 'debit') {
+      return parseFloat(findAcct.rows[0].balance) - parseFloat(amount);
+    }
   }
-  if (type === 'debit') {
-    return parseFloat(findAcct.rows[0].balance) -  parseFloat(amount);
+
+  static updatAcions(updattype) {
+    if (updattype === 'dormant') {
+      return 'active';
+    }
+    if (updattype === 'active') {
+      return 'dormant';
+    }
   }
 }
-const addUser = (usertype, staffUser = '', clientUser = '') => {
-  if (typeOf(staffUser) !== 'array' && typeOf(clientUser) !== 'array') {
-    return 'User details should be in an array';
-  }
-  if (usertype) {
-    return staffUser;
-  }
-  return clientUser;
-}
-export  { computeNewBalance, addUser };
+
+const { computeNewBalance, updatAcions } = customFunc;
+export { computeNewBalance, updatAcions };

@@ -1,5 +1,9 @@
-const confirmUser = {
-  email: 'martin@gmail.com',
+const confirmPassword = {
+  email: 'james2@gmail.com',
+  password: 'nkechi123#@'
+};
+const confirmEmail = {
+  email: 'jame589@gmail.com',
   password: 'james123#@'
 };
 const userConfirmed = {
@@ -7,4 +11,4 @@ const userConfirmed = {
   password: 'james123#@'
 };
 
-export { confirmUser, userConfirmed };
+export { userConfirmed, confirmEmail, confirmPassword };

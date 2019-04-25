@@ -5,7 +5,6 @@ import addUser from '../middleware/customFunction';
 import { createUser, getUser, getUsers } from '../db/queryTables';
 
 // pool.connect();
-let userDetails;
 class UserController {
   static async signUp(req, res) {
     const {
@@ -29,12 +28,12 @@ class UserController {
     try {
       const confirmUser = await pool.query(getUser, [email]);
       if (confirmUser.rowCount === 0) {
-        return res.status(404).json({ status: '409', error: 'User does  not exist. You need to signup ' });
+        return res.status(404).json({ status: '404', error: 'User does  not exist. You need to signup' });
       }
       const comparePassword = compareSync(password, confirmUser.rows[0].password); 
       if (!comparePassword) {
         return res.status(400).json({
-          status: '404',
+          status: '400',
           error: 'Please enter a valid username and password'
         });
       }
