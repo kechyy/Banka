@@ -3,7 +3,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 import randomize from 'randomatic';
-import { createAccount, updateAccountDb, getAcctStatus } from '../db/queryTables';
+import { createAccount, updateAccountDb, getAcctStatus, delAccount } from '../db/queryTables';
 import pool from '../db/connection';
 import { updatAcions } from '../middleware/customFunction';
 import { bankAccounts } from '../data';
@@ -52,8 +52,8 @@ class accountController {
   static async deleteAccount(req, res) {
     const { accountNumber } = req.params;
     try {
-      const delAccount = await pool.query('DELETE FROM account WHERE account_number=$1', [accountNumber]);
-      if (delAccount.rowCount === 1) {
+      const deleteAccount = await pool.query(delAccount, [accountNumber]);
+      if (deleteAccount.rowCount === 1) {
         return res.status(200).json({ status: 200, message: 'Account successfully deleted' });
       }
       return res.status(400).json({ status: 404, error: 'Something went wrong, please ensure the account supplied is valid' });

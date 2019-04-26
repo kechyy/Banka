@@ -16,7 +16,9 @@ const updateAccountDb = 'UPDATE account SET account_status=$1 WHERE account_numb
 
 const getAcctStatus = 'SELECT * FROM account where account_number = $1';
 
+const delAccount = 'DELETE FROM account WHERE account_number=$1';
+
 export {
   createSuperAdmin, createUser, createAccount, getUser, getUsers, transactions,
-  updateAccount, updateAccountDb, getAcctStatus
+  updateAccount, updateAccountDb, getAcctStatus, delAccount
 };
