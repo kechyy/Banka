@@ -161,6 +161,8 @@ class UserAuthValidation {
     req.body.password = password;
     next();
   }
+
+  
 }
-const { signUpValidate, signInValidate } = UserAuthValidation;
-export { signUpValidate, signInValidate };
+const { signUpValidate, signInValidate, updateUserValidation } = UserAuthValidation;
+export { signUpValidate, signInValidate, updateUserValidation };

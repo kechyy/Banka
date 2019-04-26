@@ -3,17 +3,17 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable no-undef */
 import randomize from 'randomatic';
-import { createAccount, updateAccountDb, getAcctStatus, delAccount } from '../db/queryTables';
+import { createAccount, updateAccountDb, getAcctStatus,
+  delAccount, getAcctTransactions } from '../db/queryTables';
 import pool from '../db/connection';
 import { updatAcions } from '../middleware/customFunction';
-import { bankAccounts } from '../data';
 
 class accountController {
   static async CreateAccount(req, res) {
     const accountNumber = randomize('0', 10);
     const balance = '0.00';
     const accountStatus = 'dormant';
-    const { id, email } = req.userInfo;
+    const { id } = req.userInfo;
     const { type } = req.body;
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
@@ -21,8 +21,12 @@ class accountController {
     const createdOn = `${date}  ${time}`;
     const accountInfo = [accountNumber, createdOn, id, type, accountStatus, balance];
     try {
+      // const confirmUser = await pool.query('SELECT id FROM users WHERE id=$1', [id]);
+      // if (confirmUser.rowCount === 0) {
+      //   return res.status(404).json({ error: '404', meessage: 'User does not exist. Please signup' });
+      // }
       const newAccount = await pool.query(createAccount, accountInfo);
-      delete newAccount.rows[0].account_number;
+      // delete newAccount.rows[0].account_number;
       delete newAccount.rows[0].user_id;
       delete newAccount.rows[0].account_status;
       return res.status(201).json({ status: '201', data: newAccount.rows[0] });
@@ -35,15 +39,15 @@ class accountController {
     const { accountNumber } = req.params;
     try {
       const confirmAcctNumber = await pool.query(getAcctStatus, [accountNumber]);
-      if (confirmAcctNumber.rowCount === 1) {
-        const status = updatAcions(confirmAcctNumber.rows[0].account_status);
-        const updateStatus = await pool.query(updateAccountDb, [status, accountNumber]);
-        return res.status(200).json({ status: '200', data: updateStatus.rows[0] });
+      if (confirmAcctNumber.rowCount === 0) {
+        return res.status(404).json({
+          status: '404',
+          error: 'Invalid account number'
+        });
       }
-      return res.status(404).json({
-        status: '404',
-        error: 'Invalid account number'
-      });
+      const status = updatAcions(confirmAcctNumber.rows[0].account_status);
+      const updateStatus = await pool.query(updateAccountDb, [status, accountNumber]);
+      return res.status(200).json({ status: '200', data: updateStatus.rows[0] });
     } catch (err) {
       res.json({ error: err.message });
     }
@@ -61,8 +65,21 @@ class accountController {
       res.json({ error: err.message });
     }
   }
+
+  static async viewAccountHistory(req, res) {
+    const { accountNumber } = req.params;
+    try {
+      const getTransactions = await pool.query(getAcctTransactions, [accountNumber]);
+      if (getTransactions.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'Invalid account number' });
+      }
+      return res.status(200).json({ status: 200, data: getTransactions.rows });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
 }
 
-const { CreateAccount, updateAccount, deleteAccount } = accountController;
+const { CreateAccount, updateAccount, deleteAccount, viewAccountHistory } = accountController;
 
-export { CreateAccount, updateAccount, deleteAccount };
+export { CreateAccount, updateAccount, deleteAccount, viewAccountHistory };
