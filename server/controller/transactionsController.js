@@ -8,16 +8,12 @@ import { computeNewBalance } from '../middleware/customFunction';
 
 class transactionsController {
   static async debitCredit(req, res) {
-    const { id } = req.userInfo;
+    const { userid } = req.userInfo;
     const { accountNumber, type } = req.params;
     const {
  amount, payeeAcctNumber, payeeName, payeePhone, transactionType
 } = req.body;
     try {
-      const confirmUser = await pool.query('SELECT * FROM users WHERE id=$1', [id]);
-      // if (confirmUser.rows[0].usertype !== 'cashier') {
-      //   return res.status(403).json({ status: '403', error: 'Unauthorized User! Only cashier can perform this transaction' });
-      // }
       const findAcct = await pool.query(getAcctStatus, [accountNumber]);
       if (findAcct.rowCount === 0) {
         return res.status(404).json({
@@ -46,7 +42,7 @@ class transactionsController {
         const date = new Date();
         const transactionDate = date;
         const transactionDetails = [accountNumber, transactionId,
-          transactionDate, confirmUser.rows[0].id,
+          transactionDate, userid,
         amount, type, oldBalance, newBalance, payeeName,
         payeePhone, transactionType, payeeAcctNumber];
 

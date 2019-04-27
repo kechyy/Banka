@@ -15,10 +15,11 @@ const port = process.env.PORT || 3200;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/api/v1', userRoutes);
-app.use('/api/v1', adminRoutes);
-app.use('/api/v1', accountRoutes);
-app.use('/api/v1', transactionsRouter);
+app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/user', accountRoutes);
+app.use('/api/v1/admin', transactionsRouter);
+app.use('/api/v1/cashier', transactionsRouter);
 app.use('*', (req, res) => res.status(404).json({
   message: 'Not Found'
 }));

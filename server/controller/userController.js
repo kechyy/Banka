@@ -13,14 +13,12 @@ class UserController {
       const query = await pool.query(createUser,
         [firstName, lastName, email, bcrypt.hashSync(password, 10)]);
       const token = tokenGenerator({
-        id: query.rows[0].id,
+        userid: query.rows[0].id,
         firstName: query.rows[0].firstname,
-        email: query.rows[0].email
+        email: query.rows[0].email,
+        usertype: query.rows[0].usertype
       });
       query.rows[0].token = token;
-      delete query.rows[0].password;
-      delete query.rows[0].usertype;
-      delete query.rows[0].isadmin;
       return res.status(201).json({ data: query.rows[0] });
     } catch (err) {
       return res.json({ error: err.message });
@@ -43,14 +41,13 @@ class UserController {
       }
       const usersInfo = await pool.query(getUsers, [confirmUser.rows[0].email]);
       const tokenPayloads = {
-        id: usersInfo.rows[0].id,
+        userid: usersInfo.rows[0].id,
         firstName: usersInfo.rows[0].firstname,
-        email: usersInfo.rows[0].email
+        usertype: usersInfo.rows[0].usertype
       };
       usersInfo.rows[0].token = tokenGenerator(tokenPayloads);
       const data = usersInfo.rows[0];
       return res.status(200).json({ status: '200', data });
-
     } catch (err) {
       res.json({ error: err.message });
     }
