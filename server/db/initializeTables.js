@@ -45,8 +45,7 @@ CREATE TABLE transactions (
   payee_name VARCHAR(50),
   payee_phone VARCHAR(50),
   payee_account_number BIGINT,
-  transaction_type2 VARCHAR(20),
-  payee_accountnumber BIGINT
+  transaction_type2 VARCHAR(20)
 );
 `;
 

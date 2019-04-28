@@ -5,6 +5,7 @@ class AdminController {
     const { usertype } = req.body;
     const { userid } = req.params;
     try {
+      console.log(userid)
       const confirmUserID = await pool.query('SELECT id FROM users WHERE id=$1', [userid]);
       if (confirmUserID.rowCount === 0) {
         return res.status(404).json({ status: '404', error: 'Userid not found' });

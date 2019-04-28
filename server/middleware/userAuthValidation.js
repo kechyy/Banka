@@ -165,10 +165,10 @@ class UserAuthValidation {
   static accountValidate(req, res, next) {
     const { type } = req.body;
 
-    if (type === '' || type === undefined) {
+    if (!type) {
       return res.status(400).json({
         status: 400,
-        error: 'User type is required'
+        error: 'Account type is required'
       });
     }
     if (type !== 'savings' && type !== 'current') {
@@ -201,8 +201,32 @@ class UserAuthValidation {
     req.params.accountNumber = accountNumber;
     next();
   }
+
+  static viewSpecificAcctValidate(req, res, next) {
+    let { transactionId } = req.params;
+    let { accountNumber } = req.body;
+    if (!accountNumber) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Account number field is required'
+      });
+    }
+    console.log(typeof accountNumber);
+    accountNumber = accountNumber.trim();
+    transactionId = transactionId.trim();
+    if (!/^[0-9]{10}$/.test(accountNumber)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Account number must be 10 digit number'
+      });
+    }
+    req.params.transactionId = transactionId;
+    req.body.accountNumber = accountNumber;
+    next();
+  }
 }
 const {
   signUpValidate, signInValidate, accountValidate,
-  viewAccountHistoryValidate } = UserAuthValidation;
-export { signUpValidate, signInValidate, accountValidate, viewAccountHistoryValidate };
+  viewAccountHistoryValidate, viewSpecificAcctValidate } = UserAuthValidation;
+// eslint-disable-next-line max-len
+export { signUpValidate, signInValidate, accountValidate, viewAccountHistoryValidate, viewSpecificAcctValidate };

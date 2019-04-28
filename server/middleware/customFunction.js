@@ -1,6 +1,7 @@
 class customFunc {
   static computeNewBalance(type, findAcct, amount) {
     if (type === 'credit') {
+      console.log(findAcct.rows[0])
       return parseFloat(findAcct.rows[0].balance) + parseFloat(amount);
     }
     if (type === 'debit') {

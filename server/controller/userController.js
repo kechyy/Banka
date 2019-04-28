@@ -94,12 +94,30 @@ class UserController {
       res.json({ error: err.message });
     }
   }
-}
 
+  static async viewSpecificAccount(req, res) {
+    const { transactionId } = req.params;
+    const { accountNumber } = req.body;
+    const { userid } = req.userInfo;
+    const getAcctNumber = await pool.query(`SELECT * FROM account where account_number=$1 and
+    user_id=$2`, [accountNumber, userid]);
+    if (getAcctNumber.rowCount === 0) {
+      return res.status(404).json({ status: '404', error: 'Account number not found' });
+    }
+    const getSpecificAcctTransaction = await pool.query(`SELECT account_number, transaction_id, transaction_date,
+    amount, transaction_type, new_balance FROM transactions WHERE
+    transaction_id=$1 and account_number=$2`, [transactionId, accountNumber]);
+    if (getSpecificAcctTransaction.rowCount === 0) {
+      return res.status(404).json({ status: '404', error: 'No transaction found' });
+    }
+    return res.status(200).json({ status: '200', data: getSpecificAcctTransaction.rows[0] });
+  }
+}
+// viewSpecificAccountValidate, tokenVerifier, 
 const {
-  signUp, signIn, createUserAccount, viewAccountHistory
+  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount
 } = UserController;
 
 export {
-  signUp, signIn, createUserAccount, viewAccountHistory
+  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount
 };
