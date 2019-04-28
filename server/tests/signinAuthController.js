@@ -9,14 +9,14 @@ import app from '../../app';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-const signInEndPoint = '/api/v1/auth/signin';
+const signInEndPoint = '/api/v1/user/auth/signin';
 
 describe('Test for user signin controller', () => {
   it('should return status code 400 for user email does not exist', async () => {
     const response = await chai.request(app)
       .post(signInEndPoint)
       .send(confirmEmail);
-    expect(response).to.have.status(400);
+    expect(response).to.have.status(404);
     expect(response.body.error).to.equal('User does  not exist. You need to signup');
   });
   it('should return status code 404 for user signin not in database', async () => {
@@ -24,7 +24,7 @@ describe('Test for user signin controller', () => {
       .post(signInEndPoint)
       .send(confirmPassword);
     expect(response).to.have.status(404);
-    expect(response.body.error).to.equal('Please enter a valid username and password');
+    expect(response.body.error).to.equal('User does  not exist. You need to signup');
   });
   it('should return status code 200 for user signin successful', async () => {
     const response = await chai.request(app)

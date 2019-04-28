@@ -1,8 +1,15 @@
 import bcrypt from 'bcrypt';
-import pool from './connection';
-import { createSuperAdmin } from './queryTables';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
-const createTables = `
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
+
+const tableInitialize = () => {
+  const createTables = `
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
   id SERIAL NOT NULL PRIMARY KEY,
@@ -10,7 +17,7 @@ CREATE TABLE users (
   lastName VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  usertype VARCHAR(8) NOT NULL DEFAULT('client'),
+  usertype VARCHAR(20) NOT NULL DEFAULT('client'),
   isadmin BOOL NOT NULL DEFAULT('false')
 );
 
@@ -43,32 +50,26 @@ CREATE TABLE transactions (
 );
 `;
 
-const initializeTable = async () => {
-  try {
-    await pool.query(createTables);
-    console.log('Tables created');
-  } catch (err) {
-    console.log({ err: err.message });
-  }
+  const query = {
+    text: 'INSERT INTO users (firstName, lastName, email, password, usertype, isadmin) VALUES ($1, $2, $3, $4, $5, $6)',
+    values: [
+      process.env.firstname,
+      process.env.lastname,
+      process.env.email,
+      bcrypt.hashSync(process.env.password, 10),
+      'admin',
+      'true'
+    ]
+  };
+
+  pool.query(createTables).then(() => {
+    pool.query(query, () => {
+      console.log('all done');
+    });
+  }).catch((err) => {
+    console.log(err);
+  });
 };
 
 
-const adminInfo = [
-  process.env.firstname,
-  process.env.lastname,
-  process.env.email,
-  bcrypt.hashSync(process.env.password, 10),
-  'admin',
-  'true'
-];
-const superAdmin = async () => {
-  try {
-    const admin = await pool.query(createSuperAdmin, adminInfo);
-  } catch (err) {
-    console.log({ err: err.message });
-  }
-};
-
-initializeTable()
-  .then(() => superAdmin())
-  .catch(err => console.log(err));
+tableInitialize();

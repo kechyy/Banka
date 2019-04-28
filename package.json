@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "nyc mocha ./server/tests/*.js --require @babel/register --exit",
+    "test": "npm run initializeTables && nyc mocha ./server/tests/*.js --require @babel/register --exit",
     "start:dev": "nodemon --exec babel-node -- app.js",
     "start": "babel-node -- app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

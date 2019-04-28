@@ -5,17 +5,33 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { undefinedFirstName, firstNameEmpty, firstNameNotSring,
   lastNameEmpty, undefinedlastName, lastNameNotString, emailAddressEmpty,
-  emailAddressUndefined, emailAddressNotString, firstNameInvalidLength, lastNameInvalidLength, emailInvalidLength, emailInvalidFormat,
-  passwordEmpty, passwordNotString, passwordNotStrong, passwordNotSame, passwordUndefined, cpasswordUndefined, UserExist
+  emailAddressUndefined, emailAddressNotString, firstNameInvalidLength,
+  lastNameInvalidLength, emailInvalidLength, emailInvalidFormat,
+  passwordEmpty, passwordNotString, passwordNotStrong, passwordNotSame,
+  passwordUndefined, cpasswordUndefined
 } from './mockObjects/userObjectData';
 
 import app from '../../app';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-const signUpEndPoint = '/api/v1/auth/signup';
+const signUpEndPoint = '/api/v1/user/auth/signup';
 
-describe.only('Test for signup user', () => {
+describe('Test for user signup controller', () => {
+  it('should return status code 201 for user successful signup', async () => {
+    const response = await chai.request(app)
+      .post(signUpEndPoint)
+      .send({
+        firstName: 'Rosemary',
+        lastName: 'Emmanuel',
+        email: 'rossy57689@gmail.com',
+        password: 'rosemary123&%',
+        cpassword: 'rosemary123&%'
+      });
+    expect(response).to.have.status(201);
+    expect(response.body).to.be.an('object');
+  });
+
   it('should return status code 400 for first name empty', async () => {
     const response = await chai.request(app)
       .post(signUpEndPoint)
@@ -148,7 +164,7 @@ describe.only('Test for signup user', () => {
       .send(passwordNotStrong);
     expect(response).to.have.status(400);
     expect(response.body).to.be.a('object');
-    expect(response.body.error).to.equal('Password must be minimum of 8 and maximum of 16 characters and must be with combination of special characters');   
+    expect(response.body.error).to.equal('Password must be minimum of 8 and maximum of 16 characters and must be with combination of special characters');
   });
   it('should return status code 400 for password not the same', async () => {
     const response = await chai.request(app)

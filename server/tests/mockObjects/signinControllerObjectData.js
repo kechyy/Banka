@@ -1,6 +1,6 @@
 const confirmPassword = {
-  email: 'james2@gmail.com',
-  password: 'nkechi123#@'
+  email: 'james25@gmail.com',
+  password: 'james123#@'
 };
 const confirmEmail = {
   email: 'jame589@gmail.com',

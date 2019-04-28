@@ -91,7 +91,14 @@ const emailInvalidFormat = {
   type: 'current'
 };
 const InvalidAccountNumber = {
-  accountNumber: 'nkechi123',
+  accountNumber: '7788123',
+  firstName: 'Nkechi',
+  lastName: 'Ogbonna',
+  email: 'nk23@gmail',
+  type: 'current'
+};
+const acctNotFound = {
+  accountNumber: '09877881293',
   firstName: 'Nkechi',
   lastName: 'Ogbonna',
   email: 'nk23@gmail',
@@ -102,5 +109,5 @@ export {
   firstNameEmpty, typeNameEmpty, undefinedFirstName, acctTypeUndefined, firstNameNotSring,
   lastNameEmpty, undefinedlastName, lastNameNotString, emailAddressEmpty, emailAddressUndefined,
   emailAddressNotString, lastNameInvalidLength, firstNameInvalidLength, emailInvalidLength,
-  emailInvalidFormat, InvalidAccType, InvalidAccountNumber
+  emailInvalidFormat, InvalidAccType, InvalidAccountNumber, acctNotFound
 };
