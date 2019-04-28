@@ -7,7 +7,7 @@ class AdminValidation {
     }
     usertype = usertype.trim();
     userid = userid.trim();
-    if (usertype !== 'cashier' && usertype !== 'adminStaff' && usertype !== 'admin') {
+    if (usertype !== 'client' && usertype !== 'cashier' && usertype !== 'staffAdmin' && usertype !== 'admin') {
       return res.status(400).json({ statuns: '400', message: 'Invalid usertype' });
     }
     if (!/^[0-9]$/.test(userid)) {

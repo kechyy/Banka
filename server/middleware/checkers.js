@@ -15,6 +15,7 @@ class Checkers {
 
   static cashierCheck(req, res, next) {
     const { userid, usertype } = req.userInfo;
+    console.log(usertype)
     if (usertype === 'cashier') {
       const confirmUser = pool.query('SELECT id FROM users WHERE id = $1', [userid]);
       if (confirmUser.rowCount === 0) {
@@ -27,6 +28,7 @@ class Checkers {
 
   static staffAdminCheck(req, res, next) {
     const { userid, usertype } = req.userInfo;
+
     if (usertype === 'staffAdmin') {
       const confirmUser = pool.query('SELECT id FROM users WHERE id = $1', [userid]);
       if (confirmUser.rowCount === 0) {
@@ -38,10 +40,15 @@ class Checkers {
   }
 
   static userCheck(req, res, next) {
-    if (req.userInfo.usertype === 'client') {
+    const { usertype, userid } = req.userInfo;
+    if (usertype === 'client') {
+      const confirmUser = pool.query('SELECT id FROM users WHERE id = $1', [userid]);
+      if (confirmUser.rowCount === 0) {
+        return res.status(404).json({ status: '404', error: 'Invalid User ID for this user' });
+      }
       return next();
     }
-    return res.status(401).json({ status: '401', error: 'Unauthorized User, Please contact the administrator' });
+    return res.status(401).json({ status: '401', error: 'You must be a user to access this application' });
   }
 }
 

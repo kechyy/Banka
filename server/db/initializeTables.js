@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
-import { createSuperAdmin } from './queryTables';
 
 dotenv.config();
 
@@ -18,7 +17,7 @@ CREATE TABLE users (
   lastName VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  usertype VARCHAR(8) NOT NULL DEFAULT('client'),
+  usertype VARCHAR(20) NOT NULL DEFAULT('client'),
   isadmin BOOL NOT NULL DEFAULT('false')
 );
 
@@ -74,19 +73,3 @@ CREATE TABLE transactions (
 
 
 tableInitialize();
-
-// const superAdmin = async () => {
-//   try {
-//     await pool.query(createSuperAdmin, adminInfo);
-//     pool.end();
-//   } catch (err) {
-//     console.log({ err: err.message });
-//   }
-// };
-
-
-// initializeTable()
-//   .then(() => {
-//     superAdmin();
-//     pool.end();
-//   }).catch(err => console.log(err));

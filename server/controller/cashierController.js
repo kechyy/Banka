@@ -1,18 +1,15 @@
-/* eslint-disable indent */
-/* eslint-disable import/order */
-/* eslint-disable no-undef */
 import randomize from 'randomatic';
 import pool from '../db/connection';
 import { transactions, updateAccount, getAcctStatus } from '../db/queryTables';
 import { computeNewBalance } from '../middleware/customFunction';
 
-class transactionsController {
+class cashierController {
   static async debitCredit(req, res) {
     const { userid } = req.userInfo;
     const { accountNumber, type } = req.params;
     const {
- amount, payeeAcctNumber, payeeName, payeePhone, transactionType
-} = req.body;
+      amount, payeeAcctNumber, payeeName, payeePhone, transactionType
+    } = req.body;
     try {
       const findAcct = await pool.query(getAcctStatus, [accountNumber]);
       if (findAcct.rowCount === 0) {
@@ -43,8 +40,8 @@ class transactionsController {
         const transactionDate = date;
         const transactionDetails = [accountNumber, transactionId,
           transactionDate, userid,
-        amount, type, oldBalance, newBalance, payeeName,
-        payeePhone, transactionType, payeeAcctNumber];
+          amount, type, oldBalance, newBalance, payeeName,
+          payeePhone, transactionType, payeeAcctNumber];
 
         const computeTrasaction = await pool.query(transactions, transactionDetails);
         await pool.query(updateAccount, [newBalance, findAcct.rows[0].account_number]);
@@ -59,6 +56,6 @@ class transactionsController {
 }
 
 
-const { debitCredit } = transactionsController;
+const { debitCredit } = cashierController;
 
 export default debitCredit;

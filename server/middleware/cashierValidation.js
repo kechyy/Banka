@@ -1,7 +1,9 @@
 class transactionsValidation {
   static debitCreditValidate(req, res, next) {
     let { accountNumber, type } = req.params;
-    let { amount, transactionType, payeeName, payeePhone, payeeAcctNumber } = req.body;
+    let {
+      amount, transactionType, payeeName, payeePhone, payeeAcctNumber
+    } = req.body;
     accountNumber = accountNumber.trim();
     type = type.trim();
 
