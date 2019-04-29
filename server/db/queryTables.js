@@ -2,7 +2,10 @@ const createSuperAdmin = 'INSERT INTO users (firstName, lastName, email, passwor
 
 const createUser = 'INSERT INTO users (firstName, lastName, email, password) VALUES($1, $2, $3, $4) returning id, firstname, lastname, email, usertype';
 
-const createAccount = 'INSERT INTO account (account_number, created_on, user_id, account_type, account_status, balance) VALUES($1, $2, $3, $4, $5, $6) returning *';
+const createAccount = `INSERT INTO account (account_number, created_on, user_id,
+email, account_type, account_status, balance) 
+VALUES($1, $2, $3, $4, $5, $6, $7) returning account_number, created_on,
+email, account_type, account_status, balance`;
 
 const getUser = 'SELECT email, password, id FROM users WHERE email=$1';
 

@@ -27,6 +27,7 @@ CREATE TABLE account (
   account_number BIGINT NOT NULL UNIQUE ,
   created_on TIMESTAMP,
   user_id INT NOT NULL REFERENCES users (id),
+  email VARCHAR(100) NOT NULL ,
   account_type VARCHAR(8) NOT NULL,
   account_status VARCHAR(8) NOT NULL,
   balance NUMERIC(6,2) NOT NULL

@@ -1,0 +1,109 @@
+swagger: "2.0"
+info:
+  description: "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money."
+  version: "1.0.0"
+  title: "Banka"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "kech3443@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "kechyy-banka-app.herokuapp.com"
+basePath: "/api/v1"
+tags:
+- name: "users"
+  description: "user api"
+- name: "account"
+  description: "account api"
+- name: "transactions"
+  description: "transaction api"
+schemes:
+- "https"
+- "http"
+paths:
+  /user/auth/signup:
+    post:
+      tags:
+      - "users"
+      summary: "Add a new user to the database"
+      description: "Add a new user to the database"
+      operationId: "signupUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "user object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/signupUser"
+      responses:
+        201:
+          description: "Successful signup"
+        409:
+          description: "Email exists"
+        400:
+          description: "Bad request"
+  /user/auth/signin:
+    post:
+      tags:
+      - "users"
+      summary: "Add a new user to the database"
+      description: "Signin user"
+      operationId: "signinUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "user object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/signinUser"
+      responses:
+        200:
+          description: "Successful signin"
+        400:
+          description: "signin Error"
+definitions:
+  signupUser:
+    type: "object"
+    required:
+      - firstName
+      - lastName
+      - email
+      - password
+      - cpassword
+    properties:
+      firstName:
+        type: "string"
+        uniqueItems: false
+      lastName:
+        type: "string"
+        uniqueItems: false
+      email:
+        type: "string"
+        uniqueItems: true
+      password:
+        type: "string"
+        uniqueItems: false
+      cpassword:
+        type: "string"
+        uniqueItems: false
+  signinUser:
+    type: "object"
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: "string"
+        uniqueItems: true
+      password:
+        type: "string"
+        uniqueItems: true

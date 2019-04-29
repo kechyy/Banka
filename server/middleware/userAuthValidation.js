@@ -182,22 +182,20 @@ class UserAuthValidation {
   }
 
   static viewAccountHistoryValidate(req, res, next) {
-    let { accountNumber, transactions } = req.params;
+    let { accountNumber } = req.params;
+    if (!accountNumber) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Account number field cannot be empty'
+      });
+    }
     accountNumber = accountNumber.trim();
-    transactions = transactions.trim();
     if (!/^[0-9]{10}$/.test(accountNumber)) {
       return res.status(400).json({
         status: '400',
         error: 'Account number must be 10 digit number'
       });
     }
-    if (!/^transactions$/.test(transactions)) {
-      return res.status(400).json({
-        status: '400',
-        error: 'Please ensure the route url strings is valid'
-      });
-    }
-    req.params.transactions = transactions;
     req.params.accountNumber = accountNumber;
     next();
   }
@@ -211,7 +209,6 @@ class UserAuthValidation {
         error: 'Account number field is required'
       });
     }
-    console.log(typeof accountNumber);
     accountNumber = accountNumber.trim();
     transactionId = transactionId.trim();
     if (!/^[0-9]{10}$/.test(accountNumber)) {
