@@ -2,7 +2,7 @@ import express from 'express';
 // eslint-disable-next-line import/named
 import {
   updateAccount, deleteAccount,
-  viewSpecificOwnedAccounts
+  viewSpecificOwnedAccounts, viewAllBankAccounts
 } from '../controller/staffAdminController';
 import {
   accountUpdateValidate, accountDeleteValidate, viewSpecificOwnedAccountsValidation,
@@ -17,4 +17,5 @@ staffAdminRoutes.patch('/account/:accountNumber', accountUpdateValidate, tokenVe
 staffAdminRoutes.delete('/accounts/:accountNumber', accountDeleteValidate, tokenVerifier, staffAdminCheck, deleteAccount);
 staffAdminRoutes.get('/user/:email/accounts', viewSpecificOwnedAccountsValidation,
   tokenVerifier, staffAdminCheck, viewSpecificOwnedAccounts);
+staffAdminRoutes.get('/accounts', viewAllBankAccounts);
 export default staffAdminRoutes;
