@@ -221,9 +221,24 @@ class UserAuthValidation {
     req.body.accountNumber = accountNumber;
     next();
   }
+
+  static viewSpecificAccountDetailsValidation(req, res, next) {
+    let { accountNumber } = req.params;
+    accountNumber = accountNumber.trim();
+    if (!/^[0-9]{10}$/.test(accountNumber)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Account number must be 10 digit number'
+      });
+    }
+    req.params.accountNumber = accountNumber;
+    next();
+  }
 }
 const {
   signUpValidate, signInValidate, accountValidate,
-  viewAccountHistoryValidate, viewSpecificAcctValidate } = UserAuthValidation;
+  viewAccountHistoryValidate, viewSpecificAcctValidate,
+  viewSpecificAccountDetailsValidation } = UserAuthValidation;
 // eslint-disable-next-line max-len
-export { signUpValidate, signInValidate, accountValidate, viewAccountHistoryValidate, viewSpecificAcctValidate };
+export { signUpValidate, signInValidate, accountValidate,
+  viewAccountHistoryValidate, viewSpecificAcctValidate, viewSpecificAccountDetailsValidation };
