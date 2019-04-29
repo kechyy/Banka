@@ -39,5 +39,7 @@ class accountValidation {
     next();
   }
 }
-const { accountUpdateValidate, accountDeleteValidate, viewSpecificOwnedAccountsValidation } = accountValidation;
-export { accountUpdateValidate, accountDeleteValidate, viewSpecificOwnedAccountsValidation };
+const { accountUpdateValidate, accountDeleteValidate,
+  viewSpecificOwnedAccountsValidation } = accountValidation;
+export { accountUpdateValidate, accountDeleteValidate,
+  viewSpecificOwnedAccountsValidation };

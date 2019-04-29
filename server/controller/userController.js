@@ -46,6 +46,7 @@ class UserController {
       const tokenPayloads = {
         userid: usersInfo.rows[0].id,
         firstName: usersInfo.rows[0].firstname,
+        email: usersInfo.rows[0].email,
         usertype: usersInfo.rows[0].usertype
       };
       usersInfo.rows[0].token = tokenGenerator(tokenPayloads);
@@ -58,7 +59,6 @@ class UserController {
 
   static async createUserAccount(req, res) {
     const { userid, email } = req.userInfo;
-
     const accountNumber = randomize('0', 10);
     const balance = '0.00';
     const accountStatus = 'dormant';
@@ -110,12 +110,26 @@ class UserController {
     }
     return res.status(200).json({ status: '200', data: getSpecificAcctTransaction.rows[0] });
   }
-}
-// viewSpecificAccountValidate, tokenVerifier, 
+
+  static async viewSpecificAccountDetails(req, res) {
+    const { accountNumber } = req.params;
+    try {
+      const getAccountDetails = await pool.query('SELECT account_number, created_on, email, account_type, account_status, balance FROM account WHERE account_number=$1', [accountNumber]);
+      if (getAccountDetails.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'Please ensure the account number supplied exist and valid' });
+      }
+      return res.status(200).json({ status: 200, data: getAccountDetails.rows });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
+} 
 const {
-  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount
+  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
+  viewSpecificAccountDetails
 } = UserController;
 
 export {
-  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount
+  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
+  viewSpecificAccountDetails
 };

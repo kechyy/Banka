@@ -65,7 +65,7 @@ describe('Test for deactivate and activate account controller', () => {
   it('should return status code 201 for user bank account successfully created', async () => {
     const response = await chai.request(app)
       .post(createAccountEndPoint)
-      .send({ type: 'savings' })
+      .send({ type: 'savings', email: 'rossemma@gmail.com' })
       .set('authorization', userToken);
     expect(response).to.have.status(201);
     accountNumber = response.body.data.account_number;
