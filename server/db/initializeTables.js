@@ -27,6 +27,7 @@ CREATE TABLE account (
   account_number BIGINT NOT NULL UNIQUE ,
   created_on TIMESTAMP,
   user_id INT NOT NULL REFERENCES users (id),
+  email VARCHAR(100) NOT NULL ,
   account_type VARCHAR(8) NOT NULL,
   account_status VARCHAR(8) NOT NULL,
   balance NUMERIC(6,2) NOT NULL
@@ -45,8 +46,7 @@ CREATE TABLE transactions (
   payee_name VARCHAR(50),
   payee_phone VARCHAR(50),
   payee_account_number BIGINT,
-  transaction_type2 VARCHAR(20),
-  payee_accountnumber BIGINT
+  transaction_type2 VARCHAR(20)
 );
 `;
 

@@ -25,6 +25,19 @@ class accountValidation {
     req.params.accountNumber = accountNumber;
     next();
   }
+
+  static viewSpecificOwnedAccountsValidation(req, res, next) {
+    let { email } = req.params;
+    email = email.trim();
+    if (!/(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}/.test(email)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Invalid email format'
+      });
+    }
+    req.params.email = email;
+    next();
+  }
 }
-const { accountUpdateValidate, accountDeleteValidate } = accountValidation;
-export { accountUpdateValidate, accountDeleteValidate };
+const { accountUpdateValidate, accountDeleteValidate, viewSpecificOwnedAccountsValidation } = accountValidation;
+export { accountUpdateValidate, accountDeleteValidate, viewSpecificOwnedAccountsValidation };

@@ -2,13 +2,19 @@ const createSuperAdmin = 'INSERT INTO users (firstName, lastName, email, passwor
 
 const createUser = 'INSERT INTO users (firstName, lastName, email, password) VALUES($1, $2, $3, $4) returning id, firstname, lastname, email, usertype';
 
-const createAccount = 'INSERT INTO account (account_number, created_on, user_id, account_type, account_status, balance) VALUES($1, $2, $3, $4, $5, $6) returning *';
+const createAccount = `INSERT INTO account (account_number, created_on, user_id,
+email, account_type, account_status, balance) 
+VALUES($1, $2, $3, $4, $5, $6, $7) returning account_number, created_on,
+email, account_type, account_status, balance`;
 
 const getUser = 'SELECT email, password, id FROM users WHERE email=$1';
 
 const getUsers = 'SELECT id, firstName, email, usertype FROM users WHERE email=$1';
 
-const transactions = 'INSERT INTO transactions (account_number, transaction_id, transaction_date, cashier_id, amount, transaction_type, old_balance, new_balance, payee_name, payee_phone, transaction_type2, payee_accountNumber) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *';
+const transactions = `INSERT INTO transactions (account_number, transaction_id, transaction_date,
+  cashier_id, amount, transaction_type, old_balance, new_balance, payee_name, payee_phone,
+  transaction_type2) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+  RETURNING account_number, transaction_id, transaction_date, amount, transaction_type, new_balance`;
 
 const updateAccount = 'UPDATE account set balance=$1 WHERE account_number= $2 returning *';
 

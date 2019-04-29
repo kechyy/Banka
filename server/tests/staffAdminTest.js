@@ -20,7 +20,7 @@ let adminToken;
 let accountNumber;
 
 describe('Create token for user', () => {
-  it('should return token for successful signup', async () => {
+  it('should return token for successful signup to be useed as staffAdmin', async () => {
     const response = await chai.request(app)
       .post(signUpEndPoint)
       .send({ firstName: 'Rosemary',
@@ -52,17 +52,17 @@ describe('Create token for user', () => {
     expect(response).to.have.status(200);
     adminToken = response.body.data.token;
   });
-});
-
-describe('Test for deactivate and activate account controller', () => {
-  it('should return status code 200 for account successfully updated', async () => {
+  it('should return status code 200 for update setuser type to staffadmin', async () => {
     const response = await chai.request(app)
       .post(makeStaffAdminEndPoint)
       .send({ usertype: 'staffAdmin' })
       .set('authorization', adminToken);
     expect(response).to.have.status(200);
   });
-  it('should return status code 201 for account successfully created', async () => {
+});
+
+describe('Test for deactivate and activate account controller', () => {
+  it('should return status code 201 for user bank account successfully created', async () => {
     const response = await chai.request(app)
       .post(createAccountEndPoint)
       .send({ type: 'savings' })

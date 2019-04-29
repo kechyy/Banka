@@ -21,7 +21,7 @@ class cashierController {
       if (findAcct.rows[0].account_status === 'dormant') {
         return res.status(404).json({
           status: 404,
-          error: 'Can\'t persform transaction on a dormant account'
+          error: "Can't persform transaction on a dormant account"
         });
       }
       if (findAcct.rowCount === 1) {
@@ -41,7 +41,7 @@ class cashierController {
         const transactionDetails = [accountNumber, transactionId,
           transactionDate, userid,
           amount, type, oldBalance, newBalance, payeeName,
-          payeePhone, transactionType, payeeAcctNumber];
+          payeePhone, transactionType];
 
         const computeTrasaction = await pool.query(transactions, transactionDetails);
         await pool.query(updateAccount, [newBalance, findAcct.rows[0].account_number]);

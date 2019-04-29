@@ -37,8 +37,21 @@ class staffAdminController {
       res.json({ error: err.message });
     }
   }
+
+  static async viewSpecificOwnedAccounts(req, res) {
+    const { email } = req.params;
+    try {
+      const getAccounts = await pool.query('SELECT account_number, created_on, email, account_type, account_status, balance FROM account WHERE email=$1', [email]);
+      if (getAccounts.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'Something went wrong, please ensure the email supplied is valid' });
+      }
+      return res.status(200).json({ status: 200, data: getAccounts.rows });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
 }
 
-const { updateAccount, deleteAccount } = staffAdminController;
+const { updateAccount, deleteAccount, viewSpecificOwnedAccounts } = staffAdminController;
 
-export { updateAccount, deleteAccount };
+export { updateAccount, deleteAccount, viewSpecificOwnedAccounts };

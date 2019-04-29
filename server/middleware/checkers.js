@@ -15,7 +15,7 @@ class Checkers {
 
   static cashierCheck(req, res, next) {
     const { userid, usertype } = req.userInfo;
-    console.log(usertype)
+    console.log(usertype);
     if (usertype === 'cashier') {
       const confirmUser = pool.query('SELECT id FROM users WHERE id = $1', [userid]);
       if (confirmUser.rowCount === 0) {
@@ -30,7 +30,7 @@ class Checkers {
     const { userid, usertype } = req.userInfo;
 
     if (usertype === 'staffAdmin') {
-      const confirmUser = pool.query('SELECT id FROM users WHERE id = $1', [userid]);
+      const confirmUser = pool.query('SELECT id FROM users WHERE id=$1', [userid]);
       if (confirmUser.rowCount === 0) {
         return res.status(404).json({ status: '404', error: 'Invalid User ID for this staff admin' });
       }

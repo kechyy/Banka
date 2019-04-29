@@ -63,7 +63,7 @@ class transactionsValidation {
     req.body.payeePhone = payeePhone;
     req.params.accountNumber = accountNumber;
     req.params.type = type;
-    req.body.amount = amount;
+    req.body.amount = parseFloat(amount);
     next();
   }
 }

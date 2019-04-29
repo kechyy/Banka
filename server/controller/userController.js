@@ -57,7 +57,7 @@ class UserController {
   }
 
   static async createUserAccount(req, res) {
-    const { userid } = req.userInfo;
+    const { userid, email } = req.userInfo;
 
     const accountNumber = randomize('0', 10);
     const balance = '0.00';
@@ -67,15 +67,13 @@ class UserController {
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     const createdOn = `${date}  ${time}`;
-    const accountInfo = [accountNumber, createdOn, userid, type, accountStatus, balance];
+    const accountInfo = [accountNumber, createdOn, userid, email, type, accountStatus, balance];
     try {
       const confirmUser = await pool.query('SELECT id FROM users WHERE id = $1', [userid]);
       if (confirmUser.rowCount === 0) {
         return res.status(404).json({ status: '404', error: 'Invalid User ID for this user' });
       }
       const newAccount = await pool.query(createAccount, accountInfo);
-      delete newAccount.rows[0].user_id;
-      delete newAccount.rows[0].account_status;
       return res.status(201).json({ status: '201', data: newAccount.rows[0] });
     } catch (err) {
       res.json({ error: err.message });
@@ -87,19 +85,37 @@ class UserController {
     try {
       const getTransactions = await pool.query(getAcctTransactions, [accountNumber]);
       if (getTransactions.rowCount === 0) {
-        return res.status(404).json({ status: 404, error: 'Invalid account number' });
+        return res.status(404).json({ status: 404, error: 'No transaction found' });
       }
       return res.status(200).json({ status: 200, data: getTransactions.rows });
     } catch (err) {
       res.json({ error: err.message });
     }
   }
-}
 
+  static async viewSpecificAccount(req, res) {
+    const { transactionId } = req.params;
+    const { accountNumber } = req.body;
+    const { userid } = req.userInfo;
+    const getAcctNumber = await pool.query(`SELECT * FROM account where account_number=$1 and
+    user_id=$2`, [accountNumber, userid]);
+    if (getAcctNumber.rowCount === 0) {
+      return res.status(404).json({ status: '404', error: 'Account number not found' });
+    }
+    const getSpecificAcctTransaction = await pool.query(`SELECT account_number, transaction_id, transaction_date,
+    amount, transaction_type, new_balance FROM transactions WHERE
+    transaction_id=$1 and account_number=$2`, [transactionId, accountNumber]);
+    if (getSpecificAcctTransaction.rowCount === 0) {
+      return res.status(404).json({ status: '404', error: 'No transaction found' });
+    }
+    return res.status(200).json({ status: '200', data: getSpecificAcctTransaction.rows[0] });
+  }
+}
+// viewSpecificAccountValidate, tokenVerifier, 
 const {
-  signUp, signIn, createUserAccount, viewAccountHistory
+  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount
 } = UserController;
 
 export {
-  signUp, signIn, createUserAccount, viewAccountHistory
+  signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount
 };
