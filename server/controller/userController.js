@@ -1,10 +1,12 @@
 import bcrypt, { compareSync } from 'bcrypt';
 import randomize from 'randomatic';
+// import url from 'url';
 import { tokenGenerator } from '../middleware/authorize';
 import pool from '../db/connection';
 import {
   createUser, getUser, getUsers, createAccount, getAcctTransactions
 } from '../db/queryTables';
+// import mailer from '../misc/mailer';
 
 // pool.connect();
 class UserController {
@@ -12,9 +14,12 @@ class UserController {
     const {
       firstName, lastName, email, password
     } = req.body;
+    const userActivationCode = randomize('a0', 32);
+    const userEmailStatus = 'not verified';
     try {
       const query = await pool.query(createUser,
-        [firstName, lastName, email, bcrypt.hashSync(password, 10)]);
+        [firstName, lastName, email, bcrypt.hashSync(password, 10),
+          userActivationCode, userEmailStatus]);
       const token = tokenGenerator({
         userid: query.rows[0].id,
         firstName: query.rows[0].firstname,
@@ -22,7 +27,19 @@ class UserController {
         usertype: query.rows[0].usertype
       });
       query.rows[0].token = token;
-      return res.status(201).json({ data: query.rows[0] });
+      // // const baseUrl;
+      // const requrl = url.format({
+      //   protocol: req.protocol,
+      //   host: req.get('host'),
+      // });
+      // const html = `<p>Hi ${firstName}</p>
+      // <p>Thank you for Registering .</p><p>Please Open this link to verify your email address -
+      // <a href="${requrl}/emailVerification.html?activation_code=${userActivationCode}">Verify Now</a>
+      // <p>Best Regards,<br />${firstName} ${lastName}</p>`;
+      // Send the email
+      // await mailer.sendEmail('nkechi@jenoxhost.com', email, 'Email Verification', html);
+      // res.redirect('/auth/signup');
+      return res.status(201).json({ status: '201', data: query.rows[0] });
     } catch (err) {
       return res.json({ error: err.message });
     }
@@ -30,6 +47,7 @@ class UserController {
 
   static async signIn(req, res) {
     const { email, password } = req.body;
+    // pathname: req.originalUrl
     try {
       const confirmUser = await pool.query(getUser, [email]);
       if (confirmUser.rowCount === 0) {
@@ -42,6 +60,10 @@ class UserController {
           error: 'Please enter a valid username and password'
         });
       }
+      // if (confirmUser.rows[0].user_email_status !== 'verified') {
+      //   return res.status(400)
+      // .json({ status: 400, error: 'You need to verify your email first' });
+      // }
       const usersInfo = await pool.query(getUsers, [confirmUser.rows[0].email]);
       const tokenPayloads = {
         userid: usersInfo.rows[0].id,
@@ -123,7 +145,7 @@ class UserController {
       res.json({ error: err.message });
     }
   }
-} 
+}
 const {
   signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
   viewSpecificAccountDetails

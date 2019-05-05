@@ -36,7 +36,27 @@ class validateUser {
       with combination of special character is required</p>`, '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
       return;
     }
-    window.location.href = 'user/dashboard.html';
+    const url = 'http://localhost:3200/api/v1/user/auth/signin';
+    const reqBody = { email: email.value, password: password.value };
+    const request = {
+      method: 'POST',
+      body: JSON.stringify(reqBody),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+    fetch(url, request)
+      .then(response => response.json())
+      .then((result) => {
+        if (result.error) {
+          customNotify.show(`<p class="msg">${result.error}</p>', '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>`);
+        } else {
+          customNotify.show(`<p class="msg">${result.data.token}</p>','<h3 class="suces"> Success<span class="fa fa-check msgSign"></span></h3>`);
+        }
+      })
+      .catch((error) => {
+        console.log('Request failed', error);
+      });
   }
 
   signUp() {
@@ -53,9 +73,7 @@ class validateUser {
     }
     if (!password.value) {
       customNotify.show('<p class="msg">Password field cannot be empty</p>', '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
-      return;
     }
-    window.location.href = 'user/dashboard.html';
   }
 }
 
