@@ -62,10 +62,24 @@ class staffAdminController {
       res.json({ error: err.message });
     }
   }
+
+  static async viewAllActiveBankAccounts(req, res) {
+    const { status } = req.query;
+    try {
+      const getAllActiveBankAccounts = await pool.query(`SELECT account_number, created_on, email,
+    account_type, account_status, balance FROM account WHERE account_status=$1`, [status]);
+      if (getAllActiveBankAccounts.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'No record found' });
+      }
+      return res.status(200).json({ status: 200, data: getAllActiveBankAccounts.rows });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
 }
 
 const { updateAccount, deleteAccount, viewSpecificOwnedAccounts,
-  viewAllBankAccounts } = staffAdminController;
+  viewAllBankAccounts, viewAllActiveBankAccounts } = staffAdminController;
 
 export { updateAccount, deleteAccount, viewSpecificOwnedAccounts,
-  viewAllBankAccounts };
+  viewAllBankAccounts, viewAllActiveBankAccounts };

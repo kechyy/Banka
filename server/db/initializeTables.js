@@ -17,6 +17,8 @@ CREATE TABLE users (
   lastName VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
+  user_activation_code VARCHAR(255),
+  user_email_status VARCHAR(20),
   usertype VARCHAR(20) NOT NULL DEFAULT('client'),
   isadmin BOOL NOT NULL DEFAULT('false')
 );
@@ -51,12 +53,14 @@ CREATE TABLE transactions (
 `;
 
   const query = {
-    text: 'INSERT INTO users (firstName, lastName, email, password, usertype, isadmin) VALUES ($1, $2, $3, $4, $5, $6)',
+    text: 'INSERT INTO users (firstName, lastName, email, password, user_activation_code, user_email_status, usertype, isadmin) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
     values: [
       process.env.firstname,
       process.env.lastname,
       process.env.email,
       bcrypt.hashSync(process.env.password, 10),
+      'ac9f52cdde2c85401d48d769eb9b7e22',
+      'verified',
       'admin',
       'true'
     ]

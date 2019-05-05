@@ -4,6 +4,7 @@ import '@babel/polyfill';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import userRoutes from './server/routes/userAuth';
 import adminRoutes from './server/routes/admin';
 import staffAdminRoutes from './server/routes/staffAdmin';
@@ -16,7 +17,7 @@ const documentation = YAML.load(`${process.cwd()}/swagger.yaml`);
 dotenv.config();
 
 const port = process.env.PORT || 3200;
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

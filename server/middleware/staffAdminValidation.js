@@ -38,8 +38,23 @@ class accountValidation {
     req.params.email = email;
     next();
   }
+
+  static viewActiveBankAcctValiation(req, res, next) {
+    let { status } = req.query;
+
+    if (!status) {
+      return res.status(400).json({ status: 400, error: 'account status is required' });
+    }
+    status = status.trim();
+    if (status !== 'active' && status !== 'dormant') {
+      return res.status(400).json({ status: 400, error: `Invalid account status. Status
+      could either be active or dormant` });
+    }
+    req.query.status = status;
+    next();
+  }
 }
 const { accountUpdateValidate, accountDeleteValidate,
-  viewSpecificOwnedAccountsValidation } = accountValidation;
+  viewSpecificOwnedAccountsValidation, viewActiveBankAcctValiation } = accountValidation;
 export { accountUpdateValidate, accountDeleteValidate,
-  viewSpecificOwnedAccountsValidation };
+  viewSpecificOwnedAccountsValidation, viewActiveBankAcctValiation };

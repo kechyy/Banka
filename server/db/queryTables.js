@@ -1,13 +1,13 @@
 const createSuperAdmin = 'INSERT INTO users (firstName, lastName, email, password, usertype, isadmin) VALUES($1, $2, $3, $4, $5, $6) returning *';
 
-const createUser = 'INSERT INTO users (firstName, lastName, email, password) VALUES($1, $2, $3, $4) returning id, firstname, lastname, email, usertype';
+const createUser = 'INSERT INTO users (firstName, lastName, email, password, user_activation_code, user_email_status) VALUES($1, $2, $3, $4, $5, $6) returning id, firstname, lastname, email, usertype';
 
 const createAccount = `INSERT INTO account (account_number, created_on, user_id,
 email, account_type, account_status, balance) 
 VALUES($1, $2, $3, $4, $5, $6, $7) returning account_number, created_on,
 email, account_type, account_status, balance`;
 
-const getUser = 'SELECT email, password, id FROM users WHERE email=$1';
+const getUser = 'SELECT * FROM users WHERE email=$1';
 
 const getUsers = 'SELECT id, firstName, email, usertype FROM users WHERE email=$1';
 
