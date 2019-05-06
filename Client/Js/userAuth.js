@@ -39,7 +39,8 @@ class UserAuth {
       '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
       return;
     }
-    const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signin';
+    // const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signin';
+    const url = 'http://localhost:3200/api/v1/user/auth/signin';
     const reqBody = { email: email.value, password: password.value };
     const request = {
       method: 'POST',
@@ -50,17 +51,20 @@ class UserAuth {
     };
 
     fetch(url, request)
-      .then(response => response.json())
+      .then((response) => {
+        return response.json();
+      })
       .then((result) => {
         if (result.error) {
           return customNotify.show(`<p class="msg">${result.error}</p>',
           '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>`);
         }
         if (typeof (Storage) !== 'undefined') {
+          sessionStorage.setItem('Authorization', result.data.token);
           switch (result.data.usertype) {
             case 'admin': window.location.href = 'admin/userAccount.html';
               break;
-            case 'client': window.location.href = 'user/dashboard.html';
+            case 'client': window.location.href = 'user/userPage.html';
               break;
             case 'cashier': window.location.href = 'cashier/allUserAccount.html';
               break;
@@ -105,7 +109,8 @@ class UserAuth {
       return customNotify.show('<p class="msg">Password must be the same</p>',
         '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
     }
-    const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signup';
+    // const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signup';
+    const url = 'http://localhost:3200/api/v1/user/auth/signup';
     const reqBody = {
       firstName: firstName.value,
       lastName: lastName.value,
@@ -127,7 +132,10 @@ class UserAuth {
           return customNotify.show(`<p class="msg">${result.error}</p>',
           '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>`);
         }
-        window.location.href = 'user/dashboard.html';
+        if (typeof (Storage) !== 'undefined') {
+          sessionStorage.setItem('Authorization', result.data.token);
+          window.location.href = 'user/dashboard.html';
+        }
       })
       .catch((error) => {
         console.log('Request failed', error);

@@ -145,13 +145,26 @@ class UserController {
       res.json({ error: err.message });
     }
   }
+
+  static async userProfile(req, res) {
+    const { email } = req.userInfo;
+    try {
+      const users = await pool.query('SELECT * FROM users WHERE email=$1', [email]);
+      if (users.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'No Record Found' });
+      }
+      return res.status(200).json({ status: 200, data: users.rows[0] });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
 }
 const {
   signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
-  viewSpecificAccountDetails
+  viewSpecificAccountDetails, userProfile
 } = UserController;
 
 export {
   signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
-  viewSpecificAccountDetails
+  viewSpecificAccountDetails, userProfile
 };

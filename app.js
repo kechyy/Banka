@@ -10,6 +10,7 @@ import adminRoutes from './server/routes/admin';
 import staffAdminRoutes from './server/routes/staffAdmin';
 import cashierRouter from './server/routes/cashier';
 import router from './server/routes/index';
+import checkRoutes from './server/routes/authorizeEndPoints';
 
 const app = express();
 const documentation = YAML.load(`${process.cwd()}/swagger.yaml`);
@@ -26,6 +27,7 @@ app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/staffadmin', staffAdminRoutes);
 app.use('/api/v1/cashier', cashierRouter);
+app.use('/api/v1', checkRoutes);
 app.use('/api/v1', router);
 
 app.use('*', (req, res) => res.status(404).json({
