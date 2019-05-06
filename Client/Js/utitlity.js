@@ -1,6 +1,8 @@
 
 const session = sessionStorage.getItem('Authorization') ? sessionStorage.getItem('Authorization') : '';
-const urls = 'http://localhost:3200/api/v1/protectedEndPoints';
+// const urls = 'http://localhost:3200/api/v1/protectedEndPoints';
+const urls = 'http://kechyy-banka-app.herokuapp.com/api/v1/protectedEndPoints';
+
 const requests = {
   method: 'GET',
   headers: {
