@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
-  viewSpecificAccountDetails
+  viewSpecificAccountDetails, userProfile
 } from '../controller/userController';
 import { userCheck } from '../middleware/checkers';
 import { tokenVerifier } from '../middleware/authorize';
@@ -15,6 +15,7 @@ const userRouter = express.Router();
 userRouter.post('/auth/signup', signUpValidate, signUp);
 userRouter.post('/auth/signin', signInValidate, signIn);
 userRouter.post('/account', accountValidate, tokenVerifier, userCheck, createUserAccount);
+userRouter.get('/profile', tokenVerifier, userCheck, userProfile);
 userRouter.get('/accounts/:accountNumber/transactions', viewAccountHistoryValidate, tokenVerifier, userCheck, viewAccountHistory);
 userRouter.get('/transactions/:transactionId', viewSpecificAcctValidate, tokenVerifier, userCheck, viewSpecificAccount);
 userRouter.get('/accounts/:accountNumber', viewSpecificAccountDetailsValidation, tokenVerifier, userCheck, viewSpecificAccountDetails);
