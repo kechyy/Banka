@@ -4,7 +4,8 @@ const Accountrequest = {
     Authorization: sessionStorage.getItem('Authorization')
   }
 };
-const url2 = 'http://localhost:3000/api/v1/user/profile';
+// const url2 = 'http://localhost:3000/api/v1/user/profile';
+const url2 = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
 const acctForm = document.querySelector('.accountForm');
 acctForm.addEventListener('click', (e) => {
   e.preventDefault();
