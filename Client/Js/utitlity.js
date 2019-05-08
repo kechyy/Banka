@@ -1,8 +1,6 @@
 
 const session = sessionStorage.getItem('Authorization') ? sessionStorage.getItem('Authorization') : '';
-// const urls = 'http://localhost:3200/api/v1/protectedEndPoints';
-const urls = 'http://kechyy-banka-app.herokuapp.com/api/v1/protectedEndPoints';
-
+const urls = 'http://localhost:3000/api/v1/protectedEndPoints';
 const requests = {
   method: 'GET',
   headers: {
@@ -19,3 +17,8 @@ fetch(urls, requests)
   .catch((error) => {
     console.log('Request failed', error);
   });
+
+const title = (maintTitle, subTitle) => {
+  document.getElementById('contentMainTitle').innerHTML = maintTitle;
+  document.getElementById('contentSubTitle').innerHTML = subTitle;
+};

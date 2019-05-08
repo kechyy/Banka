@@ -22,8 +22,8 @@
                     <li><a href=""><span class="fa fa-list"></span> </a>
                         <ul class="dropDown">
                             <li><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="userProfile.html">Profile</a></li>
-                            <li><a href="createBankAccount.html">Create Bank Account</a></li>
+                            <li id="userProfile"><a href="userProfile.html">Profile</a></li>
+                            <li id="bankAccount"><a href="createBankAccount.html">Create Bank Account</a></li>
                             <li><a href="transactionHistory.html">Transaction History</a></li>
                         </ul>
                     </li>
@@ -42,8 +42,8 @@
                         <div class="sideBarTitle">Client User</div>
                         <ul>
                             <li><span class="fa fa-dashboard"></span> <a href="dashboard.html">Dashboard</a></li>
-                            <li><span class="fa fa-user"></span> <a href="userProfile.html">Profile</a></li>
-                            <li><span class="fa fa-book"></span> <a href="createBankAccount.html">Create Bank Account</a></li>
+                            <li class="userProfile"><span class="fa fa-user"></span> <a href="javascript:void(0);">Profile</a></li>
+                            <li class="accountForm"><span class="fa fa-book"></span> <a href="createBankAccount.html">Create Bank Account</a></li>
                             <li><span class="fa fa-list"></span> <a href="transactionHistory.html">Transaction History</a></li>
                         </ul>     
                     </aside>
@@ -63,6 +63,7 @@
                             </div>
                         </header>
                         <aside class="rightSideBar">
+                            
                            <div class="row" id="userMain">
                                
                            </div>
@@ -71,12 +72,15 @@
               </div> 
           </div>
       </div>
+      
+      <div id="dialogContent"></div>
   </main>
   <footer class="footer">
       <p>Copyright &copy Kecyy Banka Application all 2019 rights reserved</p>
   <script src="../Js/script.js"></script>
   <script src="../Js/dialogBox.js"></script>
-  <script src="../Js/userMain.js"></script>
+  <script src="Js/profile.js"></script>
+  <script src="Js/accountForm.js"></script>
   <script src="../Js/logout.js"></script>
 </body>
 </html>

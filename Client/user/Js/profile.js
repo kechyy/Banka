@@ -4,14 +4,14 @@ const request = {
     Authorization: sessionStorage.getItem('Authorization')
   }
 };
-// const url = 'http://localhost:3200/api/v1/user/profile';
- const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
+let profileDetails;
+const url = 'http://localhost:3000/api/v1/user/profile';
+// const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
 fetch(url, request)
   .then(response => response.json())
   .then((result) => {
-    document.getElementById('contentMainTitle').innerHTML = 'User Profile';
-    document.getElementById('contentSubTitle').innerHTML = 'Profile Information';
-    const userDetails = `<div class="col-3-md acctPhoto">
+    title('User Profile', 'Profile Information');
+    profileDetails = `<div class="col-3-md acctPhoto">
         <img src="../images/avatar1.jpg" alt="">
     </div>
     <div class="col-8-md acctDetails">
@@ -40,8 +40,15 @@ fetch(url, request)
             </tbody>
         </table>
     </div>`;
-    document.getElementById('userMain').innerHTML = userDetails;
+    document.getElementById('userMain').innerHTML = profileDetails;
   })
   .catch((error) => {
     console.log('Request failed', error);
   });
+
+const userProfile = document.querySelector('.userProfile');
+userProfile.addEventListener('click', (e) => {
+  e.preventDefault();
+  title('User Profile', 'Profile Information');
+  document.getElementById('userMain').innerHTML = profileDetails;
+});

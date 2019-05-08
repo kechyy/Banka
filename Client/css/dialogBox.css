@@ -89,7 +89,7 @@ color:#666;
     text-align: center;
 }
 .suces{
-  color: #0f0;
+  color: #0f0 !important;
 }
 .err{
   color: #f00;
