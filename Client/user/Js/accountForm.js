@@ -1,17 +1,19 @@
+/* eslint-disable no-undef */
 const Accountrequest = {
   method: 'GET',
   headers: {
     Authorization: sessionStorage.getItem('Authorization')
   }
 };
-// const url2 = 'http://localhost:3000/api/v1/user/profile';
-const url2 = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
-const acctForm = document.querySelector('.accountForm');
+const url2 = 'http://localhost:3200/api/v1/user/profile';
+// const url2 = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
+const acctForm = document.querySelector('.accountForms');
 acctForm.addEventListener('click', (e) => {
   e.preventDefault();
   fetch(url2, Accountrequest)
     .then(response => response.json())
     .then((result) => {
+      // eslint-disable-next-line no-undef
       title('Account Information', 'Create Bank Account');
       const accountForm = `<div class="row createAcct">
     <div class="col-6-md col-12-xs">
@@ -49,8 +51,8 @@ acctForm.addEventListener('click', (e) => {
       const createAccountBtn = document.querySelector('.createAccountBtn');
       createAccountBtn.addEventListener('click', () => {
         const type = document.querySelector('#type');
-        // const acctUrl = 'http://localhost:3000/api/v1/user/account';
-        const acctUrl = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/account';
+        const acctUrl = 'http://localhost:3200/api/v1/user/account';
+        // const acctUrl = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/account';
         const session = sessionStorage.getItem('Authorization') ? sessionStorage.getItem('Authorization') : '';
         const reqBody = { type: type.value };
         const request = {
@@ -61,7 +63,6 @@ acctForm.addEventListener('click', (e) => {
             Authorization: session
           }
         };
-
         fetch(acctUrl, request)
           .then(response => response.json())
           .then((report) => {

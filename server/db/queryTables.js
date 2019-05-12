@@ -1,7 +1,7 @@
 const createSuperAdmin = 'INSERT INTO users (firstName, lastName, email, password, usertype, isadmin) VALUES($1, $2, $3, $4, $5, $6) returning *';
 
 const createUser = 'INSERT INTO users (firstName, lastName, email, password, user_activation_code, user_email_status) VALUES($1, $2, $3, $4, $5, $6) returning id, firstname, lastname, email, usertype';
-
+const adminCreateUser = 'INSERT INTO users (firstName, lastName, email, password, user_activation_code, user_email_status, usertype) VALUES($1, $2, $3, $4, $5, $6, $7) returning id, firstname, lastname, email, usertype';
 const createAccount = `INSERT INTO account (account_number, created_on, user_id,
 email, account_type, account_status, balance) 
 VALUES($1, $2, $3, $4, $5, $6, $7) returning account_number, created_on,
@@ -30,5 +30,6 @@ const setUserType = 'UPDATE users SET usertype=$1, isadmin=$2 WHERE id=$3';
 
 export {
   createSuperAdmin, createUser, createAccount, getUser, getUsers, transactions,
-  updateAccount, updateAccountDb, getAcctStatus, delAccount, getAcctTransactions, setUserType
+  updateAccount, updateAccountDb, getAcctStatus, delAccount, getAcctTransactions, setUserType,
+  adminCreateUser
 };
