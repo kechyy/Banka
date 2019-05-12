@@ -4,7 +4,8 @@
 let usertype;
 const manageUsers = () => {
   let userHead = ''; let userBody = ''; let userFooter = '';
-  const url = 'http://localhost:3200/api/v1/admin/users';
+  const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/users';
+  // const url = 'http://localhost:3200/api/v1/admin/users';
   fetch(url, requests)
     .then(res => res.json())
     .then((result) => {
@@ -56,7 +57,9 @@ const manageUsers = () => {
         usertype[i].addEventListener('change', () => {
           const userId = usertype[i].getAttribute('data-id');
           const callback = () => {
-            fetch(`http://localhost:3200/api/v1/admin/setuser/${userId}`,
+            const urls = `https://kechyy-banka-app.herokuapp.com/api/v1/admin/setuser/${userId}`;
+            // const urls = `http://localhost:3200/api/v1/admin/setuser/${userId}`;
+            fetch(urls,
               {
                 method: 'POST',
                 body: JSON.stringify({ usertype: usertype[i].value }),

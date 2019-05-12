@@ -21,7 +21,8 @@ const request2 = {
     Authorization: session
   }
 };
-const accountList = 'http://localhost:3200/api/v1/user/userAccounts';
+const accountList = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/userAccounts';
+// const accountList = 'http://localhost:3200/api/v1/user/userAccounts';
 fetch(accountList, request2)
   .then(accts => accts.json())
   .then((acctResult) => {
@@ -42,7 +43,8 @@ fetch(accountList, request2)
       acctList[i].addEventListener('click', (e) => {
         e.preventDefault();
         const accountNumber = acctList[i].getAttribute('data-acct');
-        const transactionUrl = `http://localhost:3200/api/v1/user/accounts/${accountNumber}/transactions`;
+        const transactionUrl = `https://kechyy-banka-app.herokuapp.com/api/v1/user/accounts/${accountNumber}/transactions`;
+        // const transactionUrl = `http://localhost:3200/api/v1/user/accounts/${accountNumber}/transactions`;
         fetch(transactionUrl, request2)
           .then(res => res.json())
           .then((result) => {

@@ -58,8 +58,8 @@ newUserBtn.addEventListener('click', (e) => {
       return customNotify.show('<p class="msg">Usertype field cannot be empty</p>',
         '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
     }
-    // const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/auth/createUser';
-    const url = 'http://localhost:3200/api/v1/admin/auth/createUser';
+    const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/auth/createUser';
+    // const url = 'http://localhost:3200/api/v1/admin/auth/createUser';
     const reqBody = {
       firstName: firstName.value,
       lastName: lastName.value,

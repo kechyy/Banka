@@ -6,8 +6,8 @@ const request = {
   }
 };
 let profileDetails;
-const url = 'http://localhost:3200/api/v1/user/profile';
-// const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
+// const url = 'http://localhost:3200/api/v1/user/profile';
+const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
 fetch(url, request)
   .then(response => response.json())
   .then((result) => {
