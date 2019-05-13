@@ -39,7 +39,7 @@ class UserAuth {
       '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
       return;
     }
-    // const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signin';
+    // const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signin';
     const url = 'http://localhost:3200/api/v1/user/auth/signin';
     const reqBody = { email: email.value, password: password.value };
     const request = {
@@ -62,7 +62,7 @@ class UserAuth {
         if (typeof (Storage) !== 'undefined') {
           sessionStorage.setItem('Authorization', result.data.token);
           switch (result.data.usertype) {
-            case 'admin': window.location.href = 'admin/userAccount.html';
+            case 'admin': window.location.href = 'admin/adminPage.html';
               break;
             case 'client': window.location.href = 'user/userPage.html';
               break;
@@ -109,7 +109,7 @@ class UserAuth {
       return customNotify.show('<p class="msg">Password must be the same</p>',
         '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
     }
-    // const url = 'http://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signup';
+    // const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/auth/signup';
     const url = 'http://localhost:3200/api/v1/user/auth/signup';
     const reqBody = {
       firstName: firstName.value,
@@ -134,7 +134,7 @@ class UserAuth {
         }
         if (typeof (Storage) !== 'undefined') {
           sessionStorage.setItem('Authorization', result.data.token);
-          window.location.href = 'user/dashboard.html';
+          window.location.href = 'user/userPage.html';
         }
       })
       .catch((error) => {

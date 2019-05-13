@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import bcrypt, { compareSync } from 'bcrypt';
 import randomize from 'randomatic';
 // import url from 'url';
@@ -158,13 +159,26 @@ class UserController {
       res.json({ error: err.message });
     }
   }
+
+  static async userAccountList(req, res) {
+    const { userid } = req.userInfo;
+    try {
+      const acctList = await pool.query('SELECT * FROM account WHERE user_id=$1', [userid]);
+      if (acctList.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'No Record Found' });
+      }
+      return res.status(200).json({ status: 200, data: acctList.rows });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
 }
 const {
   signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
-  viewSpecificAccountDetails, userProfile
+  viewSpecificAccountDetails, userProfile, userAccountList
 } = UserController;
 
 export {
   signUp, signIn, createUserAccount, viewAccountHistory, viewSpecificAccount,
-  viewSpecificAccountDetails, userProfile
+  viewSpecificAccountDetails, userProfile, userAccountList
 };
