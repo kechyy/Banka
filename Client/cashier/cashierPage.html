@@ -21,8 +21,8 @@
                 <ul class="topMenu">
                     <li><a href=""><span class="fa fa-list"></span> </a>
                         <ul class="dropDown">
-                           <li class="userBtn"><a href="userAccount.html">User Account</a></li>
-                            <li class="newUserBtn""><a href="newUser.html">Add New user</a></li>
+                          <li class="creditBtn"><a href="creditAccount.html">Credit Account</a></li>
+                          <li class="debitBtn"><a href="debitAccount.html">Debit Account</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -39,8 +39,9 @@
                         <div><img src="../images/logo2.png" alt="" class="logo"></div>   
                         <div class="sideBarTitle">Admin User</div>
                         <ul class="sideMenu">
-                            <li class="userBtn" id="userBtn"><span class="fa fa-pencil"></span> &nbsp;<a href="userAccount.html">User Account</a></li>
-                            <li class="active newUserBtn" id="newUserBtn"><span class="fa fa-user"></span> &nbsp;<a href="newUser.html">Add New User</a></li>
+                            <li class="creditBtn" id="creditBtn"><span class="fa fa-pencil"></span> &nbsp;<a href="creditAccount.html">Credit/Debit Account</a></li>
+                            
+                            <li class="active allTransactions"><span class="fa fa-list"></span> &nbsp;<a href="allTransactions.html">View transactions</a></li>
                         </ul>         
                     </aside>
                 </div>
@@ -60,7 +61,7 @@
                         </header>
                         <aside class="rightSideBar">
                             
-                           <div class="row" id="adminMain">
+                           <div class="row" id="cashierMain">
                                
                            </div>
                         </aside>
@@ -73,10 +74,11 @@
   </main>
   <footer class="footer">
       <p>Copyright &copy Kecyy Banka Application all 2019 rights reserved</p>
+  </footer>
   <script src="../Js/script.js"></script>
   <script src="../Js/dialogBox.js"></script>
-  <script src="Js/users.js"></script>
-  <script src="Js/newUser.js"></script>
+  <script src="Js/viewTransactions.js"></script>
+  <script src="Js/creditDebitAccount.js"></script>
   <script src="../Js/logout.js"></script>
 </body>
 </html>

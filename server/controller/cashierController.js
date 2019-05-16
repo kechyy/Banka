@@ -8,10 +8,11 @@ class cashierController {
     const { userid } = req.userInfo;
     const { accountNumber, type } = req.params;
     const {
-      amount, payeeAcctNumber, payeeName, payeePhone, transactionType
+      amount, payeeName, payeePhone, transactionType
     } = req.body;
     try {
       const findAcct = await pool.query(getAcctStatus, [accountNumber]);
+
       if (findAcct.rowCount === 0) {
         return res.status(404).json({
           status: 404,
@@ -26,29 +27,41 @@ class cashierController {
       }
       if (findAcct.rowCount === 1) {
         if (type === 'debit') {
-          if (amount > findAcct.rows[0].balance) {
+          if (parseFloat(amount) > parseFloat(findAcct.rows[0].balance)) {
             return res.status(400).json({
               status: 400,
               error: `Insufficient account balance: [${findAcct.rows[0].balance}]`
             });
           }
         }
-        const newBalance = computeNewBalance(type, findAcct, amount);
-        const oldBalance = findAcct.rows[0].balance;
+        const newBalance = parseFloat(computeNewBalance(type, findAcct, amount));
+
+        const oldBalance = parseFloat(findAcct.rows[0].balance);
         const transactionId = randomize('a0', 20);
         const date = new Date();
         const transactionDate = date;
         const transactionDetails = [accountNumber, transactionId,
           transactionDate, userid,
           amount, type, oldBalance, newBalance, payeeName,
-          payeePhone, transactionType];
-
+          payeePhone, 2345677881, transactionType];
         const computeTrasaction = await pool.query(transactions, transactionDetails);
         await pool.query(updateAccount, [newBalance, findAcct.rows[0].account_number]);
         return res.status(201).json({
-          status: '201', data: computeTrasaction.rows[0]
+          status: 201, data: computeTrasaction.rows[0]
         });
       }
+    } catch (err) {
+      return res.json({ error: err.message });
+    }
+  }
+
+  static async viewAllTransactions(req, res) {
+    try {
+      const query = await pool.query('SELECT * FROM transactions');
+      if (query.rowCount > 0) {
+        return res.status(200).json({ status: 200, data: query.rows });
+      }
+      return res.status(404).json({ status: 404, error: 'No record found' });
     } catch (err) {
       return res.json({ error: err.message });
     }
@@ -56,6 +69,5 @@ class cashierController {
 }
 
 
-const { debitCredit } = cashierController;
-
-export default debitCredit;
+const { debitCredit, viewAllTransactions } = cashierController;
+export { debitCredit, viewAllTransactions };

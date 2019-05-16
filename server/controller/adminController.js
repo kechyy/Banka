@@ -34,9 +34,8 @@ class AdminController {
       <a href="${requrl}/emailVerification.html?activation_code=${userActivationCode}">Verify Now</a>
       <p>Best Regards,<br />${firstName} ${lastName}</p>`;
       // Send the email
-      const mailSent = await mailer.sendEmail('kech3443@gmail.com', email, 'Email Verification', html);
-      console.log(mailSent);
-      return res.status(201).json({ status: 201, data: query.rows });
+      await mailer.sendEmail('nkechi4422@gmail.com', email, 'Email Verification', html);
+      return res.status(201).json({ status: 201, data: query.rows[0] });
     } catch (err) {
       return res.json({ error: err.message });
     }
@@ -57,6 +56,7 @@ class AdminController {
           data: 'Usertype successfully updated'
         });
       }
+      return res.status(400).json({ status: 400, error: 'Update not successful, please try again later' });
     } catch (err) {
       res.json({ error: err.message });
     }

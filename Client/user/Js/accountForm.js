@@ -5,12 +5,10 @@ const Accountrequest = {
     Authorization: sessionStorage.getItem('Authorization')
   }
 };
-// const url2 = 'http://localhost:3200/api/v1/user/profile';
-const url2 = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/profile';
 const acctForm = document.querySelector('.accountForms');
 acctForm.addEventListener('click', (e) => {
   e.preventDefault();
-  fetch(url2, Accountrequest)
+  fetch(profileUrl, Accountrequest)
     .then(response => response.json())
     .then((result) => {
       // eslint-disable-next-line no-undef
@@ -51,8 +49,6 @@ acctForm.addEventListener('click', (e) => {
       const createAccountBtn = document.querySelector('.createAccountBtn');
       createAccountBtn.addEventListener('click', () => {
         const type = document.querySelector('#type');
-        // const acctUrl = 'http://localhost:3200/api/v1/user/account';
-        const acctUrl = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/account';
         const session = sessionStorage.getItem('Authorization') ? sessionStorage.getItem('Authorization') : '';
         const reqBody = { type: type.value };
         const request = {
@@ -63,7 +59,7 @@ acctForm.addEventListener('click', (e) => {
             Authorization: session
           }
         };
-        fetch(acctUrl, request)
+        fetch(accountUrl, request)
           .then(response => response.json())
           .then((report) => {
             if (report.status === '201') {

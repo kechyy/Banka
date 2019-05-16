@@ -32,7 +32,7 @@ CREATE TABLE account (
   email VARCHAR(100) NOT NULL ,
   account_type VARCHAR(8) NOT NULL,
   account_status VARCHAR(8) NOT NULL,
-  balance NUMERIC(6,2) NOT NULL
+  balance NUMERIC(15,2) NOT NULL
 );
 DROP TABLE IF EXISTS transactions CASCADE;
 CREATE TABLE transactions (
@@ -41,10 +41,10 @@ CREATE TABLE transactions (
   transaction_id VARCHAR(255) NOT NULL UNIQUE,
   transaction_date TIMESTAMP,
   cashier_id INT NOT NULL REFERENCES users (id),
-  amount NUMERIC(6,2) NOT NULL,
+  amount NUMERIC(15,2) NOT NULL,
   transaction_type VARCHAR(8) NOT NULL,
-  old_balance NUMERIC(6,2) NOT NULL,
-  new_balance NUMERIC(6,2) NOT NULL,
+  old_balance NUMERIC(15,2) NOT NULL,
+  new_balance NUMERIC(15,2) NOT NULL,
   payee_name VARCHAR(50),
   payee_phone VARCHAR(50),
   payee_account_number BIGINT,

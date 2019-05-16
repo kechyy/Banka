@@ -12,8 +12,8 @@ const getUser = 'SELECT * FROM users WHERE email=$1';
 const getUsers = 'SELECT id, firstName, email, usertype FROM users WHERE email=$1';
 
 const transactions = `INSERT INTO transactions (account_number, transaction_id, transaction_date,
-  cashier_id, amount, transaction_type, old_balance, new_balance, payee_name, payee_phone,
-  transaction_type2) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+  cashier_id, amount, transaction_type, old_balance, new_balance, payee_name, payee_phone, payee_account_number,
+  transaction_type2) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
   RETURNING account_number, transaction_id, transaction_date, amount, transaction_type, new_balance`;
 
 const updateAccount = 'UPDATE account set balance=$1 WHERE account_number= $2 returning *';

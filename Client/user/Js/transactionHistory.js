@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-loop-func */
 /* eslint-disable no-undef */
-let transacTable;
+let transHead, transBody, transFooter = '';
 const transact = document.querySelector('.transact');
 const d = document.createDocumentFragment();
 let open = false;
@@ -21,8 +21,6 @@ const request2 = {
     Authorization: session
   }
 };
-const accountList = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/userAccounts';
-// const accountList = 'http://localhost:3200/api/v1/user/userAccounts';
 fetch(accountList, request2)
   .then(accts => accts.json())
   .then((acctResult) => {
@@ -43,34 +41,15 @@ fetch(accountList, request2)
       acctList[i].addEventListener('click', (e) => {
         e.preventDefault();
         const accountNumber = acctList[i].getAttribute('data-acct');
-        const transactionUrl = `https://kechyy-banka-app.herokuapp.com/api/v1/user/accounts/${accountNumber}/transactions`;
-        // const transactionUrl = `http://localhost:3200/api/v1/user/accounts/${accountNumber}/transactions`;
+        // const transactionUrl = `https://kechyy-banka-app.herokuapp.com/api/v1/user/accounts/${accountNumber}/transactions`;
+        const transactionUrl = `http://localhost:3000/api/v1/user/accounts/${accountNumber}/transactions`;
         fetch(transactionUrl, request2)
           .then(res => res.json())
           .then((result) => {
+            console.log(result);
             title('Account Statment', 'Transaction History');
             // eslint-disable-next-line no-unused-vars
-            if (result.status !== 200) {
-              document.getElementById('userMain').innerHTML = `<div class="col-12-xs col-12-md table">
-              <table cellpadding="0" cellspacing="0">
-                  <thead>
-                      <tr>
-                          <th>Date</th>
-                          <th>Transaction ID</th>
-                          <th>Transaction type</th>
-                          <th>Transaction amount</th>
-                          <th>Old Balance</th>
-                          <th>New Balance</th>
-                          <th>Action</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-              <tr><td colspan="7" align="center" class="err">No record Found</td></tr>
-              </tbody>
-            </table> 
-        </div>`;
-            } else {
-              transacTable += `<div class="col-12-xs col-12-md table">
+            transHead = `<div class="col-12-xs col-12-md table">
               <table cellpadding="0" cellspacing="0">
                   <thead>
                       <tr>
@@ -84,8 +63,11 @@ fetch(accountList, request2)
                       </tr>
                   </thead>
                   <tbody>`;
+            if (result.status !== 200) {
+              transBody = '<tr><td colspan="6" align="center" class="err">No Transaction Record Found</td></tr>';
+            } else {
               result.forEach((t) => {
-                transacTable += `
+                transBody = `
                     <tr>
                         <td class="responsiveTitle">Date</td>
                         <td>${t.data.transaction_date}</td>
@@ -103,11 +85,11 @@ fetch(accountList, request2)
                         <td><button class="btn btn-blue">View</button></td>
                     </tr>`;
               });
-              transacTable += `</tbody>
+            }
+            transFooter = `</tbody>
             </table> 
         </div>`;
-              document.getElementById('userMain').innerHTML = transacTable;
-            }
+            document.getElementById('userMain').innerHTML = transHead + transBody + transFooter;
           });
       });
     }

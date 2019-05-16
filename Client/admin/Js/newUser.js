@@ -28,7 +28,7 @@ const newUserForm = `<div class="row createAcct">
 </div>
 </div>
 `;
-const newUserBtn = document.querySelector('.newUserBtn');
+const newUserBtn = document.getElementById('newUserBtn');
 newUserBtn.addEventListener('click', (e) => {
   e.preventDefault();
   title('Manage User', 'Create New User');
@@ -58,8 +58,6 @@ newUserBtn.addEventListener('click', (e) => {
       return customNotify.show('<p class="msg">Usertype field cannot be empty</p>',
         '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
     }
-    const url = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/auth/createUser';
-    // const url = 'http://localhost:3200/api/v1/admin/auth/createUser';
     const reqBody = {
       firstName: firstName.value,
       lastName: lastName.value,
@@ -74,7 +72,7 @@ newUserBtn.addEventListener('click', (e) => {
         Authorization: session
       }
     };
-    fetch(url, request)
+    fetch(createUrl, request)
       .then((response) => {
         return response.json();
       })
