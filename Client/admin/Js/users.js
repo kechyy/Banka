@@ -62,7 +62,7 @@ const manageUsers = () => {
                 method: 'POST',
                 body: JSON.stringify({ usertype: usertype[i].value }),
                 headers: {
-                  'Content-type': 'application/json',
+                  'Content-type': 'application/json',gi
                   Authorization: session
                 }
               })
