@@ -44,7 +44,8 @@ creditBtn.addEventListener('click', (e) => {
     // const payeeAcctNumber = document.getElementById('payeeAcctNumber').value;
     const payeeName = document.getElementById('payeeName').value;
     const payeePhone = document.getElementById('payeePhone').value;
-    const creditTransactionUrl = `http://localhost:8000/api/v1/cashier/transactions/${accountNumber}/${transactionType}`;
+    const creditTransactionUrl = `https://kechyy-banka-app.herokuapp.com/api/v1/cashier/transactions/${accountNumber}/${transactionType}`;
+    // const creditTransactionUrl = `http://localhost:8000/api/v1/cashier/transactions/${accountNumber}/${transactionType}`;
     const transactionBody = {
       amount,
       payeeName,
