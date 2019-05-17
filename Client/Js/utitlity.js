@@ -16,7 +16,7 @@ const accountList = 'https://kechyy-banka-app.herokuapp.com/api/v1/user/userAcco
 const createUrl = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/auth/createUser';
 // const createUrl = 'http://localhost:8000/api/v1/admin/auth/createUser';
 
-const userURl = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/users';
+const userUrl = 'https://kechyy-banka-app.herokuapp.com/api/v1/admin/users';
 // const userUrl = 'http://localhost:8000/api/v1/admin/users';
 const viewTransactionUrl = 'https://kechyy-banka-app.herokuapp.com/api/v1/staffAdmin/accounts';
 // const viewTransactionUrl = 'http://localhost:8000/api/v1/cashier/allTransactions';

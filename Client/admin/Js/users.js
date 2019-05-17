@@ -62,16 +62,14 @@ const manageUsers = () => {
                 method: 'POST',
                 body: JSON.stringify({ usertype: usertype[i].value }),
                 headers: {
-                  'Content-type': 'application/json',gi
+                  'Content-type': 'application/json',
                   Authorization: session
                 }
               })
               .then((respnse) => {
-                console.log(respnse)
                 return respnse.json();
               })
               .then((reslt) => {
-                console.log(reslt)
                 if (reslt.status === 200) {
                   return manageUsers();
                 }
