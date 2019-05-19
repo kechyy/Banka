@@ -41,7 +41,7 @@ class staffAdminController {
   static async viewSpecificOwnedAccounts(req, res) {
     const { email } = req.params;
     try {
-      const getAccounts = await pool.query('SELECT account_number, created_on, email, account_type, account_status, balance FROM account WHERE email=$1', [email]);
+      const getAccounts = await pool.query('SELECT * FROM  account WHERE email = $1', [email]);
       if (getAccounts.rowCount === 0) {
         return res.status(404).json({ status: 404, error: 'Something went wrong, please ensure the email supplied is valid' });
       }
@@ -66,8 +66,9 @@ class staffAdminController {
   static async viewAllActiveBankAccounts(req, res) {
     const { status } = req.query;
     try {
-      const getAllActiveBankAccounts = await pool.query(`SELECT account_number, created_on, email,
-    account_type, account_status, balance FROM account WHERE account_status=$1`, [status]);
+    //   account_number, created_on, email,
+    // account_type, account_status, balance
+      const getAllActiveBankAccounts = await pool.query('SELECT * FROM account WHERE account_status=$1', [status]);
       if (getAllActiveBankAccounts.rowCount === 0) {
         return res.status(404).json({ status: 404, error: 'No record found' });
       }
@@ -76,10 +77,22 @@ class staffAdminController {
       res.json({ error: err.message });
     }
   }
+
+  static async allBankAccounts(req, res) {
+    try {
+      const getAllBankAccounts = await pool.query('SELECT * FROM account');
+      if (getAllBankAccounts.rowCount > 0) {
+        return res.status(200).json({ status: 200, data: getAllBankAccounts.rows });
+      }
+      return res.status(404).json({ status: 404, error: 'No record found' });
+    } catch (err) {
+      res.json({ error: err.message });
+    }
+  }
 }
 
 const { updateAccount, deleteAccount, viewSpecificOwnedAccounts,
-  viewAllBankAccounts, viewAllActiveBankAccounts } = staffAdminController;
+  viewAllBankAccounts, viewAllActiveBankAccounts, allBankAccounts } = staffAdminController;
 
 export { updateAccount, deleteAccount, viewSpecificOwnedAccounts,
-  viewAllBankAccounts, viewAllActiveBankAccounts };
+  viewAllBankAccounts, viewAllActiveBankAccounts, allBankAccounts };

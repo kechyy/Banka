@@ -70,6 +70,29 @@ paths:
           description: "Successful signin"
         400:
           description: "signin Error"
+    /user/profile:
+      post:
+        tags:
+        - "users"
+        summary: "View user profile"
+        description: "User profile"
+        operationId: "userProfile"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "user"
+          description: "user profile details that will be displayed from the database"
+          required: true
+          schema:
+            $ref: "#/definitions/userProfile"
+        responses:
+          200:
+            description: "Successful profile display"
+          404:
+            description: "No Record Found"
 definitions:
   signupUser:
     type: "object"

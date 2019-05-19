@@ -68,7 +68,7 @@ class UserAuth {
               break;
             case 'cashier': window.location.href = 'cashier/cashierPage.html';
               break;
-            case 'staffAdmin': window.location.href = 'staffAdmin/creditAccount.html';
+            case 'staffAdmin': window.location.href = 'staffAdmin/staffAdminPage.html';
               break;
           }
         } else {

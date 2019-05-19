@@ -62,12 +62,11 @@ creditBtn.addEventListener('click', (e) => {
     };
     fetch(creditTransactionUrl, creditTransactionRequest)
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((result) => {
         if (result.status !== 201) {
-          return customNotify.show(`<p class="msg">${result.error}</p>`,
+          return customNotify.show(`<p class="msg ">${result.error}</p>`,
             '<h3 class="err"> Error<br/><span class="fa fa-times msgSign"></span></h3>');
         }
         viewTransactions();
