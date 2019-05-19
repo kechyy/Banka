@@ -29,7 +29,7 @@ class AdminController {
         protocol: req.protocol,
         host: req.get('host'),
       });
-      
+
       const html = `<p>Hi ${firstName}</p>
       <p>Thank you for Registering .</p><p>Please Open this link to verify your email address -
       <a href="${requrl}/emailVerification.html?activation_code=${userActivationCode}">Verify Now</a>
@@ -37,7 +37,7 @@ class AdminController {
       <p><b>Your password:</b> ${password}</p>
       `;
       // Send the email
-      await mailer.sendEmail('kech3443@gmail.com', email, 'Email Verification', html);
+      await mailer.sendEmail('ogbonnarosemary532@gmail.com', email, 'Email Verification', html);
       return res.status(201).json({ status: 201, data: query.rows[0] });
     } catch (err) {
       return res.json({ error: err.message });
