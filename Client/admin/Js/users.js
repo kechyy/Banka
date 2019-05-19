@@ -55,8 +55,8 @@ const manageUsers = () => {
         usertype[i].addEventListener('change', () => {
           const userId = usertype[i].getAttribute('data-id');
           const callback = () => {
-            // const urls = `https://kechyy-banka-app.herokuapp.com/api/v1/admin/setuser/${userId}`;
-            const urls = `http://localhost:8000/api/v1/admin/setuser/${userId}`;
+            const urls = `https://kechyy-banka-app.herokuapp.com/api/v1/admin/setuser/${userId}`;
+            // const urls = `http://localhost:8000/api/v1/admin/setuser/${userId}`;
             fetch(urls,
               {
                 method: 'POST',
@@ -67,11 +67,9 @@ const manageUsers = () => {
                 }
               })
               .then((respnse) => {
-                console.log(respnse)
                 return respnse.json();
               })
               .then((reslt) => {
-                console.log(reslt)
                 if (reslt.status === 200) {
                   return manageUsers();
                 }

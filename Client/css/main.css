@@ -452,6 +452,38 @@ width:100%;
     border-radius:2px;
     border: 1px solid #069;
 }
+.bg-gray-light{
+    background: #efefef;
+    padding:4px;
+    padding-bottom:0px;
+    padding-top:15px;
+    margin-bottom:20px;
+    padding-left:15px;
+}
+.text-medium-size{
+    font-size:20px;
+}
+.text-small-size{
+    font-size:18px;
+}
+.text-center{
+    text-align:center;
+}
+.text-red{
+    color:#F00;
+}
+.strechFlex{
+    flex: 1;
+    padding-right:20px;
+}
+.searchEmail{
+    margin-right:20px !important;
+    display:block;
+}
+.btn-green{
+    background:#0f0;
+    color:#000;
+}
 /* Media Queries */
 
 .col-1-lg{flex-basis:7.33%;}.col-2-lg{flex-basis:15.66%;}.col-3-lg{flex-basis:23.99%;}.col-4-lg{flex-basis:32.32%;}

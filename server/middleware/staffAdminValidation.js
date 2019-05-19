@@ -29,12 +29,12 @@ class accountValidation {
   static viewSpecificOwnedAccountsValidation(req, res, next) {
     let { email } = req.params;
     email = email.trim();
-    if (!/(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}/.test(email)) {
-      return res.status(400).json({
-        status: '400',
-        error: 'Invalid email format'
-      });
-    }
+    // if (!/(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,16}/.test(email)) {
+    //   return res.status(400).json({
+    //     status: '400',
+    //     error: 'Invalid email format'
+    //   });
+    // }
     req.params.email = email;
     next();
   }

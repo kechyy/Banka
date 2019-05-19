@@ -25,7 +25,7 @@ const viewTransactions = () => {
         </thead>
         <tbody>`;
       if (result.status !== 200) {
-        transactionBody = '<tr><td colspan="6">No Record Found</td></tr>';
+        transactionBody = '<tr><td colspan="6" class="text-center text-medium text-red">No Record Found</td></tr>';
       } else {
         result.data.forEach((transac) => {
           transactionBody += `<tr>
