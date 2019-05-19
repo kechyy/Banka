@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "kechyy-banka-app.herokuapp.com"
+host: "localhost:8000"
 basePath: "/api/v1"
 tags:
 - name: "users"
@@ -70,29 +70,57 @@ paths:
           description: "Successful signin"
         400:
           description: "signin Error"
-    /user/profile:
-      post:
-        tags:
-        - "users"
-        summary: "View user profile"
-        description: "User profile"
-        operationId: "userProfile"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - in: "body"
-          name: "user"
-          description: "user profile details that will be displayed from the database"
-          required: true
-          schema:
-            $ref: "#/definitions/userProfile"
-        responses:
-          200:
-            description: "Successful profile display"
-          404:
-            description: "No Record Found"
+  /user/profile:
+    get:
+      tags:
+      - "users"
+      summary: "View user profile"
+      description: "User profile"
+      operationId: "userProfile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "email"
+        description: "Email that is needed to fetch the a specific user profile details"
+        required: true
+        type: "string"
+        schema:
+          $ref: "#/definitions/userProfile"
+      responses:
+        200:
+          description: "Successful profile operation"
+        404:
+          description: "No Record Found"
+  /user/account:
+    post:
+      tags:
+      - "users"
+      summary: "Creates new user bank account"
+      description: "User bank account"
+      operationId: "userBankAccount"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "User bank account object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/userBankAccount"
+      responses:
+        201:
+          description: "Successful account creation"
+        400:
+          description: "Account type is required"
+        400:
+          description: "Account type must be either savings or current account"
+        400:
+          description: "signin Error"        
 definitions:
   signupUser:
     type: "object"
@@ -130,3 +158,15 @@ definitions:
       password:
         type: "string"
         uniqueItems: true
+  userBankAccount:
+    type: "object"
+    required:
+      - email
+    properties:
+      email:
+        type: "string"
+        uniqueItems: true
+      userid:
+        type: "integer"
+        uniqueItems: false     
+        
