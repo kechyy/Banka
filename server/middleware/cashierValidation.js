@@ -2,23 +2,26 @@ class transactionsValidation {
   static debitCreditValidate(req, res, next) {
     let { accountNumber, type } = req.params;
     let {
-      amount, transactionType, payeeName, payeePhone, payeeAcctNumber
+      amount, transactionType, payeeName, payeePhone
     } = req.body;
-    accountNumber = accountNumber.trim();
-    type = type.trim();
-
-    if (!/^[0-9]{10}$/.test(accountNumber)) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Account number must be 10 digit number'
-      });
-    }
-    if (type !== 'debit' && type !== 'credit') {
+    if (!accountNumber) {
       return res.status(400).json({
         status: '400',
-        error: 'Transaction type must be debit or credit'
+        error: 'Transaction Account number field is required'
       });
     }
+    if (!payeeName) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Payee name field is required'
+      });
+    }
+    if (!payeePhone) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Payee phone field is required'
+      });
+    } 
     if (!amount) {
       return res.status(400).json({
         status: '400',
@@ -31,11 +34,42 @@ class transactionsValidation {
         error: 'Transaction type can either be transfer, cashout or cheque'
       });
     }
+    accountNumber = accountNumber.trim();
+    type = type.trim();
+    amount = amount.trim();
     payeeName = payeeName.trim();
     payeePhone = payeePhone.trim();
-    payeeAcctNumber = payeeAcctNumber.trim();
-    amount = amount.trim();
     transactionType = transactionType.trim();
+
+    if (!/^[0-9]{10}$/.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Transaction account number must be 10 digit number'
+      });
+    }
+    if (!/^([A-Za-z]){2,25}$/.test(payeeName)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Payee name field is required'
+      });
+    }
+    if (!/^[0-9]{12}$/.test(payeePhone)) {
+      return res.status(400).json({
+        status: '400',
+        error: 'Phone number must be 12 digit'
+      });
+    }
+    if (type !== 'debit' && type !== 'credit') {
+      return res.status(400).json({
+        status: '400',
+        error: 'Transaction type must be debit or credit'
+      });
+    }
+    // payeeName = payeeName.trim();
+    // payeePhone = payeePhone.trim();
+    // payeeAcctNumber = payeeAcctNumber.trim();
+    // amount = amount.trim();
+    // transactionType = transactionType.trim();
 
     if (!/[0-9]$/.test(amount)) {
       return res.status(400).json({
@@ -46,24 +80,16 @@ class transactionsValidation {
     if (amount < 1) {
       return res.status(400).json({
         status: '400',
-        error: 'Transaction amount is not sufficient enough'
+        error: 'Transaction amount cannot be a negative value'
       });
     }
-    if (type === 'credit' && transactionType === 'transfer') {
-      if (!payeeAcctNumber || !payeeName || !payeePhone) {
-        return res.status(400).json({
-          status: '400',
-          error: 'Please supply all payee details'
-        });
-      }
-    }
+    
     req.body.transactionType = transactionType;
-    req.body.payeeAcctNumber = payeeAcctNumber;
     req.body.payeeName = payeeName;
     req.body.payeePhone = payeePhone;
     req.params.accountNumber = accountNumber;
     req.params.type = type;
-    req.body.amount = parseFloat(amount);
+    req.body.amount = amount;
     next();
   }
 }

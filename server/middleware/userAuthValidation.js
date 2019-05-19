@@ -82,7 +82,7 @@ class UserAuthValidation {
         error: 'Email address should be atleast 8 to 50 character'
       });
     }
-    if (!/^([A-Za-z-]){2,25}$/.test(firstName)) {
+    if (!/^([A-Za-z]){2,25}$/.test(firstName)) {
       return res.status(400).json({
         status: '400',
         error: 'First name must be an alphabet with length 2 to 25'

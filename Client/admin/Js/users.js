@@ -4,8 +4,7 @@
 let usertype;
 const manageUsers = () => {
   let userHead = ''; let userBody = ''; let userFooter = '';
-  const url = 'http://localhost:3200/api/v1/admin/users';
-  fetch(url, requests)
+  fetch(userUrl, requests)
     .then(res => res.json())
     .then((result) => {
       title('Manage User', 'User Accounts');
@@ -56,7 +55,9 @@ const manageUsers = () => {
         usertype[i].addEventListener('change', () => {
           const userId = usertype[i].getAttribute('data-id');
           const callback = () => {
-            fetch(`http://localhost:3200/api/v1/admin/setuser/${userId}`,
+            // const urls = `https://kechyy-banka-app.herokuapp.com/api/v1/admin/setuser/${userId}`;
+            const urls = `http://localhost:8000/api/v1/admin/setuser/${userId}`;
+            fetch(urls,
               {
                 method: 'POST',
                 body: JSON.stringify({ usertype: usertype[i].value }),
@@ -65,13 +66,20 @@ const manageUsers = () => {
                   Authorization: session
                 }
               })
-              .then(respnse => respnse.json())
+              .then((respnse) => {
+                console.log(respnse)
+                return respnse.json();
+              })
               .then((reslt) => {
+                console.log(reslt)
                 if (reslt.status === 200) {
                   return manageUsers();
                 }
                 return customNotify.show(`<p class="msg">${reslt.error}</p>`,
                   '<h3 class="err"> ERROR <br/><span class="fa fa-times msgSign"></span></h3>');
+              })
+              .catch((error) => {
+                console.log('Request failed', error);
               });
           };
           customConfirm.show('Are you really sure you want to change the user type?',
@@ -82,7 +90,7 @@ const manageUsers = () => {
 };
 manageUsers();
 
-const userBtn = document.querySelector('.userBtn');
+const userBtn = document.getElementById('userBtn');
 userBtn.addEventListener('click', (e) => {
   e.preventDefault();
   manageUsers();
