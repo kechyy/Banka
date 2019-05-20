@@ -11,7 +11,6 @@ import {
 } from '../middleware/userAuthValidation';
 
 const userRouter = express.Router();
-
 userRouter.post('/auth/signup', signUpValidate, signUp);
 userRouter.post('/auth/signin', signInValidate, signIn);
 userRouter.post('/account', accountValidate, tokenVerifier, userCheck, createUserAccount);

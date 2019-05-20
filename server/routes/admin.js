@@ -7,7 +7,7 @@ import {
   viewAccountHistoryValidate
 } from '../middleware/userAuthValidation';
 import {
-  viewAccountHistory, signUp
+  viewAccountHistory
 } from '../controller/userController';
 
 const adminRouter = express.Router();

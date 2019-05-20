@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "https://kechyy-banka-app.herokuapp.com"
+host: "kechyy-banka-app.herokuapp.com"
 basePath: "/api/v1"
 tags:
 - name: "users"
@@ -98,9 +98,9 @@ paths:
     post:
       tags:
       - "users"
-      summary: "Creates new user bank account"
-      description: "User bank account"
-      operationId: "userBankAccount"
+      summary: "Creates a new bank account"
+      description: ""
+      operationId: "createAccount"
       consumes:
       - "application/json"
       produces:
@@ -108,19 +108,112 @@ paths:
       parameters:
       - in: "body"
         name: "user"
-        description: "User bank account object that needs to be added to the database"
+        description: "Bank account object that needs to be added to the database"
         required: true
         schema:
-          $ref: "#/definitions/userBankAccount"
+          $ref: "#/definitions/createAccount"
       responses:
         201:
           description: "Successful account creation"
         400:
-          description: "Account type is required"
+          description: "Bad Request"
+  /accounts/:accountNumber/transactions:
+    get:
+      tags:
+      - "users"
+      summary: "Finds user transactions by account number on a specific accoun"
+      description: "User account numbers are fetch from  created accounts"
+      operationId: "accountTransactionHistories"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "accountNumber"
+        description: "Bank account number that is needed to find a user account transaction history"
+        required: true
+        type: "integer"
+        schema:
+          $ref: "#/definitions/accountTransactionHistory"
+      responses:
+        200:
+          description: "Successful transaction operation"
+        404:
+          description: "No Record Found"
+  /transactions/:transactionId:
+    get:
+      tags:
+      - "users"
+      summary: "Finds user's specific transactions by transaction id"
+      description: "Transaction Id is passed on the route path as parameter"
+      operationId: "specificAccountTransaction"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "transactionId"
+        description: "Bank transaction Id that is needed to find user account transaction history"
+        required: true
+        type: "integer"
+        schema:
+          $ref: "#/definitions/specificAccountTransaction"
+      responses:
+        200:
+          description: "Successful transaction operation"
+        404:
+          description: "No Record Found"
+  /accounts/:accountNumber:
+    get:
+      tags:
+      - "users"
+      summary: "Finds user's account details by account number"
+      description: "Account number is passed on the route path as parameter"
+      operationId: "specificAccountDetails"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "accountNumber"
+        description: "Bank account number that is needed to find user account details"
+        required: true
+        type: "integer"
+        schema:
+          $ref: "#/definitions/specificAccountDetails"
+      responses:
+        200:
+          description: "Successful transaction operation"
+        404:
+          description: "No Record Found"
+  /auth/createUser:
+    post:
+      tags:
+      - "admin"
+      summary: "Creates new user"
+      description: "User Account"
+      operationId: "newUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "admin"
+        description: "New user object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/newUser"
+      responses:
+        201:
+          description: "Successful user creation"
         400:
-          description: "Account type must be either savings or current account"
-        400:
-          description: "signin Error"        
+          description: "Bad Request"
+        409:
+          description: "User already exist"  
 definitions:
   signupUser:
     type: "object"
@@ -168,5 +261,25 @@ definitions:
         uniqueItems: true
       userid:
         type: "integer"
-        uniqueItems: false     
+        uniqueItems: false  
+  newUser:
+    type: "object"
+    required:
+      - firstName
+      - lastName
+      - email
+      - usertype
+    properties:
+      firstName:
+        type: "string"
+        uniqueItems: false
+      lastName:
+        type: "string"
+        uniqueItems: false
+      email:
+        type: "string"
+        uniqueItems: true
+      usertype:
+        type: "string"
+        uniqueItems: false
         
