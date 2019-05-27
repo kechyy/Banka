@@ -1,18 +1,12 @@
 import nodemailer from 'nodemailer';
 
-const config = '../config/mailer';
-
 const transport = nodemailer.createTransport({
-  server: 'Mailgun',
+  service: 'gmail',
   auth: {
-    user: config.MAILGUN_USER,
-    pass: config.MAILGUN_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
+    user: 'ogbonnarosemary532@gmail.com',
+    pass: 'nkkybaby4422'
   }
 });
-
 export default {
   sendEmail(from, to, subject, html) {
     return new Promise((resolve, reject) => {

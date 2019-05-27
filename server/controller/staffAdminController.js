@@ -13,7 +13,7 @@ class staffAdminController {
       const confirmAcctNumber = await pool.query(getAcctStatus, [accountNumber]);
       if (confirmAcctNumber.rowCount === 0) {
         return res.status(404).json({
-          status: '404',
+          status: '400',
           error: 'Invalid account number'
         });
       }

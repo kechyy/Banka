@@ -15,6 +15,13 @@ class AdminController {
     const userActivationCode = randomize('a0', 32);
     const userEmailStatus = 'not verified';
     try {
+      const checkUserExist = await pool.query('SELECT email FROM users WHERE email=$1', [email]);
+      if (checkUserExist.rowCount === 1) {
+        return res.status(409).json({
+          status: 409,
+          error: 'User already exist'
+        });
+      }
       const query = await pool.query(adminCreateUser,
         [firstName, lastName, email, bcrypt.hashSync(password, 10),
           userActivationCode, userEmailStatus, usertype]);
@@ -29,12 +36,15 @@ class AdminController {
         protocol: req.protocol,
         host: req.get('host'),
       });
+
       const html = `<p>Hi ${firstName}</p>
       <p>Thank you for Registering .</p><p>Please Open this link to verify your email address -
       <a href="${requrl}/emailVerification.html?activation_code=${userActivationCode}">Verify Now</a>
-      <p>Best Regards,<br />${firstName} ${lastName}</p>`;
+      <p>Best Regards,<br />${firstName} ${lastName}</p>
+      <p><b>Your password:</b> ${password}</p>
+      `;
       // Send the email
-      await mailer.sendEmail('nkechi4422@gmail.com', email, 'Email Verification', html);
+      await mailer.sendEmail('ogbonnarosemary532@gmail.com', email, 'Email Verification', html);
       return res.status(201).json({ status: 201, data: query.rows[0] });
     } catch (err) {
       return res.json({ error: err.message });
