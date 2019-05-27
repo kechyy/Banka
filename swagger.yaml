@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money."
+  description: "Banking Application API documentation called Banka. Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money."
   version: "1.0.0"
   title: "Banka"
   termsOfService: "http://swagger.io/terms/"
@@ -9,23 +9,30 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "kechyy-banka-app.herokuapp.com"
+host: "localhost:3000"
 basePath: "/api/v1"
 tags:
-- name: "users"
-  description: "user api"
-- name: "account"
-  description: "account api"
-- name: "transactions"
-  description: "transaction api"
+- name: "Users"
+  description: "User api"
+- name: "Admin"
+  description: "Admin api"
+- name: "StaffAdmin"
+  description: "Staff admin api"
+- name: "Cashier"
+  description: "Cashier api"
 schemes:
 - "https"
 - "http"
+securityDefinitions:
+  Bearer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
 paths:
   /user/auth/signup:
     post:
       tags:
-      - "users"
+      - "Users"
       summary: "Add a new user to the database"
       description: "Add a new user to the database"
       operationId: "signupUser"
@@ -50,8 +57,8 @@ paths:
   /user/auth/signin:
     post:
       tags:
-      - "users"
-      summary: "Add a new user to the database"
+      - "Users"
+      summary: "Logs a new user into the app"
       description: "Signin user"
       operationId: "signinUser"
       consumes:
@@ -73,7 +80,7 @@ paths:
   /user/profile:
     get:
       tags:
-      - "users"
+      - "Users"
       summary: "View user profile"
       description: "User profile"
       operationId: "userProfile"
@@ -81,14 +88,15 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      security:
+      - Bearer: []
+        description: "Provide token to access this endpoint"
       parameters:
       - in: "path"
         name: "email"
-        description: "Email that is needed to fetch the a specific user profile details"
+        description: "Email that is required to find a user profile details"
         required: true
         type: "string"
-        schema:
-          $ref: "#/definitions/userProfile"
       responses:
         200:
           description: "Successful profile operation"
@@ -97,7 +105,7 @@ paths:
   /user/account:
     post:
       tags:
-      - "users"
+      - "Users"
       summary: "Creates a new bank account"
       description: ""
       operationId: "createAccount"
@@ -105,46 +113,48 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      security:
+      - Bearer: []
       parameters:
       - in: "body"
         name: "user"
         description: "Bank account object that needs to be added to the database"
         required: true
         schema:
-          $ref: "#/definitions/createAccount"
+          $ref: "#/definitions/UserAccount"
       responses:
         201:
           description: "Successful account creation"
         400:
           description: "Bad Request"
-  /accounts/:accountNumber/transactions:
+  /user/accounts/{accountNumber}/transactions:
     get:
       tags:
-      - "users"
-      summary: "Finds user transactions by account number on a specific accoun"
-      description: "User account numbers are fetch from  created accounts"
+      - "Users"
+      summary: "Finds user transactions by a speciic account number"
+      description: "Account number is passed on the route path as parameter"
       operationId: "accountTransactionHistories"
       consumes:
       - "application/json"
       produces:
       - "application/json"
+      security:
+      - Bearer: []
       parameters:
       - in: "path"
         name: "accountNumber"
-        description: "Bank account number that is needed to find a user account transaction history"
+        description: "Bank account number that is required to find user transaction history"
         required: true
         type: "integer"
-        schema:
-          $ref: "#/definitions/accountTransactionHistory"
       responses:
         200:
           description: "Successful transaction operation"
         404:
           description: "No Record Found"
-  /transactions/:transactionId:
+  /user/transactions/{transactionId}:
     get:
       tags:
-      - "users"
+      - "Users"
       summary: "Finds user's specific transactions by transaction id"
       description: "Transaction Id is passed on the route path as parameter"
       operationId: "specificAccountTransaction"
@@ -152,12 +162,14 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      security:
+      - Bearer: []
       parameters:
       - in: "path"
         name: "transactionId"
         description: "Bank transaction Id that is needed to find user account transaction history"
         required: true
-        type: "integer"
+        type: "string"
         schema:
           $ref: "#/definitions/specificAccountTransaction"
       responses:
@@ -165,10 +177,10 @@ paths:
           description: "Successful transaction operation"
         404:
           description: "No Record Found"
-  /accounts/:accountNumber:
+  /user/accounts/{accountNumber}:
     get:
       tags:
-      - "users"
+      - "Users"
       summary: "Finds user's account details by account number"
       description: "Account number is passed on the route path as parameter"
       operationId: "specificAccountDetails"
@@ -176,6 +188,8 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      security:
+      - Bearer: []
       parameters:
       - in: "path"
         name: "accountNumber"
@@ -189,31 +203,248 @@ paths:
           description: "Successful transaction operation"
         404:
           description: "No Record Found"
-  /auth/createUser:
+  /admin/auth/createUser:
     post:
       tags:
-      - "admin"
+      - "Admin"
       summary: "Creates new user"
       description: "User Account"
-      operationId: "newUser"
+      operationId: "createNewUser"
       consumes:
       - "application/json"
       produces:
       - "application/json"
+      security:
+      - Bearer: []
       parameters:
       - in: "body"
         name: "admin"
         description: "New user object that needs to be added to the database"
         required: true
         schema:
-          $ref: "#/definitions/newUser"
+          $ref: "#/definitions/createNewUser"
       responses:
         201:
           description: "Successful user creation"
         400:
           description: "Bad Request"
         409:
-          description: "User already exist"  
+          description: "User already exist"
+  /admin/setuser/{userid}:
+    post:
+      tags:
+      - "Admin"
+      summary: "Updates user type"
+      description: "Sets user type to either admin, cashier, adminstaff or client "
+      operationId: "updateUserType"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "body"
+        name: "admin"
+        description: "usertype object that is required to update the database"
+        required: true
+        schema:
+          $ref: "#/definitions/updateUserType"
+      - in: "path"
+        name: "userid"
+        description: "userid parameter that is required to update the database"
+        required: true
+        schema:
+          $ref: "#/definitions/updateUserType"
+      responses:
+        200:
+          description: "Successful Operation"
+        400:
+          description: "Bad Request"
+        404:
+          description: "User ID not Found"
+  /admin/users:
+    get:
+      tags:
+      - "Admin"
+      summary: "Get a list all users"
+      description: "This endpoint uses a get request to get a list of  all users"
+      operationId: "getUsers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "body"
+        name: "body"
+      responses:
+        200:
+          description: "Successful operation"
+        404:
+          description: "No Record Found"
+  /staffadmin/account/{accountNumber}:
+    patch:
+      tags:
+      - "StaffAdmin"
+      summary: "Updates and activate an account by account number"
+      description: "This endpoint uses a patch request to update user specific account status to active"
+      operationId: "updateAccountStatus"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "path"
+        name: "accountNumber"
+        description: "Bank account number that is needed to update user account status"
+        required: true
+        type: "integer"
+        schema:
+          $ref: "#/definitions/updateAccountStatus"
+      responses:
+        200:
+          description: "Successful Update operation"
+        400:
+          description: "Invalid account number"
+  /staffadmin/accounts/{accountNumber}:
+    delete:
+      tags:
+      - "StaffAdmin"
+      summary: "Deletes an account by account number"
+      description: "This endpoint uses a delete request to delete user specific account by account number"
+      operationId: "deleteAccount"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "path"
+        name: "accountNumber"
+        description: "Bank account number that is needed to delete user account"
+        required: true
+        type: "integer"
+        schema:
+          $ref: "#/definitions/deleteAccount"
+      responses:
+        200:
+          description: "Successful Delete operation"
+        400:
+          description: "Please ensure the account supplied is valid"
+  /staffadmin/bankAccounts:
+    get:
+      tags:
+      - "StaffAdmin"
+      summary: "Get a list all bank account"
+      description: "This endpoint uses a get request to get a list of  all bank accounts"
+      operationId: "getAccounts"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "body"
+        name: "body"
+      responses:
+        200:
+          description: "Successful operation"
+        404:
+          description: "No Record Found"
+  /staffadmin/user/{email}/accounts:
+    get:
+      tags:
+      - "StaffAdmin"
+      summary: "Get a list of user's bank accounts by email"
+      description: "This endpoint uses a get request to get a list of  a specific user's bank accounts"
+      operationId: "userAccountList"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "path"
+        name: "email"
+        description: "Email addres that is needed to find user account details"
+        required: true
+        type: "string"
+        schema:
+          $ref: "#/definitions/userAccountList"
+      responses:
+        200:
+          description: "Successful transaction operation"
+        404:
+          description: "Please ensure the email supplied is valid"
+  /cashier/transactions/{accountNumber}/{type}:
+    post:
+      tags:
+      - "Cashier"
+      summary: "Credit or Debit user account"
+      description: "Credit or Debit user account"
+      operationId: "creditDebitAccount"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Transaction object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/creditDebitAccount"
+      - in: "path"
+        name: "accountNumber"
+        description: "Account number that needed to credit or debit account"
+        required: true
+        schema:
+          $ref: "#/definitions/creditDebitAccount"
+      - in: "path"
+        name: "type"
+        description: "Transaction type that is needed to credit or debit account"
+        required: true
+        schema:
+          $ref: "#/definitions/creditDebitAccount"
+      responses:
+        201:
+          description: "Successful account creation"
+        404:
+          description: "Account number not Found" 
+        400:
+          description: "Can't persform transaction on a dormant account" 
+        400:
+          description: "Insufficient account balance"
+  /cashier/allTransactions:
+    get:
+      tags:
+      - "Cashier"
+      summary: "Get a list of all transactions"
+      description: "This endpoint uses a get request to get a list of  all transactions"
+      operationId: "getTransactions"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      security:
+      - Bearer: []
+      parameters:
+      - in: "body"
+        name: "body"
+      responses:
+        200:
+          description: "Successful operation"
+        404:
+          description: "No Record Found"
 definitions:
   signupUser:
     type: "object"
@@ -251,18 +482,15 @@ definitions:
       password:
         type: "string"
         uniqueItems: true
-  userBankAccount:
+  UserAccount:
     type: "object"
     required:
       - email
     properties:
-      email:
+      type:
         type: "string"
-        uniqueItems: true
-      userid:
-        type: "integer"
         uniqueItems: false  
-  newUser:
+  createNewUser:
     type: "object"
     required:
       - firstName
@@ -280,6 +508,32 @@ definitions:
         type: "string"
         uniqueItems: true
       usertype:
+        type: "string"
+        uniqueItems: false
+  updateUserType:
+    type: "object"
+    required:
+      - usertype
+    properties:
+      usertype:
+        type: "string"
+        uniqueItems: false
+  creditDebitAccount:
+    type: "object"
+    required:
+      - accountNumber
+      - type
+    properties:
+      amount:
+        type: "string"
+        uniqueItems: false
+      payeeName:
+        type: "string"
+        uniqueItems: false
+      payeePhone:
+        type: "string"
+        uniqueItems: false
+      transactionType:
         type: "string"
         uniqueItems: false
         

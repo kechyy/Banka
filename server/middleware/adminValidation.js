@@ -90,13 +90,6 @@ class AdminValidation {
         error: 'Invalid email address format'
       });
     }
-    const checkUserExist = await pool.query('SELECT email FROM users WHERE email=$1', [email]);
-    if (checkUserExist.rowCount === 1) {
-      return res.status(409).json({
-        status: 409,
-        error: 'User already exist',
-      });
-    }
     req.body.firstName = firstName;
     req.body.lastName = lastName;
     req.body.email = email;

@@ -17,7 +17,7 @@ const documentation = YAML.load(`${process.cwd()}/swagger.yaml`);
 
 dotenv.config();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

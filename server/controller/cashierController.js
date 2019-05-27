@@ -11,7 +11,7 @@ class cashierController {
       amount, payeeName, payeePhone, transactionType
     } = req.body;
     try {
-      const findAcct = await pool.query(getAcctStatus, [accountNumber]);
+      const findAcct = await pool.query(getAcctStatus, [accountNumber]); 
 
       if (findAcct.rowCount === 0) {
         return res.status(404).json({
@@ -21,7 +21,7 @@ class cashierController {
       }
       if (findAcct.rows[0].account_status === 'dormant') {
         return res.status(404).json({
-          status: 404,
+          status: 400,
           error: "Can't persform transaction on a dormant account"
         });
       }

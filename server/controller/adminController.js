@@ -15,6 +15,13 @@ class AdminController {
     const userActivationCode = randomize('a0', 32);
     const userEmailStatus = 'not verified';
     try {
+      const checkUserExist = await pool.query('SELECT email FROM users WHERE email=$1', [email]);
+      if (checkUserExist.rowCount === 1) {
+        return res.status(409).json({
+          status: 409,
+          error: 'User already exist'
+        });
+      }
       const query = await pool.query(adminCreateUser,
         [firstName, lastName, email, bcrypt.hashSync(password, 10),
           userActivationCode, userEmailStatus, usertype]);
